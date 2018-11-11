@@ -22,19 +22,32 @@ const Header = styled.div`
   text-align: center;
 `
 
-const enhancedLogin = compose(
+const enhancedSignup = compose(
+  withState('pseudo', 'setPseudo', ''),
   withState('email', 'setEmail', ''),
   withState('pwd', 'setPwd', ''),
   withRouter,
 );
-const Login = enhancedLogin(({ setEmail, setPwd, ...props }) => {
+const Signup = enhancedSignup(({ setPseudo, setEmail, setPwd, ...props }) => {
   return (
     <Wrapper>
       <Header>
         <Typography variant="h6" color="inherit">
-          LOGIN
+          SIGNUP
         </Typography>
       </Header>
+      <TextField
+        id="input-with-icon-textfield"
+        label="Pseudo"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          ),
+        }}
+        onChange={x => setPseudo(x.target.value)}
+      />
       <TextField
         id="input-with-icon-textfield"
         label="Email"
@@ -62,14 +75,14 @@ const Login = enhancedLogin(({ setEmail, setPwd, ...props }) => {
       <br/>
       <br/>
       <Button
-        onClick={() => props.appStore.login(props.email, props.pwd, props.history)}
+        onClick={() => props.appStore.signup(props.pseudo, props.email, props.pwd, props.history)}
         color="primary"
         variant="contained"
       >
-        LOGIN
+        SIGN UP
       </Button>
     </Wrapper>
   )
 })
 
-export default inject('appStore')(Login);
+export default inject('appStore')(Signup);

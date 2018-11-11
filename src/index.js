@@ -7,6 +7,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import Header from './js/components/Header';
 import Login from './js/components/Login';
+import Signup from './js/components/Signup';
 import Recom from './js/components/Recom';
 
 
@@ -29,6 +30,15 @@ const Signin = () => {
   )
 }
 
+const SignupView = () => {
+  return (
+    <div>
+      <Header />
+      <Signup />
+    </div>
+  )
+}
+
 const RecomView = () => {
   return (
     <div>
@@ -43,6 +53,7 @@ const App = () => {
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/login' component={Signin} />
+      <Route path='/signup' component={SignupView} />
       <Route path='/recom' component={RecomView} />
     </Switch>
   )

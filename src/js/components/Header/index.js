@@ -14,6 +14,10 @@ const L = styled(Link)`
   color: white;
 `
 
+const Sep = styled.span`
+  width: 20px;
+`
+
 function LoggedHeader(props) {
   console.log(props.appStore.email, '------')
   return (
@@ -23,10 +27,11 @@ function LoggedHeader(props) {
           <IconButton color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit">
+          <Typography variant="h5" color="inherit">
             J4U
-        </Typography>
-          <Typography variant="h6" color="inherit">
+          </Typography>
+          <Sep />
+          <Typography variant="subtitle1" color="inherit">
             {`WELCOME ${props.appStore.email}`}
           </Typography>
           <Button onClick={() => props.appStore.logout(props.history)}>
@@ -49,7 +54,7 @@ function AnonHeader(props) {
           <IconButton color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit">
+          <Typography variant="h5" color="inherit">
             J4U
         </Typography>
           <Button color="inherit">

@@ -1,5 +1,5 @@
 import { observable, computed, autorun, action } from 'mobx';
-import { loginQuery } from 'js/data';
+import { loginQuery, signupQuery } from 'js/data';
 
 class AppStore {
   @observable loggedIn = false;
@@ -40,6 +40,18 @@ class AppStore {
       this.loggedIn = true;
       this.email = email;
       history.push('/')
+    }).catch(err => {
+      console.log(err)
+      history.push('signup')
+    })
+  }
+
+  @action
+  signup(pseudo, email, pwd, history) {
+    console.log(history)
+    signupQuery(pseudo, email, pwd).then(x => {
+      console.log(x)
+      history.push('/login')
     }).catch(err => {
       console.log(err)
       history.push('signup')
