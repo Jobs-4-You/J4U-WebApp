@@ -2,15 +2,15 @@ import axios from 'axios';
 
 const baseURL = 'http://localhost:5000'
 
-export function loginQuery(email, pwd) {
-  const bodyFormData = new FormData();
-  bodyFormData.set('email', email);
-  bodyFormData.set('password', pwd);
+export function signinQuery(email, pwd) {
+  const data = {
+    email,
+    password: pwd
+  }
   return axios({
     method: 'post',
     url: `${baseURL}/login`,
-    data: bodyFormData,
-    config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    data: data,
   });
 }
 
@@ -27,10 +27,13 @@ export function signupQuery(pseudo, email, pwd) {
   });
 }
 
-export function recomQuery(urlParams) {
+export function recomQuery(data, accessToken) {
   return axios({
-    method: 'get',
+    method: 'post',
     url: `${baseURL}/recom`,
-    params: urlParams,
+    data,
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
   });
 }
