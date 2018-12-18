@@ -1,8 +1,5 @@
 import React from 'react';
 import { Subscribe } from 'unstated'
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import styled from 'styled-components';
 import AppContainer from 'js/containers/appContainer';
 import AnonHeader from './AnonHeader';
 import AuthHeaer from './AuthHeader';

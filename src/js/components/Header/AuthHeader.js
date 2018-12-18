@@ -16,7 +16,7 @@ function AuthHeader({ user }) {
             <MenuIcon />
           </MenuButton>
           <GrowTypo variant="h6" color="inherit" grow={0}>
-            J4U
+            <Link to="/">J4U</Link>
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={1}>
             {user}

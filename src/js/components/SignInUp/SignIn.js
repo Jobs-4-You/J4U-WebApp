@@ -63,11 +63,11 @@ function SignIn({ classes, history }) {
               Sign in
               </Typography>
             <form className={classes.form}>
-              <FormControl margin="normal" required error={signContainer.state.email.valid} fullWidth>
+              <FormControl margin="normal" required error={!signContainer.state.email.valid} fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Input id="email" name="email" autoComplete="email" autoFocus value={signContainer.state.email.value} onChange={signContainer.handleEmailChange} />
               </FormControl>
-              <FormControl margin="normal" required error={signContainer.state.password.valid} fullWidth>
+              <FormControl margin="normal" required error={!signContainer.state.password.valid} fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input name="password" type="password" id="password" autoComplete="current-password" value={signContainer.state.password.value} onChange={signContainer.handlePasswordChange} />
               </FormControl>
