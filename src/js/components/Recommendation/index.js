@@ -51,15 +51,15 @@ function Recommendation() {
                 styles={selectStyles}
               />
               <br />
-              <Typography id="label">Alpha: {recomContainer.state.alpha} </Typography>
+              <Typography id="label">Alpha: {(recomContainer.state.alpha / 100).toFixed(2)} </Typography>
               <StyledSlider
-                value={Math.round(recomContainer.state.alpha * 100)}
+                value={Math.round(recomContainer.state.alpha)}
                 aria-labelledby="label"
                 onChange={recomContainer.setAlpha}
               />
-              <Typography id="label">Beta: {recomContainer.state.beta}</Typography>
+              <Typography id="label">Beta: {(recomContainer.state.beta / 100).toFixed(2)}</Typography>
               <StyledSlider
-                value={Math.round(recomContainer.state.beta * 100)}
+                value={Math.round(recomContainer.state.beta)}
                 aria-labelledby="label"
                 onChange={recomContainer.setBeta}
               />

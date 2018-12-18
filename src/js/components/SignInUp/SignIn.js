@@ -1,5 +1,4 @@
 import React from 'react';
-import validator from 'validator';
 import { Subscribe } from 'unstated';
 import { withRouter } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
@@ -15,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AppContainer from 'js/containers/appContainer';
+import SignContainer from 'js/containers/SignContainer';
 
 const styles = theme => ({
   main: {
@@ -48,85 +48,48 @@ const styles = theme => ({
   },
 });
 
-class SignIn extends React.Component {
-  state = {
-    email: {
-      value: '',
-      valid: false,
-    },
-    password: {
-      value: '',
-      valid: false,
-    },
-  };
+function SignIn({ classes, history }) {
 
-  validateEmail(x) {
-    return validator.isEmail(x);
-  }
-
-  validatePassword(x) {
-    return validator.isLength(x, { min: 4, max: 16 });
-  }
-
-  handleEmailChange(e) {
-    const newValue = e.target.value;
-    this.setState({ email: { value: newValue, valid: this.validateEmail(newValue) } })
-  }
-
-  handlePasswordChange(e) {
-    const newValue = e.target.value;
-    this.setState({ password: { value: e.target.value, valid: this.validatePassword(newValue) } })
-  }
-
-  handleSubmit(e, appContainer) {
-    e.preventDefault();
-    appContainer.signin(this.state.email.value, this.state.password.value, this.props.history);
-  }
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <Subscribe to={[AppContainer]}>
-        {appContainer => (
-          <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <LockIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
+  return (
+    <Subscribe to={[AppContainer, SignContainer]}>
+      {(appContainer, signContainer) => (
+        <main className={classes.main}>
+          <CssBaseline />
+          <Paper className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
               </Typography>
-              <form className={classes.form}>
-                <FormControl margin="normal" required error={!this.state.email.valid} fullWidth>
-                  <InputLabel htmlFor="email">Email Address</InputLabel>
-                  <Input id="email" name="email" autoComplete="email" autoFocus value={this.state.email.value} onChange={this.handleEmailChange.bind(this)} />
-                </FormControl>
-                <FormControl margin="normal" required error={!this.state.password.valid} fullWidth>
-                  <InputLabel htmlFor="password">Password</InputLabel>
-                  <Input name="password" type="password" id="password" autoComplete="current-password" value={this.state.password.value} onChange={this.handlePasswordChange.bind(this)} />
-                </FormControl>
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <Button
-                  onClick={(e) => this.handleSubmit(e, appContainer)}
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                >
-                  Sign in
+            <form className={classes.form}>
+              <FormControl margin="normal" required error={signContainer.state.email.valid} fullWidth>
+                <InputLabel htmlFor="email">Email Address</InputLabel>
+                <Input id="email" name="email" autoComplete="email" autoFocus value={signContainer.state.email.value} onChange={signContainer.handleEmailChange} />
+              </FormControl>
+              <FormControl margin="normal" required error={signContainer.state.password.valid} fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input name="password" type="password" id="password" autoComplete="current-password" value={signContainer.state.password.value} onChange={signContainer.handlePasswordChange} />
+              </FormControl>
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                onClick={(e) => signContainer.handleSubmit(e, appContainer, history)}
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign in
                 </Button>
-              </form>
-            </Paper>
-          </main>)}
-      </Subscribe>
-    );
-  }
+            </form>
+          </Paper>
+        </main>)}
+    </Subscribe>
+  );
 }
 
 export default withStyles(styles)(withRouter(SignIn));
