@@ -34,18 +34,7 @@ export const Submit = styled(Button)`
 
 export const ResContainer = styled(Paper)`
   padding: 30px;
-  width: 80%;
+  max-width: 900px;
   margin: auto;
   margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-`;
-
-export const JobCard = styled(Card)`
-  width: 300px;
-  margin: 10px;
-  :hover {
-    background-color: grey;
-  }
 `;

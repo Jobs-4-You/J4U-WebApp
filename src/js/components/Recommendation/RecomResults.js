@@ -1,27 +1,43 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
-import { ResContainer, JobCard, Loader, FullTypo } from './StyledParts'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import { ResContainer, Loader, FullTypo } from './StyledParts'
 
-
+//function JobResult({ job, rank }) {
+//  return (
+//    <JobCard>
+//      <CardContent>
+//        <Typography color="textSecondary" gutterBottom>
+//          {job}
+//        </Typography>
+//        <br />
+//        <Chip label={`Rank: ${rank}`} variant="outlined" />
+//      </CardContent>
+//      <CardActions>
+//        <Button size="small">Seek job offers</Button>
+//      </CardActions>
+//    </JobCard>
+//  )
+//}
 
 function JobResult({ job, rank }) {
   return (
-    <JobCard>
-      <CardContent>
-        <Typography color="textSecondary" gutterBottom>
-          {job}
-        </Typography>
-        <br />
+    <ExpansionPanel>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Chip label={`Rank: ${rank}`} variant="outlined" />
-      </CardContent>
-      <CardActions>
-        <Button size="small">Seek job offers</Button>
-      </CardActions>
-    </JobCard>
+        <Chip label={job} variant="outlined" />
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Typography>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+          sit amet blandit leo lobortis eget.
+        </Typography>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   )
 }
 
@@ -42,6 +58,7 @@ function RecomRsults({ recomContainer }) {
     return (
       <ResContainer>
         <FullTypo variant='title'>Your recomendations</FullTypo>
+        <br/>
         {jobs.map((job, i) => (
           <JobResult job={job} rank={i + 1} key={i} />
         ))}
