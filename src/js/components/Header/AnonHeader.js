@@ -1,10 +1,10 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom'
 import MenuIcon from '@material-ui/icons/Menu';
 import SignInUp from 'js/components/SignInUp';
 import { GrowTypo, Root, MenuButton } from './StyledParts'
+import { Link } from 'js/components/Divers/Link'
 
 
 function AnonHeader() {

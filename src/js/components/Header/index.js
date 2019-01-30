@@ -2,7 +2,7 @@ import React from 'react';
 import { Subscribe } from 'unstated'
 import AppContainer from 'js/containers/appContainer';
 import AnonHeader from './AnonHeader';
-import AuthHeaer from './AuthHeader';
+import AuthHeader from './AuthHeader';
 
 function ButtonAppBar(props) {
   const { classes } = props;
@@ -10,7 +10,7 @@ function ButtonAppBar(props) {
     <Subscribe to={[AppContainer]}>
       {appContainer => {
         console.log(appContainer.state)
-        const header = appContainer.state.user ? <AuthHeaer user={appContainer.state.user} /> : <AnonHeader />
+        const header = appContainer.state.email ? <AuthHeader appContainer={appContainer} /> : <AnonHeader />
         return (
           <div>
             {header}

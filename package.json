@@ -4,7 +4,8 @@
   "description": "Web application for the \"Jobs For You\" project.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build-prod": "webpack --mode production",
+    "build-dev": "webpack --mode development",
     "start": "webpack-dev-server --open --mode development"
   },
   "repository": {

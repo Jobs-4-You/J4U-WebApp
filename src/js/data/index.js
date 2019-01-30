@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000'
+const env = process.env.NODE_ENV
+
+const baseURL = env == 'development' ? 'http://localhost:5000' :
+  'https://j4u.unil.ch:3000'
 
 export function signinQuery(email, pwd) {
   const data = {
@@ -14,16 +17,20 @@ export function signinQuery(email, pwd) {
   });
 }
 
-export function signupQuery(pseudo, email, pwd) {
-  const bodyFormData = new FormData();
-  bodyFormData.set('pseudo', pseudo);
-  bodyFormData.set('email', email);
-  bodyFormData.set('password', pwd);
+export function signupQuery(firstName, lastName, email, phone,  password, plastaId) {
+  const data = {
+    firstName,
+    lastName,
+    phone,
+    email,
+    password,
+    plastaId
+  }
+  console.log(data)
   return axios({
     method: 'post',
     url: `${baseURL}/signup`,
-    data: bodyFormData,
-    config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    data: data,
   });
 }
 

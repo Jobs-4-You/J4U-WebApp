@@ -11,7 +11,7 @@ import AppContainer from 'js/containers/appContainer';
 
 const ModalContent = styled(Paper)`
   position: absolute;
-  top: 15%;
+  top: 1%;
   margin-left: -200px !important;
   left: 50%;
   :hover {

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Subscribe } from 'unstated';
+import { withRouter } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +13,8 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import AppContainer from 'js/containers/appContainer';
+import UpContainer from 'js/containers/UpContainer';
 
 const styles = theme => ({
   main: {
@@ -44,45 +48,78 @@ const styles = theme => ({
   },
 });
 
-function SignUp(props) {
-  const { classes } = props;
+function SignUp({ classes, history }) {
 
   return (
-    <main className={classes.main}>
-      <CssBaseline />
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign Up
-        </Typography>
-        <form className={classes.form}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
-        </form>
-      </Paper>
-    </main>
+    <Subscribe to={[AppContainer, UpContainer]}>
+      {(appContainer, upContainer) => (
+        <main className={classes.main}>
+          {console.log(upContainer, '-----')}
+          <CssBaseline />
+          <Paper className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+              </Typography>
+            <form className={classes.form}>
+
+              <FormControl margin="normal" required error={!upContainer.state.firstName.valid} fullWidth>
+                <InputLabel htmlFor="firstName">First Name</InputLabel>
+                <Input id="firstName" name="firstName" autoComplete="first-name" autoFocus value={upContainer.state.firstName.value} onChange={upContainer.handleFNameChange} />
+              </FormControl>
+
+              <FormControl margin="normal" required error={!upContainer.state.lastName.valid} fullWidth>
+                <InputLabel htmlFor="firstName">Last Name</InputLabel>
+                <Input id="lastName" name="lastName" autoComplete="last-name" autoFocus value={upContainer.state.lastName.value} onChange={upContainer.handleLNameChange} />
+              </FormControl>
+
+              <FormControl margin="normal" required error={!upContainer.state.phone.valid} fullWidth>
+                <InputLabel htmlFor="phone">Phone</InputLabel>
+                <Input id="phone" name="phone" autoComplete="phone" autoFocus value={upContainer.state.phone.value} onChange={upContainer.handlePhoneChange} />
+              </FormControl>
+
+              <FormControl margin="normal" required error={!upContainer.state.email.valid} fullWidth>
+                <InputLabel htmlFor="email">Email</InputLabel>
+                <Input id="email" name="email" autoComplete="email" autoFocus value={upContainer.state.email.value} onChange={upContainer.handleEmailChange} />
+              </FormControl>
+
+              <FormControl margin="normal" required error={!upContainer.state.emailConf.valid} fullWidth>
+                <InputLabel htmlFor="emailConf">Email Confirmation</InputLabel>
+                <Input id="emailConf" name="emailConf" autoComplete="email-conf" autoFocus value={upContainer.state.emailConf.value} onChange={upContainer.handleEmailConfChange} />
+              </FormControl>
+
+              <FormControl margin="normal" required error={!upContainer.state.password.valid} fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input id="password" name="password" autoComplete="password" autoFocus value={upContainer.state.password.value} onChange={upContainer.handlePasswordChange} />
+              </FormControl>
+
+              <FormControl margin="normal" required error={!upContainer.state.passwordConf.valid} fullWidth>
+                <InputLabel htmlFor="passwordConf">Password Confirmation</InputLabel>
+                <Input id="passwordConf" name="passwordConf" autoComplete="password-conf" autoFocus value={upContainer.state.passwordConf.value} onChange={upContainer.handlePasswordConfChange} />
+              </FormControl>
+
+              <FormControl margin="normal" required error={!upContainer.state.plastaId.valid} fullWidth>
+                <InputLabel htmlFor="plastaId">Plasta ID</InputLabel>
+                <Input id="plastaId" name="plastaId" autoComplete="plasta-id" autoFocus value={upContainer.state.plastaId.value} onChange={upContainer.handlePlastaIdChange} />
+              </FormControl>
+
+              <Button
+                onClick={(e) => upContainer.handleSubmit(e, appContainer, history)}
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign Up
+                </Button>
+            </form>
+          </Paper>
+        </main>)}
+    </Subscribe>
   );
 }
 
-export default withStyles(styles)(SignUp);
+export default withStyles(styles)(withRouter(SignUp));

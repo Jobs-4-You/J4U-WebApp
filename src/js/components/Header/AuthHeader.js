@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button'
-import { GrowTypo, Root, MenuButton } from './StyledParts'
+import { GrowTypo, Root, MenuButton, AccountIcon } from './StyledParts'
+import { Link } from 'js/components/Divers/Link'
 
 
-function AuthHeader({ user }) {
+function AuthHeader({ appContainer }) {
+  console.log(appContainer, '!!!!!')
   return (
     <Root>
       <AppBar position="static">
@@ -16,12 +17,13 @@ function AuthHeader({ user }) {
             <MenuIcon />
           </MenuButton>
           <GrowTypo variant="h6" color="inherit" grow={0}>
-            <Link to="/">J4U</Link>
+            <Link to="/" style={{ textDecoration: 'none' }}>J4U</Link>
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={1}>
-            {user}
+            <Link to="/account" style={{ textDecoration: 'none' }}><AccountIcon /></Link>
+            {`Welcome ${appContainer.state.firstName} ${appContainer.state.lastName} !`}
           </GrowTypo>
-          <Button color="inherit" ><Link to="/recommendation">Job Recommendation</Link> </Button>
+          <Link to="/recommendation" style={{ textDecoration: 'none' }}>Job Recommendation</Link>
         </Toolbar>
       </AppBar>
     </Root>

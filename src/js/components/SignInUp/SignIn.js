@@ -83,7 +83,7 @@ function SignIn({ classes, history }) {
                 color="primary"
                 className={classes.submit}
               >
-                Sign in
+                Sign In
                 </Button>
             </form>
           </Paper>
