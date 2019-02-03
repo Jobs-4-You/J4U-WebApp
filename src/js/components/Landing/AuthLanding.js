@@ -13,15 +13,24 @@ function AuthLanding({ appContainer }) {
       <a href={`https://fpse.qualtrics.com/jfe/form/SV_3VjBHgE8Lu9uICN?id=${appContainer.state.surveyId}`}>Qualtrics Survey</a>
     </p>
   );
+  const allRight = (
+    <p>
+      Welcome, you already have completed the Qualtrics survey
+      and you have verified your account. You can access the job recommendations pannel.
+    </p>
+  );
+  let text;
+  if (appContainer.state.verified && appContainer.state.formDone) {
+    text = allRight;
+  } else if (!appContainer.state.verified) {
+    text = toVerify;
+  } else {
+    text = toComp
+  }
+
   return (
     <div>
-      <p>
-        {console.log(appContainer.state.verified)}
-        {(appContainer.state.verified && appContainer.state.formDone) ? `Welcome, you already have completed the Qualtrics survey 
-          and you have verified your account. You can access the job recommendations pannel.` : null}
-        {!appContainer.state.verified ? toVerify : null}
-        {!appContainer.state.formDone ? toComp : null}
-      </p>
+      {text}
     </div>
   )
 }

@@ -7,7 +7,8 @@ import { GrowTypo, Root, MenuButton } from './StyledParts'
 import { Link } from 'js/components/Divers/Link'
 
 
-function AnonHeader() {
+function AnonHeader({ sign, from }) {
+  console.log(sign, 'asdfa')
   return (
     <Root>
       <AppBar position="static">
@@ -18,7 +19,7 @@ function AnonHeader() {
           <GrowTypo variant="h6" color="inherit" grow={1}>
             <Link to="/">J4U</Link>
           </GrowTypo>
-          <SignInUp />
+          <SignInUp sign={sign} from={from}/>
         </Toolbar>
       </AppBar>
     </Root>

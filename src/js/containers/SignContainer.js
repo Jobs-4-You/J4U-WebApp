@@ -32,9 +32,9 @@ class SignContainer extends Container {
     this.setState({ password: { value: e.target.value, valid: this.validatePassword(newValue) } })
   }
 
-  handleSubmit = (e, appContainer, history) => {
+  handleSubmit = (e, appContainer, history, from) => {
     e.preventDefault();
-    appContainer.signin(this.state.email.value, this.state.password.value, history);
+    appContainer.signin(this.state.email.value, this.state.password.value, history, from);
   }
 
 

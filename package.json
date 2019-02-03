@@ -41,6 +41,7 @@
     "@material-ui/lab": "^3.0.0-alpha.22",
     "axios": "^0.18.0",
     "eslint": "^5.10.0",
+    "history": "^4.7.2",
     "mobx": "^5.1.2",
     "mobx-react": "^5.2.8",
     "react-router-dom": "^4.3.1",

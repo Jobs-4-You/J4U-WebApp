@@ -44,3 +44,14 @@ export function recomQuery(data, accessToken) {
     }
   });
 }
+
+export function trackQuery(data, accessToken) {
+  return axios({
+    method: 'post',
+    url: `${baseURL}/track`,
+    data,
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+}

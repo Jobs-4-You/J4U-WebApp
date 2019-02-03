@@ -1,6 +1,6 @@
 import React from 'react';
 import { Subscribe } from 'unstated';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -48,7 +48,7 @@ const styles = theme => ({
   },
 });
 
-function SignIn({ classes, history }) {
+function SignIn({ classes, history, from }) {
 
   return (
     <Subscribe to={[AppContainer, SignContainer]}>
@@ -75,9 +75,9 @@ function SignIn({ classes, history }) {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
+              <Link to="signup">Créer un compte</Link>
               <Button
-                onClick={(e) => signContainer.handleSubmit(e, appContainer, history)}
-                type="submit"
+                onClick={(e) => signContainer.handleSubmit(e, appContainer, history, from)}
                 fullWidth
                 variant="contained"
                 color="primary"

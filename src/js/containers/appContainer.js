@@ -3,7 +3,8 @@ import { signinQuery } from 'js/data';
 
 class AppContainer extends Container {
 
-  state = {
+  state = localStorage.getItem('appState') ? JSON.parse(localStorage.getItem('appState')) : 
+  {
     firstName: null,
     lastName: null,
     email: null,
@@ -15,7 +16,7 @@ class AppContainer extends Container {
     formDone: null,
   }
 
-  signin = (user, password, history) => {
+  signin = (user, password, history, from) => {
     signinQuery(user, password)
       .then(x => {
         console.log(x.data)
@@ -30,6 +31,13 @@ class AppContainer extends Container {
           plastaId: x.data.plastaId,
           formDone: x.data.formDone,
           surveyId: x.data.surveyId,
+        }).then(_ => {
+          localStorage.setItem('appState', JSON.stringify(this.state))
+          if (from) {
+            history.push(from.pathname)
+          } else {
+            history.push("/")
+          }
         })
       }).catch(err => {
         console.log(err.response);

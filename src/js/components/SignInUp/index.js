@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router";
 import { Subscribe } from 'unstated';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
@@ -19,60 +20,50 @@ const ModalContent = styled(Paper)`
   }
 `;
 
-class SignInUp extends React.Component {
-  state = {
-    openSignIn: false,
-    openSignUp: false,
+function SignInUp({ history, sign, from }) {
+
+  const handleClose = () => {
+    history.push('/')
   };
 
-  handleOpenSignIn = () => {
-    this.setState({ openSignIn: true });
+  const toSignIn = () => {
+    history.push('/signin')
   };
 
-  handleOpenSignUp = () => {
-    this.setState({ openSignUp: true });
+  const toSignUp = () => {
+    history.push('/signup')
   };
 
-  handleCloseSignIn = () => {
-    this.setState({ openSignIn: false });
-  };
-
-  handleCloseSignUp = () => {
-    this.setState({ openSignUp: false });
-  };
-
-  render() {
-    return (
-      <Subscribe to={[AppContainer]}>
-        {appContainer => (
-          <div>
-            <Button color="inherit" onClick={this.handleOpenSignIn}>Sign In</Button>
-            <Button color="inherit" onClick={this.handleOpenSignUp}>Sign Up</Button>
-            <Modal
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-              open={this.state.openSignIn}
-              onClose={this.handleCloseSignIn}
-            >
-              <ModalContent id='zou'>
-                <SignIn />
-              </ModalContent>
-            </Modal>
-            <Modal
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-              open={this.state.openSignUp}
-              onClose={this.handleCloseSignUp}
-            >
-              <ModalContent id='zou'>
-                <SignUp />
-              </ModalContent>
-            </Modal>
-          </div>
-        )}
-      </Subscribe>
-    )
-  }
+  return (
+    <Subscribe to={[AppContainer]}>
+      {appContainer => (
+        <div>
+          <Button color="inherit" onClick={toSignIn}>Sign In</Button>
+          <Button color="inherit" onClick={toSignUp}>Sign Up</Button>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={sign === 'in'}
+            onClose={handleClose}
+          >
+            <ModalContent id='zou'>
+              <SignIn from={from}/>
+            </ModalContent>
+          </Modal>
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={sign === 'up'}
+            onClose={handleClose}
+          >
+            <ModalContent id='zou'>
+              <SignUp />
+            </ModalContent>
+          </Modal>
+        </div>
+      )}
+    </Subscribe>
+  )
 }
 
-export default SignInUp;
+export default withRouter(SignInUp);
