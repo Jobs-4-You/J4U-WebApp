@@ -32,14 +32,6 @@ function Recommendation() {
             <FormContainer>
               <Typography variant='title'>Job recommendation preferences</Typography>
               <br />
-              <Select.Async
-                  name="storageTypeId"
-                  valueKey="id"
-                  labelKey="type"
-                  matchPos="any"
-                  loadOptions={recomContainer.handleSearch}
-                  onChange={(v) => console.log(v, '----') }
-              />
 {/*               <Select
                 inputValue={recomContainer.state.oldJobInput}
                 value={recomContainer.state.oldJobValue}
