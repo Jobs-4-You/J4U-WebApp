@@ -55,3 +55,16 @@ export function trackQuery(data, accessToken) {
     }
   });
 }
+
+export function searchQuery(job, accessToken) {
+  return axios({
+    method: 'get',
+    url: `${baseURL}/jobprops`,
+    params: {
+      job
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+}

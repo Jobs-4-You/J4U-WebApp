@@ -3,7 +3,6 @@ import { Subscribe } from 'unstated';
 import styled from 'styled-components';
 import Select from 'react-select';
 import Typography from '@material-ui/core/Typography';
-import jobs from './jobs.json';
 import RecomContainer from 'js/containers/RecomContainer';
 import AppContainer from 'js/containers/appContainer';
 import { FormContainer, StyledSlider, Submit } from './StyledParts';
@@ -24,11 +23,6 @@ const DropdownIndicator = (props) => {
 
 function Recommendation() {
 
-  const options = jobs.jobs.map(job => ({
-    label: job,
-    value: job
-  }));
-
   return (
     <Subscribe to={[AppContainer, RecomContainer]}>
       {(appContainer, recomContainer) => {
@@ -38,7 +32,15 @@ function Recommendation() {
             <FormContainer>
               <Typography variant='title'>Job recommendation preferences</Typography>
               <br />
-              <Select
+              <Select.Async
+                  name="storageTypeId"
+                  valueKey="id"
+                  labelKey="type"
+                  matchPos="any"
+                  loadOptions={recomContainer.handleSearch}
+                  onChange={(v) => console.log(v, '----') }
+              />
+{/*               <Select
                 inputValue={recomContainer.state.oldJobInput}
                 value={recomContainer.state.oldJobValue}
                 onInputChange={recomContainer.setOldJobInput}
@@ -49,7 +51,7 @@ function Recommendation() {
                 components={{ DropdownIndicator }}
                 placeholder="Select your previous job ..."
                 styles={selectStyles}
-              />
+              /> */}
               <br />
               <Typography id="label">Alpha: {(recomContainer.state.alpha / 100).toFixed(2)} </Typography>
               <StyledSlider

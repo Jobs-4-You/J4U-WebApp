@@ -1,9 +1,10 @@
 import { Container } from 'unstated';
-import { recomQuery } from 'js/data';
+import { recomQuery, searchQuery } from 'js/data';
 
 class RecomContainer extends Container {
 
   state = {
+    search: '',
     oldJobValue: null,
     oldJobInput: '',
     alpha: 50,
@@ -35,6 +36,10 @@ class RecomContainer extends Container {
     this.setState({ beta: value });
   }
 
+  handleSearch = (value) => {
+    searchQuery(value).then(res =>  {console.log(JSON.stringify(res.data))});
+  }
+
   recommend = async (accessToken) => {
     const { oldJobValue, alpha, beta } = this.state;
     await this.setState({ loading: true });
@@ -54,8 +59,6 @@ class RecomContainer extends Container {
       console.log(err);
     })
   }
-
-
 }
 
 export default RecomContainer;
