@@ -6,11 +6,10 @@ class RecomContainer extends Container {
   state = {
     search: '',
     oldJobValue: null,
-    oldJobInput: '',
     alpha: 50,
     beta: 50,
     jobs: null,
-    importance: null,
+    codes: null,
     vars: null,
     loading: false,
   }
@@ -18,14 +17,14 @@ class RecomContainer extends Container {
   setOldJobValue = (job) => {
     this.setState({
       oldJobValue: job.value,
-      oldJobInput: job.value
     });
   }
 
   setOldJobInput = (value, { action }) => {
-    console.log(value, action, '______')
     if (action !== 'input-blur' && action !== 'menu-close' && action !== 'set-value')
-      this.setState({ oldJobInput: value });
+      console.log(value, action, '______')
+      console.log(value.label, action, '______')
+      this.setState({ oldJobInput: value.label });
   }
 
   setAlpha = (_, value) => {
@@ -36,8 +35,17 @@ class RecomContainer extends Container {
     this.setState({ beta: value });
   }
 
-  handleSearch = (value) => {
-    searchQuery(value).then(res =>  {console.log(JSON.stringify(res.data))});
+  handleSearch = (value, accessToken) => {
+    return searchQuery(value, accessToken).then(res => {
+      console.log(JSON.stringify(res.data))
+      const options = res.data.map(v => {
+        return {
+          label: v.Title,
+          value: v.ISCO08,
+        }
+      });
+      return options;
+    });
   }
 
   recommend = async (accessToken) => {
@@ -48,12 +56,14 @@ class RecomContainer extends Container {
       alpha,
       beta,
     }, accessToken).then(res => {
-      console.log(res.data);
+      console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL');
+      console.log(res.data)
+      console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL');
       this.setState({
         loading: false,
         vars: res.data.vars,
         jobs: res.data.jobs,
-        importance: res.data.importance,
+        codes: res.data.codes,
       })
     }).catch(err => {
       console.log(err);

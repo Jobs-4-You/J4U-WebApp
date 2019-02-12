@@ -61,7 +61,7 @@ function SignIn({ classes, history, from }) {
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
-              </Typography>
+            </Typography>
             <form className={classes.form}>
               <FormControl margin="normal" required error={!signContainer.state.email.valid} fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
@@ -84,7 +84,7 @@ function SignIn({ classes, history, from }) {
                 className={classes.submit}
               >
                 Sign In
-                </Button>
+              </Button>
             </form>
           </Paper>
         </main>)}

@@ -44,7 +44,7 @@ function JobResult({ job, rank }) {
 
 function RecomRsults({ recomContainer }) {
   const { jobs, importance, vars, loading } = recomContainer.state;
-
+  console.log(jobs, 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL')
   if (loading) {
     return (
       <ResContainer>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Subscribe } from 'unstated';
-import styled from 'styled-components';
-import Select from 'react-select';
+import AsyncSelect from 'react-select/lib/Async';
 import Typography from '@material-ui/core/Typography';
 import RecomContainer from 'js/containers/RecomContainer';
 import AppContainer from 'js/containers/appContainer';
@@ -32,18 +31,12 @@ function Recommendation() {
             <FormContainer>
               <Typography variant='title'>Job recommendation preferences</Typography>
               <br />
-{/*               <Select
-                inputValue={recomContainer.state.oldJobInput}
-                value={recomContainer.state.oldJobValue}
-                onInputChange={recomContainer.setOldJobInput}
+              <AsyncSelect
+                cacheOptions
+                loadOptions={v => recomContainer.handleSearch(v, appContainer.state.accessToken)}
+                defaultOptions
                 onChange={recomContainer.setOldJobValue}
-                options={options}
-                isSearchable={true}
-                closeMenuOnSelect={false}
-                components={{ DropdownIndicator }}
-                placeholder="Select your previous job ..."
-                styles={selectStyles}
-              /> */}
+              />
               <br />
               <Typography id="label">Alpha: {(recomContainer.state.alpha / 100).toFixed(2)} </Typography>
               <StyledSlider

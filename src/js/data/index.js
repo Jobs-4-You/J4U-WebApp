@@ -57,6 +57,7 @@ export function trackQuery(data, accessToken) {
 }
 
 export function searchQuery(job, accessToken) {
+  console.log(accessToken)
   return axios({
     method: 'get',
     url: `${baseURL}/jobprops`,

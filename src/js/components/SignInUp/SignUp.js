@@ -92,12 +92,12 @@ function SignUp({ classes, history }) {
 
               <FormControl margin="normal" required error={!upContainer.state.password.valid} fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
-                <Input id="password" name="password" autoComplete="password" autoFocus value={upContainer.state.password.value} onChange={upContainer.handlePasswordChange} />
+                <Input type="password" id="password" name="password" autoComplete="password" autoFocus value={upContainer.state.password.value} onChange={upContainer.handlePasswordChange} />
               </FormControl>
 
               <FormControl margin="normal" required error={!upContainer.state.passwordConf.valid} fullWidth>
                 <InputLabel htmlFor="passwordConf">Password Confirmation</InputLabel>
-                <Input id="passwordConf" name="passwordConf" autoComplete="password-conf" autoFocus value={upContainer.state.passwordConf.value} onChange={upContainer.handlePasswordConfChange} />
+                <Input type="password" id="passwordConf" name="passwordConf" autoComplete="password-conf" autoFocus value={upContainer.state.passwordConf.value} onChange={upContainer.handlePasswordConfChange} />
               </FormControl>
 
               <FormControl margin="normal" required error={!upContainer.state.plastaId.valid} fullWidth>
