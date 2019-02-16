@@ -3,17 +3,26 @@ import { signinQuery } from 'js/data';
 
 class AppContainer extends Container {
 
-  state = localStorage.getItem('appState') ? JSON.parse(localStorage.getItem('appState')) : 
-  {
-    firstName: null,
-    lastName: null,
-    email: null,
-    phone: null,
-    user: null,
-    accessToken: null,
-    verified: null,
-    plastaId: null,
-    formDone: null,
+  state = localStorage.getItem('appState') ? JSON.parse(localStorage.getItem('appState')) :
+    {
+      firstName: null,
+      lastName: null,
+      email: null,
+      phone: null,
+      accessToken: null,
+      refreshToken: null,
+      verified: null,
+      plastaId: null,
+      formDone: null,
+      alpha: 50,
+      beta: 50,
+      oldJobValue: null,
+      oldJobLabel: null,
+    }
+
+  cacheState = () => {
+    localStorage.setItem('appState', JSON.stringify(this.state))
+
   }
 
   signin = (user, password, history, from) => {
@@ -21,18 +30,9 @@ class AppContainer extends Container {
       .then(x => {
         console.log(x.data)
         this.setState({
-          user: user,
-          accessToken: x.data.access_token,
-          firstName: x.data.firstName,
-          lastName: x.data.lastName,
-          email: x.data.email,
-          phone: x.data.phone,
-          verified: x.data.verified,
-          plastaId: x.data.plastaId,
-          formDone: x.data.formDone,
-          surveyId: x.data.surveyId,
+          ...x.data,
         }).then(_ => {
-          localStorage.setItem('appState', JSON.stringify(this.state))
+          this.cacheState();
           if (from) {
             history.push(from.pathname)
           } else {
@@ -40,8 +40,23 @@ class AppContainer extends Container {
           }
         })
       }).catch(err => {
-        console.log(err.response);
+        console.log(err);
       })
+  }
+
+  setOldJobValue = (job) => {
+    this.setState({
+      oldJobValue: job.value,
+      oldJobLabel: job.label,
+    });
+  }
+
+  setAlpha = (_, value) => {
+    this.setState({ alpha: value });
+  }
+
+  setBeta = (_, value) => {
+    this.setState({ beta: value });
   }
 
 }

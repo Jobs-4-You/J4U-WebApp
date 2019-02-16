@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Provider } from 'unstated'
 import { AnimatedSwitch } from 'react-router-transition';
 import { Switch, Route, HashRouter, Redirect } from 'react-router-dom';
-import { createHashHistory } from 'history';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import { Subscribe } from 'unstated'
@@ -15,15 +14,8 @@ import Landing from 'js/components/Landing';
 import Account from 'js/components/Account';
 import Verified from 'js/components/Verified';
 import Logout from 'js/components/Logout';
-import { logPageView } from 'js/tracking';
+import history from 'js/router';
 
-const history = createHashHistory();
-
-const unlisten = history.listen((location, action) => {
-  // location is an object like window.location
-  console.log(action, location.pathname, location.state);
-  logPageView(location.pathname)
-});
 
 function PrivateRoute({ component: Component, authed, path, ...rest }) {
   const comp = authed ? Component : () => <Redirect to={{ pathname: '/signin', state: { from: rest.location } }} />;

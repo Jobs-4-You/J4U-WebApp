@@ -13,5 +13,5 @@ export function logPageView(path) {
     PAGE: path,
   }
 
-  trackQuery(data, user.accessToken);
+  trackQuery(data);
 }

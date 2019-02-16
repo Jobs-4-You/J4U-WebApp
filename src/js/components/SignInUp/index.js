@@ -1,24 +1,13 @@
 import React from 'react';
 import { withRouter } from "react-router";
 import { Subscribe } from 'unstated';
-import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
-import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button'
-import Paper from '@material-ui/core/Button'
+import Modal from '@material-ui/core/Modal';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import AppContainer from 'js/containers/appContainer';
+import { ModalContent } from './StyledParts';
 
-const ModalContent = styled(Paper)`
-  position: absolute;
-  top: 1%;
-  margin-left: -200px !important;
-  left: 50%;
-  :hover {
-    background-color: rgba(0,0,0,0) !important;
-  }
-`;
 
 function SignInUp({ history, sign, from }) {
 
@@ -47,7 +36,7 @@ function SignInUp({ history, sign, from }) {
             onClose={handleClose}
           >
             <ModalContent id='zou'>
-              <SignIn from={from}/>
+              <SignIn from={from} />
             </ModalContent>
           </Modal>
           <Modal

@@ -11,7 +11,7 @@ const selectStyles = {
   container: (base, state) => ({
     ...base,
     opacity: state.isDisabled ? ".5" : "1",
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     zIndex: "999"
   })
 };
@@ -33,25 +33,26 @@ function Recommendation() {
               <br />
               <AsyncSelect
                 cacheOptions
-                loadOptions={v => recomContainer.handleSearch(v, appContainer.state.accessToken)}
+                defaultInputValue={appContainer.state.oldJobLabel}
+                loadOptions={v => recomContainer.handleSearch(v)}
                 defaultOptions
-                onChange={recomContainer.setOldJobValue}
+                onChange={appContainer.setOldJobValue}
               />
               <br />
-              <Typography id="label">Alpha: {(recomContainer.state.alpha / 100).toFixed(2)} </Typography>
+              <Typography id="label">Alpha: {(appContainer.state.alpha / 100).toFixed(2)} </Typography>
               <StyledSlider
-                value={Math.round(recomContainer.state.alpha)}
+                value={Math.round(appContainer.state.alpha)}
                 aria-labelledby="label"
-                onChange={recomContainer.setAlpha}
+                onChange={appContainer.setAlpha}
               />
-              <Typography id="label">Beta: {(recomContainer.state.beta / 100).toFixed(2)}</Typography>
+              <Typography id="label">Beta: {(appContainer.state.beta / 100).toFixed(2)}</Typography>
               <StyledSlider
-                value={Math.round(recomContainer.state.beta)}
+                value={Math.round(appContainer.state.beta)}
                 aria-labelledby="label"
-                onChange={recomContainer.setBeta}
+                onChange={appContainer.setBeta}
               />
               <Submit
-                onClick={_ => recomContainer.recommend(appContainer.state.accessToken)}
+                onClick={_ => recomContainer.recommend(appContainer)}
                 fullWidth
                 variant="contained"
                 color="secondary"
