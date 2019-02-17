@@ -94,3 +94,10 @@ export function searchQuery(job) {
     },
   });
 }
+
+export function linkQuery(job) {
+  return client({
+    method: 'get',
+    url: 'link',
+  });
+}

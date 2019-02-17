@@ -1,5 +1,6 @@
 import { Container } from 'unstated';
-import { signinQuery } from 'js/data';
+import { signinQuery, linkQuery } from 'js/data';
+import history from 'js/router';
 
 class AppContainer extends Container {
 
@@ -22,7 +23,6 @@ class AppContainer extends Container {
 
   cacheState = () => {
     localStorage.setItem('appState', JSON.stringify(this.state))
-
   }
 
   signin = (user, password, history, from) => {
@@ -42,6 +42,17 @@ class AppContainer extends Container {
       }).catch(err => {
         console.log(err);
       })
+  }
+
+  link = () => {
+    linkQuery().then(res => {
+      if (res.data.success === true) {
+        this.setState({ formDone: true });
+        this.cacheState;
+      } else {
+        alert("Malheureusement nous n'avons pas pu link votre compte. Veuillez compléter le formulaire Qualtrics jusq'au bout puis ré-essayer")
+      }
+    })
   }
 
   setOldJobValue = (job) => {
