@@ -4,6 +4,7 @@ import AsyncSelect from 'react-select/lib/Async';
 import Typography from '@material-ui/core/Typography';
 import RecomContainer from 'js/containers/RecomContainer';
 import AppContainer from 'js/containers/appContainer';
+import ErrorContainer from 'js/containers/ErrorContainer';
 import { FormContainer, StyledSlider, Submit } from './StyledParts';
 import RecomResults from './RecomResults';
 
@@ -23,8 +24,8 @@ const DropdownIndicator = (props) => {
 function Recommendation() {
 
   return (
-    <Subscribe to={[AppContainer, RecomContainer]}>
-      {(appContainer, recomContainer) => {
+    <Subscribe to={[AppContainer, RecomContainer, ErrorContainer]}>
+      {(appContainer, recomContainer, errorContainer) => {
         console.log(recomContainer.state)
         return (
           <div>
@@ -34,7 +35,7 @@ function Recommendation() {
               <AsyncSelect
                 cacheOptions
                 defaultInputValue={appContainer.state.oldJobLabel}
-                loadOptions={v => recomContainer.handleSearch(v)}
+                loadOptions={v => recomContainer.handleSearch(v, errorContainer.displayError)}
                 defaultOptions
                 onChange={appContainer.setOldJobValue}
               />
@@ -52,7 +53,7 @@ function Recommendation() {
                 onChange={appContainer.setBeta}
               />
               <Submit
-                onClick={_ => recomContainer.recommend(appContainer)}
+                onClick={_ => recomContainer.recommend(appContainer, errorContainer.displayError)}
                 fullWidth
                 variant="contained"
                 color="secondary"

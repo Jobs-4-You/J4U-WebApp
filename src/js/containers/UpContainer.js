@@ -39,6 +39,10 @@ class UpContainer extends Container {
     },
   };
 
+  get valid() {
+    return Object.keys(this.state).map(x => this.state[x].valid).reduce((acc, curr) => acc && curr);
+  }
+
   handleFNameChange = (e) => {
     const newValue = e.target.value;
     this.setState({ firstName: { value: newValue, valid: this.validateFName(newValue) } })

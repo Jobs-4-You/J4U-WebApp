@@ -12,7 +12,7 @@ class RecomContainer extends Container {
   }
 
 
-  handleSearch = (value) => {
+  handleSearch = (value, displayError) => {
     return searchQuery(value).then(res => {
       console.log(JSON.stringify(res.data))
       const options = res.data.map(v => {
@@ -22,10 +22,13 @@ class RecomContainer extends Container {
         }
       });
       return options;
+    }).catch(err => {
+      console.log(err.response.data.msg);
+      displayError(err.response.data.msg);
     });
   }
 
-  recommend = async (appContainer) => {
+  recommend = async (appContainer, displayError) => {
     const { oldJobValue, oldJobLabel, alpha, beta } = appContainer.state;
     await this.setState({ loading: true });
     recomQuery({
@@ -45,7 +48,9 @@ class RecomContainer extends Container {
       });
       appContainer.cacheState();
     }).catch(err => {
+      this.setState({loading: false})
       console.log(err);
+      displayError(err.response.data.msg);
     })
   }
 }

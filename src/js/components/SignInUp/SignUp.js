@@ -106,6 +106,7 @@ function SignUp({ classes, history }) {
               </FormControl>
 
               <Button
+                disabled={!upContainer.valid}
                 onClick={(e) => upContainer.handleSubmit(e, appContainer, history)}
                 type="submit"
                 fullWidth

@@ -25,7 +25,7 @@ class AppContainer extends Container {
     localStorage.setItem('appState', JSON.stringify(this.state))
   }
 
-  signin = (user, password, history, from) => {
+  signin = (user, password, history, from, displayError) => {
     signinQuery(user, password)
       .then(x => {
         console.log(x.data)
@@ -41,6 +41,7 @@ class AppContainer extends Container {
         })
       }).catch(err => {
         console.log(err);
+        displayError(err.response.data.msg);
       })
   }
 
