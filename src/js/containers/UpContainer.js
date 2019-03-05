@@ -115,13 +115,14 @@ class UpContainer extends Container {
     return validator.isNumeric(x);
   }
 
-  handleSubmit = (e, appContainer, history) => {
+  handleSubmit = (e, appContainer, history, displayError) => {
     e.preventDefault();
     signupQuery(this.state.firstName.value, this.state.lastName.value, this.state.email.value, this.state.phone.value, this.state.password.value, this.state.plastaId.value, history)
       .then(x => {
         console.log(x.data)
         history.push('/')
       }).catch(err => {
+        displayError(err.response.data.msg);
         console.log(err.response);
       })
       ;

@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AppContainer from 'js/containers/appContainer';
 import UpContainer from 'js/containers/UpContainer';
+import ErrorContainer from 'js/containers/ErrorContainer';
 
 const styles = theme => ({
   main: {
@@ -51,8 +52,8 @@ const styles = theme => ({
 function SignUp({ classes, history }) {
 
   return (
-    <Subscribe to={[AppContainer, UpContainer]}>
-      {(appContainer, upContainer) => (
+    <Subscribe to={[AppContainer, UpContainer, ErrorContainer]}>
+      {(appContainer, upContainer, errorContainer) => (
         <main className={classes.main}>
           {console.log(upContainer, '-----')}
           <CssBaseline />
@@ -107,7 +108,7 @@ function SignUp({ classes, history }) {
 
               <Button
                 disabled={!upContainer.valid}
-                onClick={(e) => upContainer.handleSubmit(e, appContainer, history)}
+                onClick={(e) => upContainer.handleSubmit(e, appContainer, history, errorContainer.displayError)}
                 type="submit"
                 fullWidth
                 variant="contained"

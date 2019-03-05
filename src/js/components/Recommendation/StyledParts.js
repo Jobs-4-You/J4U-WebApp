@@ -14,11 +14,8 @@ export const Loader = styled(CircularProgress)`
   margin: auto;
 `;
 
-export const FormContainer = styled(Paper)`
-  padding: 30px;
-  width: 500px;
-  margin: auto;
-  margin-top: 30px;
+export const FormContainer = styled.div`
+  margin: 50px;
 `;
 
 export const StyledSlider = styled(Slider)`
@@ -32,9 +29,6 @@ export const Submit = styled(Button)`
   margin-top: 30px !important;
 `
 
-export const ResContainer = styled(Paper)`
-  padding: 30px;
-  max-width: 900px;
-  margin: auto;
-  margin-top: 30px;
+export const ResContainer = styled.div`
+  margin: 50px;
 `;

@@ -1,12 +1,13 @@
-import React from 'react';
-import { Subscribe } from 'unstated';
-import AsyncSelect from 'react-select/lib/Async';
-import Typography from '@material-ui/core/Typography';
-import RecomContainer from 'js/containers/RecomContainer';
-import AppContainer from 'js/containers/appContainer';
-import ErrorContainer from 'js/containers/ErrorContainer';
-import { FormContainer, StyledSlider, Submit } from './StyledParts';
-import RecomResults from './RecomResults';
+import React from "react";
+import { Subscribe } from "unstated";
+import AsyncSelect from "react-select/lib/Async";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import RecomContainer from "js/containers/RecomContainer";
+import AppContainer from "js/containers/appContainer";
+import ErrorContainer from "js/containers/ErrorContainer";
+import { FormContainer, StyledSlider, Submit } from "./StyledParts";
+import RecomResults from "./RecomResults";
 
 const selectStyles = {
   container: (base, state) => ({
@@ -17,56 +18,74 @@ const selectStyles = {
   })
 };
 
-const DropdownIndicator = (props) => {
+const DropdownIndicator = props => {
   return null;
 };
 
 function Recommendation() {
-
   return (
     <Subscribe to={[AppContainer, RecomContainer, ErrorContainer]}>
       {(appContainer, recomContainer, errorContainer) => {
-        console.log(recomContainer.state)
+        console.log(recomContainer.state);
         return (
           <div>
             <FormContainer>
-              <Typography variant='title'>Job recommendation preferences</Typography>
+              <Typography variant="title">
+                Job recommendation preferences
+              </Typography>
               <br />
               <AsyncSelect
                 cacheOptions
                 defaultInputValue={appContainer.state.oldJobLabel}
-                loadOptions={v => recomContainer.handleSearch(v, errorContainer.displayError)}
+                loadOptions={v =>
+                  recomContainer.handleSearch(v, errorContainer.displayError)
+                }
                 defaultOptions
                 onChange={appContainer.setOldJobValue}
               />
               <br />
-              <Typography id="label">Alpha: {(appContainer.state.alpha / 100).toFixed(2)} </Typography>
+              <Typography id="label">
+                Alpha: {(appContainer.state.alpha / 100).toFixed(2)}{" "}
+              </Typography>
               <StyledSlider
                 value={Math.round(appContainer.state.alpha)}
                 aria-labelledby="label"
                 onChange={appContainer.setAlpha}
               />
-              <Typography id="label">Beta: {(appContainer.state.beta / 100).toFixed(2)}</Typography>
+              <Typography id="label">
+                Beta: {(appContainer.state.beta / 100).toFixed(2)}
+              </Typography>
               <StyledSlider
                 value={Math.round(appContainer.state.beta)}
                 aria-labelledby="label"
                 onChange={appContainer.setBeta}
               />
               <Submit
-                onClick={_ => recomContainer.recommend(appContainer, errorContainer.displayError)}
+                onClick={_ =>
+                  recomContainer.recommend(
+                    appContainer,
+                    errorContainer.displayError
+                  )
+                }
                 fullWidth
                 variant="contained"
                 color="secondary"
               >
                 RECOMMEND
-            </Submit>
+              </Submit>
+              <br />
+              <br />
+              <br />
+              <Divider />
+              <Divider />
+              <br />
             </FormContainer>
             <RecomResults recomContainer={recomContainer} />
           </div>
-        )
-      }
-      }
-    </Subscribe>)
+        );
+      }}
+    </Subscribe>
+  );
 }
 
 export default Recommendation;
