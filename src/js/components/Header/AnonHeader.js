@@ -1,14 +1,13 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import MenuIcon from '@material-ui/icons/Menu';
-import SignInUp from 'js/components/SignInUp';
-import { GrowTypo, Root, MenuButton } from './StyledParts'
-import { Link } from 'js/components/Divers/Link'
-
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import MenuIcon from "@material-ui/icons/Menu";
+import SignInUp from "js/components/SignInUp";
+import { GrowTypo, Root, MenuButton } from "./StyledParts";
+import { Link } from "js/components/Divers/Link";
 
 function AnonHeader({ sign, from }) {
-  console.log(sign, 'asdfa')
+  console.log(sign, "asdfa");
   return (
     <Root>
       <AppBar position="static">
@@ -17,9 +16,11 @@ function AnonHeader({ sign, from }) {
             <MenuIcon />
           </MenuButton>
           <GrowTypo variant="h6" color="inherit" grow={1}>
-            <Link to="/">J4U</Link>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              J4U
+            </Link>
           </GrowTypo>
-          <SignInUp sign={sign} from={from}/>
+          <SignInUp sign={sign} from={from} />
         </Toolbar>
       </AppBar>
     </Root>

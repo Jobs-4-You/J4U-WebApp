@@ -1,58 +1,72 @@
-import React from 'react';
+import React from "react";
 import { withRouter } from "react-router";
-import { Subscribe } from 'unstated';
-import Button from '@material-ui/core/Button'
-import Modal from '@material-ui/core/Modal';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import AppContainer from 'js/containers/appContainer';
-import { ModalContent } from './StyledParts';
-
+import { Subscribe } from "unstated";
+import Button from "@material-ui/core/Button";
+import Modal from "@material-ui/core/Modal";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import AppContainer from "js/containers/appContainer";
+import { ModalContent, GrowTypo, MenuContainer } from "./StyledParts";
+import { Link } from "js/components/Divers/Link";
+import { Menu } from "@material-ui/core";
 
 function SignInUp({ history, sign, from }) {
-
   const handleClose = () => {
-    history.push('/')
+    history.push("/");
   };
 
   const toSignIn = () => {
-    history.push('/signin')
+    history.push("/signin");
   };
 
   const toSignUp = () => {
-    history.push('/signup')
+    history.push("/signup");
   };
 
   return (
     <Subscribe to={[AppContainer]}>
       {appContainer => (
         <div>
-          <Button color="inherit" onClick={toSignIn}>Sign In</Button>
-          <Button color="inherit" onClick={toSignUp}>Sign Up</Button>
+          <MenuContainer>
+            <GrowTypo variant="subtitle1" color="inherit" grow={0}>
+              <Link to="/signin" style={{ textDecoration: "none" }}>
+                {" "}
+                SIGN IN
+              </Link>
+            </GrowTypo>
+
+            <GrowTypo variant="subtitle1" color="inherit" grow={0}>
+              <Link to="/signup" style={{ textDecoration: "none" }}>
+                {" "}
+                SIGN UP
+              </Link>
+            </GrowTypo>
+          </MenuContainer>
+
           <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
-            open={sign === 'in'}
+            open={sign === "in"}
             onClose={handleClose}
           >
-            <ModalContent id='zou'>
+            <ModalContent id="zou">
               <SignIn from={from} />
             </ModalContent>
           </Modal>
           <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
-            open={sign === 'up'}
+            open={sign === "up"}
             onClose={handleClose}
           >
-            <ModalContent id='zou'>
+            <ModalContent id="zou">
               <SignUp />
             </ModalContent>
           </Modal>
         </div>
       )}
     </Subscribe>
-  )
+  );
 }
 
 export default withRouter(SignInUp);

@@ -14,12 +14,9 @@ const selectStyles = {
     ...base,
     opacity: state.isDisabled ? ".5" : "1",
     backgroundColor: "white",
-    zIndex: "999"
+    zIndex: "999",
+    fontFamily: 'Roboto'
   })
-};
-
-const DropdownIndicator = props => {
-  return null;
 };
 
 function Recommendation() {
@@ -36,6 +33,7 @@ function Recommendation() {
               <br />
               <AsyncSelect
                 cacheOptions
+                styles={selectStyles}
                 defaultInputValue={appContainer.state.oldJobLabel}
                 loadOptions={v =>
                   recomContainer.handleSearch(v, errorContainer.displayError)

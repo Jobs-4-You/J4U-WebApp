@@ -23,10 +23,10 @@ function AuthHeader({ appContainer }) {
             <Link to="/account" style={{ textDecoration: 'none' }}><AccountIcon /></Link>
             {`Welcome ${appContainer.state.firstName} ${appContainer.state.lastName} !`}
           </GrowTypo>
-          <GrowTypo variant="subtitle" color="inherit" grow={0}>
+          <GrowTypo variant="subtitle1" color="inherit" grow={0}>
             {appContainer.state.formDone ? <Link to="/recommendation" style={{ textDecoration: 'none' }}>JOB RECOMMENDATION</Link> : null}
           </GrowTypo>
-          <GrowTypo variant="subtitle" color="inherit" grow={0}>
+          <GrowTypo variant="subtitle1" color="inherit" grow={0}>
             <Link to="/logout" style={{ textDecoration: 'none' }}>LOGOUT</Link>
           </GrowTypo>
         </Toolbar>

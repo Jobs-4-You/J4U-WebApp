@@ -13,7 +13,7 @@ export const MenuButton = styled(IconButton)`
 `;
 
 export const GrowTypo = styled(Typography)`
-  flex-grow: ${porops => porops.grow};
+  flex-grow: ${props => props.grow};
   margin-right: 50px !important;
 `;
 

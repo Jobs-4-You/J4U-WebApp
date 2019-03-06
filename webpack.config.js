@@ -1,8 +1,12 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
-  devtool: 'source-map',
+  devtool: "source-map",
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -27,6 +31,6 @@ module.exports = {
     })
   ],
   resolve: {
-    modules: ['node_modules', 'src']
+    modules: ["node_modules", "src"]
   }
 };

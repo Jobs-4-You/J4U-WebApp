@@ -177,7 +177,10 @@ const App = () => {
 const theme = createMuiTheme({
   palette: {
     primary: blue,
-    fontFamily: '"Roboto"'
+    fontFamily: '"Roboto"',
+    typography: {
+      useNextVariants: true,
+    },
   }
 });
 
