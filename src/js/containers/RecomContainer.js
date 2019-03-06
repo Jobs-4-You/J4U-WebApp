@@ -6,7 +6,9 @@ class RecomContainer extends Container {
   state = {
     search: '',
     jobs: null,
-    codes: null,
+    isco08: null,
+    avam: null,
+    bfs: null,
     vars: null,
     loading: false,
   }
@@ -44,9 +46,12 @@ class RecomContainer extends Container {
         loading: false,
         vars: res.data.vars,
         jobs: res.data.jobs,
-        codes: res.data.codes,
+        isco08: res.data.isco08,
+        avam: res.data.avam,
+        bfs: res.data.bfs,
+      }).then(_ => {
+        appContainer.cacheState();
       });
-      appContainer.cacheState();
     }).catch(err => {
       this.setState({loading: false})
       console.log(err);

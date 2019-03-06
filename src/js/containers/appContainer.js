@@ -48,8 +48,9 @@ class AppContainer extends Container {
   link = () => {
     linkQuery().then(res => {
       if (res.data.success === true) {
-        this.setState({ formDone: true });
-        this.cacheState;
+        this.setState({ formDone: true }).then(_ => {
+          this.cacheState();
+        });
       } else {
         alert("Malheureusement nous n'avons pas pu link votre compte. Veuillez compléter le formulaire Qualtrics jusq'au bout puis ré-essayer")
       }

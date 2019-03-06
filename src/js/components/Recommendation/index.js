@@ -26,7 +26,7 @@ function Recommendation() {
   return (
     <Subscribe to={[AppContainer, RecomContainer, ErrorContainer]}>
       {(appContainer, recomContainer, errorContainer) => {
-        console.log(recomContainer.state);
+        console.log(recomContainer.state, appContainer.state);
         return (
           <div>
             <FormContainer>
@@ -68,6 +68,7 @@ function Recommendation() {
                   )
                 }
                 fullWidth
+                disabled={!appContainer.state.oldJobValue}
                 variant="contained"
                 color="secondary"
               >
