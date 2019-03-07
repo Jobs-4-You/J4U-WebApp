@@ -6,6 +6,7 @@ import { AnimatedSwitch } from "react-router-transition";
 import { Switch, Route, HashRouter, Redirect } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
+import { Helmet } from "react-helmet";
 import { Subscribe } from "unstated";
 import AppContainer from "js/containers/appContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
@@ -79,6 +80,10 @@ const Home = ({ sign, location }) => {
   console.log("xxxx", location.state);
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Home</title>
+      </Helmet>
       <Header sign={sign} from={location.state ? location.state.from : null} />
       <Landing />
     </div>
@@ -88,6 +93,10 @@ const Home = ({ sign, location }) => {
 const VerifiedView = () => {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Verification</title>
+      </Helmet>
       <Header />
       <Verified />
     </div>
@@ -97,6 +106,10 @@ const VerifiedView = () => {
 const LogoutView = () => {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Logout</title>
+      </Helmet>
       <Header />
       <Logout />
     </div>
@@ -106,6 +119,10 @@ const LogoutView = () => {
 const RecommendationView = () => {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Recommendation</title>
+      </Helmet>
       <Header />
       <Recommendation />
     </div>
@@ -115,6 +132,10 @@ const RecommendationView = () => {
 const AccountView = () => {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Infos</title>
+      </Helmet>
       <Header />
       <Account />
     </div>
@@ -179,8 +200,8 @@ const theme = createMuiTheme({
     primary: blue,
     fontFamily: '"Roboto"',
     typography: {
-      useNextVariants: true,
-    },
+      useNextVariants: true
+    }
   }
 });
 
