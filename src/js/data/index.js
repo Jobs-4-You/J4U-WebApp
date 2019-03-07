@@ -69,6 +69,40 @@ export function signupQuery(firstName, lastName, email, phone, password, plastaI
   });
 }
 
+const seco = axios.create({
+  baseURL: "https://cors-anywhere.herokuapp.com/https://www.job-room.ch/",
+  timeout: 5000,
+});
+
+export function secoQuery(professionCodes){
+  var data = JSON.stringify({
+    "permanent": null,
+    "workloadPercentageMin": 0,
+    "workloadPercentageMax": 100,
+    "onlineSince": 30,
+    "displayRestricted": false,
+    "keywords": [],
+    "professionCodes": professionCodes,
+    "communalCodes": [],
+    "cantonCodes": []
+  });
+  
+  return seco({
+    method: 'post',
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json, text/plain, */*",
+      "X-Requested-With": "XMLHttpRequest",
+      "cache-control": "no-cache",
+      "Postman-Token": "22ba6716-13b5-45c9-bf21-0d3f0f4566be"
+    },
+    url: '/jobadservice/api/jobAdvertisements/_search?page=0&size=20&sort=score',
+    data,
+  });
+
+}
+
 export function recomQuery(data) {
   return client({
     method: 'post',

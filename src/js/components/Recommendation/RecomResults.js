@@ -24,17 +24,23 @@ import { ResContainer, Loader, FullTypo } from './StyledParts'
 //  )
 //}
 
-function JobResult({ job, rank }) {
+function JobResult({ recomContainer, job, rank, avam }) {
   return (
     <ExpansionPanel>
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <ExpansionPanelSummary 
+        expandIcon={<ExpandMoreIcon />}
+        onClick={_ =>
+          recomContainer.secoSearch(
+            avam
+          )
+        }>
         <Chip label={`Rank: ${rank}`} variant="outlined" />
         <Chip label={job} variant="outlined" />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Typography>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-          sit amet blandit leo lobortis eget.
+          sit amet blandit leo lobortis eget.  
         </Typography>
       </ExpansionPanelDetails>
     </ExpansionPanel>
@@ -43,7 +49,7 @@ function JobResult({ job, rank }) {
 
 
 function RecomRsults({ recomContainer }) {
-  const { jobs, importance, vars, loading } = recomContainer.state;
+  const { jobs, importance, vars, loading, avam, bfs } = recomContainer.state;
   console.log(jobs, 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL')
   if (loading) {
     return (
@@ -60,7 +66,7 @@ function RecomRsults({ recomContainer }) {
         <FullTypo variant='title'>Your recomendations</FullTypo>
         <br/>
         {jobs.map((job, i) => (
-          <JobResult job={job} rank={i + 1} key={i} />
+          <JobResult job={job} rank={i + 1} key={i} avam={avam[i]} bfs={bfs[i]} recomContainer={recomContainer} />
         ))}
       </ResContainer>
     )

@@ -1,5 +1,5 @@
 import { Container } from 'unstated';
-import { recomQuery, searchQuery } from 'js/data';
+import { recomQuery, searchQuery, secoQuery } from 'js/data';
 
 class RecomContainer extends Container {
 
@@ -11,6 +11,7 @@ class RecomContainer extends Container {
     bfs: null,
     vars: null,
     loading: false,
+    openPositions: null,
   }
 
 
@@ -28,6 +29,20 @@ class RecomContainer extends Container {
       console.log(err.response.data.msg);
       displayError(err.response.data.msg);
     });
+  }
+
+  secoSearch = (avamList) => {
+    let professionCodes = [];
+    // Preparing the list of profession codes as SECO's API expects
+    for (let index = 0; index < avamList.length; index++) {
+      professionCodes.push(
+        {
+          "type": "AVAM",
+          "value": avamList[index]
+        }
+      );
+    }
+    secoQuery(professionCodes);
   }
 
   recommend = async (appContainer, displayError) => {
