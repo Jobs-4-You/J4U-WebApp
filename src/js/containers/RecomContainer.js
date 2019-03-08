@@ -16,7 +16,6 @@ class RecomContainer extends Container {
   handleSearch = async (value, displayError) => {
     try {
       const res = await searchQuery(value);
-      console.log(JSON.stringify(res.data));
       const options = res.data.map(v => {
         return {
           label: v.Title,
@@ -30,7 +29,7 @@ class RecomContainer extends Container {
     }
   };
 
-  secoSearch = (avamList) => {
+  secoSearch = async (recomContainer, avamList) => {
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
     for (let index = 0; index < avamList.length; index++) {
@@ -41,7 +40,15 @@ class RecomContainer extends Container {
         }
       );
     }
-    secoQuery(professionCodes);
+    try {
+      const positions = await secoQuery(professionCodes);
+      await this.setState({
+        openPositions: positions
+      });
+    } catch (err) {
+      this.setState({ loading: false });
+      console.log(err);
+    }
   }
 
   recommend = async (appContainer, displayError) => {

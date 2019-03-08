@@ -23,14 +23,31 @@ import { ResContainer, Loader, FullTypo } from './StyledParts'
 //    </JobCard>
 //  )
 //}
+function OpenPosition({ recomContainer }) {
+  const { openPositions } = recomContainer.state;
+  if (openPositions) {
+    return (
+        openPositions.data.map((job, i) => (
+          //JSON.stringify({openPositions})
+          job.jobContent.jobDescriptions[0].title + ","
+        )
+      )
+    )
+  } else {
+    return null;
+  }
+}
+
 
 function JobResult({ recomContainer, job, rank, avam }) {
+  const { openPositions } = recomContainer.state;
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary 
         expandIcon={<ExpandMoreIcon />}
         onClick={_ =>
           recomContainer.secoSearch(
+            recomContainer,
             avam
           )
         }>
@@ -39,8 +56,7 @@ function JobResult({ recomContainer, job, rank, avam }) {
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-          sit amet blandit leo lobortis eget.  
+          <OpenPosition recomContainer={recomContainer} />
         </Typography>
       </ExpansionPanelDetails>
     </ExpansionPanel>
@@ -50,7 +66,6 @@ function JobResult({ recomContainer, job, rank, avam }) {
 
 function RecomRsults({ recomContainer }) {
   const { jobs, importance, vars, loading, avam, bfs } = recomContainer.state;
-  console.log(jobs, 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL')
   if (loading) {
     return (
       <ResContainer>

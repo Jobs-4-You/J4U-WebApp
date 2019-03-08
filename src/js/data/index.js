@@ -70,7 +70,8 @@ export function signupQuery(firstName, lastName, email, phone, password, plastaI
 }
 
 const seco = axios.create({
-  baseURL: "https://cors-anywhere.herokuapp.com/https://www.job-room.ch/",
+  //baseURL: "https://www.job-room.ch/",
+  baseURL: 'http://localhost:8080/',
   timeout: 5000,
 });
 
@@ -88,7 +89,8 @@ export function secoQuery(professionCodes){
   });
   
   return seco({
-    method: 'post',
+    //method: 'post',
+    method: 'get',
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
@@ -97,7 +99,8 @@ export function secoQuery(professionCodes){
       "cache-control": "no-cache",
       "Postman-Token": "22ba6716-13b5-45c9-bf21-0d3f0f4566be"
     },
-    url: '/jobadservice/api/jobAdvertisements/_search?page=0&size=20&sort=score',
+    //url: '/jobadservice/api/jobAdvertisements/_search?page=0&size=20&sort=score',
+    url: '/src/js/data/tempseco.json',
     data,
   });
 
