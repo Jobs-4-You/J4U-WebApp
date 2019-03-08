@@ -1,11 +1,11 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import { ResContainer, Loader, FullTypo } from './StyledParts'
+import React from "react";
+import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import { ResContainer, Loader, FullTypo } from "./StyledParts";
 
 //function JobResult({ job, rank }) {
 //  return (
@@ -23,74 +23,70 @@ import { ResContainer, Loader, FullTypo } from './StyledParts'
 //    </JobCard>
 //  )
 //}
-function OpenPosition({ recomContainer }) {
-  const { openPositions } = recomContainer.state;
-  if (openPositions) {
-    return (
-        openPositions.data.map((job, i) => (
-          //JSON.stringify({openPositions})
-          job.jobContent.jobDescriptions[0].title + ","
-        )
-      )
-    )
+function OpenPosition({ recomContainer, i }) {
+  const openPos  = recomContainer.state.openPositions[i];
+  if (openPos) {
+    return openPos.data.map(
+      (job, i) =>
+        //JSON.stringify({openPositions})
+        job.jobContent.jobDescriptions[0].title + ","
+    );
   } else {
     return null;
   }
 }
 
-
 function JobResult({ recomContainer, job, rank, avam }) {
   const { openPositions } = recomContainer.state;
   return (
     <ExpansionPanel>
-      <ExpansionPanelSummary 
+      <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
-        onClick={_ =>
-          recomContainer.secoSearch(
-            recomContainer,
-            avam
-          )
-        }>
+        onClick={_ => recomContainer.secoSearch(recomContainer, avam, rank - 1)}
+      >
         <Chip label={`Rank: ${rank}`} variant="outlined" />
         <Chip label={job} variant="outlined" />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Typography>
-          <OpenPosition recomContainer={recomContainer} />
+          <OpenPosition recomContainer={recomContainer} i={rank - 1} />
         </Typography>
       </ExpansionPanelDetails>
     </ExpansionPanel>
-  )
+  );
 }
-
 
 function RecomRsults({ recomContainer }) {
   const { jobs, importance, vars, loading, avam, bfs } = recomContainer.state;
   if (loading) {
     return (
       <ResContainer>
-        <FullTypo variant='title'>Your recomendations</FullTypo>
+        <FullTypo variant="title">Your recomendations</FullTypo>
         <Loader size={100} />
       </ResContainer>
-    )
+    );
   }
 
   if (jobs) {
     return (
       <ResContainer>
-        <FullTypo variant='title'>Your recomendations</FullTypo>
-        <br/>
+        <FullTypo variant="title">Your recomendations</FullTypo>
+        <br />
         {jobs.map((job, i) => (
-          <JobResult job={job} rank={i + 1} key={i} avam={avam[i]} bfs={bfs[i]} recomContainer={recomContainer} />
+          <JobResult
+            job={job}
+            rank={i + 1}
+            key={i}
+            avam={avam[i]}
+            bfs={bfs[i]}
+            recomContainer={recomContainer}
+          />
         ))}
       </ResContainer>
-    )
-  }
-
-  else {
+    );
+  } else {
     return null;
   }
-
 }
 
 export default RecomRsults;

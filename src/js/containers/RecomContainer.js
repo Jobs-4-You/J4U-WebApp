@@ -10,7 +10,7 @@ class RecomContainer extends Container {
     bfs: null,
     vars: null,
     loading: false,
-    openPositions: null,
+    openPositions: [],
   };
 
   handleSearch = async (value, displayError) => {
@@ -29,7 +29,7 @@ class RecomContainer extends Container {
     }
   };
 
-  secoSearch = async (recomContainer, avamList) => {
+  secoSearch = async (recomContainer, avamList, i) => {
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
     for (let index = 0; index < avamList.length; index++) {
@@ -42,8 +42,10 @@ class RecomContainer extends Container {
     }
     try {
       const positions = await secoQuery(professionCodes);
+      const newPos = this.state.openPositions;
+      newPos[i] = positions
       await this.setState({
-        openPositions: positions
+        openPositions: newPos
       });
     } catch (err) {
       this.setState({ loading: false });
@@ -67,7 +69,8 @@ class RecomContainer extends Container {
         jobs: res.data.jobs,
         isco08: res.data.isco08,
         avam: res.data.avam,
-        bfs: res.data.bfs
+        bfs: res.data.bfs,
+        openPositions: Array.apply(null, Array(res.data.isco08.length))
       });
       appContainer.cacheState();
     } catch (err) {

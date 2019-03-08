@@ -26,9 +26,9 @@ class AppContainer extends Container {
   };
 
   signin = async (user, password, history, from, displayError) => {
-    const x = await signinQuery(user, password);
-    console.log(x.data);
     try {
+      const x = await signinQuery(user, password);
+      console.log(x.data);
       await this.setState({
         ...x.data
       });
