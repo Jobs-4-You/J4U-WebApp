@@ -43,7 +43,7 @@ function Recommendation() {
               />
               <br />
               <Typography id="label">
-                Alpha: {(appContainer.state.alpha / 100).toFixed(2)}{" "}
+              Importance de mon profil personnel : {(appContainer.state.alpha / 100).toFixed(2)}{" "}
               </Typography>
               <StyledSlider
                 value={Math.round(appContainer.state.alpha)}
@@ -51,7 +51,7 @@ function Recommendation() {
                 onChange={appContainer.setAlpha}
               />
               <Typography id="label">
-                Beta: {(appContainer.state.beta / 100).toFixed(2)}
+              Importance de mon poste antérieur : {(appContainer.state.beta / 100).toFixed(2)}
               </Typography>
               <StyledSlider
                 value={Math.round(appContainer.state.beta)}

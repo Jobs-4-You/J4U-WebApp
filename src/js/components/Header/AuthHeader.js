@@ -21,7 +21,7 @@ function AuthHeader({ appContainer }) {
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={1}>
             <Link to="/account" style={{ textDecoration: 'none' }}><AccountIcon /></Link>
-            {`Welcome ${appContainer.state.firstName} ${appContainer.state.lastName} !`}
+            {`${appContainer.state.firstName} ${appContainer.state.lastName}`}
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={0}>
             {appContainer.state.formDone ? <Link to="/recommendation" style={{ textDecoration: 'none' }}>JOB RECOMMENDATION</Link> : null}
