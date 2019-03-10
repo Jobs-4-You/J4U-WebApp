@@ -6,37 +6,34 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import { ResContainer, Loader, FullTypo } from "./StyledParts";
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-//function JobResult({ job, rank }) {
-//  return (
-//    <JobCard>
-//      <CardContent>
-//        <Typography color="textSecondary" gutterBottom>
-//          {job}
-//        </Typography>
-//        <br />
-//        <Chip label={`Rank: ${rank}`} variant="outlined" />
-//      </CardContent>
-//      <CardActions>
-//        <Button size="small">Seek job offers</Button>
-//      </CardActions>
-//    </JobCard>
-//  )
-//}
+const styles = theme => ({
+  root: {
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+});
+
 function OpenPosition({ recomContainer, i }) {
   const openPos  = recomContainer.state.openPositions[i];
   if (openPos) {
     return openPos.data.map(
       (job, i) =>
-        //JSON.stringify({openPositions})
-        job.jobContent.jobDescriptions[0].title + ","
+      <ListItem button key={i}>
+        <ListItemText inset primary={job.jobContent.jobDescriptions[0].title} />
+      </ListItem>
     );
   } else {
     return null;
   }
 }
 
-function JobResult({ recomContainer, job, rank, avam }) {
+function JobResult({ recomContainer, job, rank, avam, classes }) {
   const { openPositions } = recomContainer.state;
   return (
     <ExpansionPanel>
@@ -48,9 +45,9 @@ function JobResult({ recomContainer, job, rank, avam }) {
         <Chip label={job} variant="outlined" />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Typography>
+        <List component="nav" className={classes.root}>
           <OpenPosition recomContainer={recomContainer} i={rank - 1} />
-        </Typography>
+        </List>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );
@@ -80,6 +77,7 @@ function RecomRsults({ recomContainer }) {
             avam={avam[i]}
             bfs={bfs[i]}
             recomContainer={recomContainer}
+            classes={PropTypes.object.isRequired}
           />
         ))}
       </ResContainer>
