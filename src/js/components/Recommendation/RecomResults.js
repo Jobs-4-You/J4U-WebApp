@@ -11,6 +11,10 @@ import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
 
 const styles = theme => ({
   root: {
@@ -26,13 +30,13 @@ function OpenPosition({ recomContainer, i }) {
       (job, i) =>
       <ListItem button key={i}>
         <ListItemText inset primary={job.jobContent.jobDescriptions[0].title} 
-        onClick={_ => recomContainer.setSelectedJob(recomContainer, {
-          title: job.jobContent.jobDescriptions[0].title,
-          externalUrl: job.jobContent.externalUrl,
-          companyName: job.jobContent.company.name,
-          description: job.jobContent.jobDescriptions[0].description,
-          locationCity: job.jobContent.location.city,
-        })}
+          onClick={_ => recomContainer.setSelectedJob(recomContainer, {
+            title: job.jobContent.jobDescriptions[0].title,
+            externalUrl: job.jobContent.externalUrl,
+            companyName: job.jobContent.company.name,
+            description: job.jobContent.jobDescriptions[0].description,
+            locationCity: job.jobContent.location.city,
+          })}
         />
       </ListItem>
     );
@@ -63,11 +67,33 @@ function JobResult({ recomContainer, job, rank, avam, classes }) {
 
 function JobDetail({ recomContainer }) {
   const { selectedJob } = recomContainer.state;
+
+  const handleClose = () => {
+    recomContainer.setState({
+      selectedJob: null
+    });
+  };
+
   if (selectedJob != null) {
     return (
-      <Typography>
-        {selectedJob.description}
-      </Typography>
+      <Dialog
+            aria-labelledby={selectedJob.title}
+            aria-describedby={selectedJob.title}
+            open={selectedJob !== null}
+            onClose={handleClose}
+      >
+        <DialogTitle align="center">
+          {selectedJob.title}
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="subtitle2" paragraph={true}>
+            {selectedJob.company}
+          </Typography>
+          <Typography>
+            {selectedJob.description}
+          </Typography>
+        </DialogContent>
+      </Dialog>
     );
   } else {
     return null;
@@ -91,7 +117,6 @@ function RecomRsults({ recomContainer }) {
         <FullTypo variant="title" align="center">Your recomendations</FullTypo>
         <br />
         <JobDetail recomContainer={recomContainer} />
-        <br />
         {jobs.map((job, i) => (
           <JobResult
             job={job}
