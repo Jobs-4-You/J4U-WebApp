@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import RecomContainer from "js/containers/RecomContainer";
 import AppContainer from "js/containers/appContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
-import { FormContainer, StyledSlider, Submit } from "./StyledParts";
+import { Modal, FormContainer, StyledSlider, Submit } from "./StyledParts";
 import RecomResults from "./RecomResults";
 
 const selectStyles = {
@@ -23,7 +23,6 @@ function Recommendation() {
   return (
     <Subscribe to={[AppContainer, RecomContainer, ErrorContainer]}>
       {(appContainer, recomContainer, errorContainer) => {
-        console.log(recomContainer.state, appContainer.state);
         return (
           <div>
             <FormContainer>

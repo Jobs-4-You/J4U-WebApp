@@ -25,7 +25,15 @@ function OpenPosition({ recomContainer, i }) {
     return openPos.data.map(
       (job, i) =>
       <ListItem button key={i}>
-        <ListItemText inset primary={job.jobContent.jobDescriptions[0].title} />
+        <ListItemText inset primary={job.jobContent.jobDescriptions[0].title} 
+        onClick={_ => recomContainer.setSelectedJob(recomContainer, {
+          title: job.jobContent.jobDescriptions[0].title,
+          externalUrl: job.jobContent.externalUrl,
+          companyName: job.jobContent.company.name,
+          description: job.jobContent.jobDescriptions[0].description,
+          locationCity: job.jobContent.location.city,
+        })}
+        />
       </ListItem>
     );
   } else {
@@ -53,6 +61,19 @@ function JobResult({ recomContainer, job, rank, avam, classes }) {
   );
 }
 
+function JobDetail({ recomContainer }) {
+  const { selectedJob } = recomContainer.state;
+  if (selectedJob != null) {
+    return (
+      <Typography>
+        {selectedJob.description}
+      </Typography>
+    );
+  } else {
+    return null;
+  }
+}
+
 function RecomRsults({ recomContainer }) {
   const { jobs, importance, vars, loading, avam, bfs } = recomContainer.state;
   if (loading) {
@@ -67,7 +88,9 @@ function RecomRsults({ recomContainer }) {
   if (jobs) {
     return (
       <ResContainer>
-        <FullTypo variant="title">Your recomendations</FullTypo>
+        <FullTypo variant="title" align="center">Your recomendations</FullTypo>
+        <br />
+        <JobDetail recomContainer={recomContainer} />
         <br />
         {jobs.map((job, i) => (
           <JobResult

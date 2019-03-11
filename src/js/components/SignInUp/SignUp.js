@@ -30,7 +30,9 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    paddingTop: theme.spacing.unit * 8,
+    maxHeight: '98vh',
+    overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -66,7 +68,7 @@ function SignUp({ classes, history }) {
               </Typography>
             <form className={classes.form}>
 
-              <FormControl margin="normal" required error={!upContainer.state.firstName.valid} fullWidth>
+              <FormControl margin="normal" autoFocus required error={!upContainer.state.firstName.valid} fullWidth>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
                 <Input id="firstName" name="firstName" autoComplete="first-name" autoFocus value={upContainer.state.firstName.value} onChange={upContainer.handleFNameChange} />
               </FormControl>
@@ -103,7 +105,7 @@ function SignUp({ classes, history }) {
 
               <FormControl margin="normal" required error={!upContainer.state.plastaId.valid} fullWidth>
                 <InputLabel htmlFor="plastaId">Plasta ID</InputLabel>
-                <Input id="plastaId" name="plastaId" autoComplete="plasta-id" autoFocus value={upContainer.state.plastaId.value} onChange={upContainer.handlePlastaIdChange} />
+                <Input id="plastaId" name="plastaId" autoComplete="plasta-id" value={upContainer.state.plastaId.value} onChange={upContainer.handlePlastaIdChange} />
               </FormControl>
 
               <Button

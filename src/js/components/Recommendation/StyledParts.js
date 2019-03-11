@@ -15,7 +15,9 @@ export const Loader = styled(CircularProgress)`
 `;
 
 export const FormContainer = styled.div`
-  margin: 50px;
+  margin: 50px auto;
+  max-width: 50%;
+  text-align: center;
 `;
 
 export const StyledSlider = styled(Slider)`

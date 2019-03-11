@@ -30,7 +30,7 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    paddingTop: theme.spacing.unit * 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -46,7 +46,7 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
-  },
+  }
 });
 
 function SignIn({ classes, history, from }) {
@@ -76,7 +76,9 @@ function SignIn({ classes, history, from }) {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link to="signup">Créer un compte</Link>
+                <Link to="signup" block={false}>
+                  <Typography align="right" variant="button" inline={true} color="textPrimary">Créer un compte</Typography>
+                </Link>
               <Button
                 disabled={!signContainer.valid}
                 onClick={(e) => signContainer.handleSubmit(e, appContainer, history, from, errorContainer.displayError)}
