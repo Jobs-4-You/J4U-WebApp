@@ -11,6 +11,7 @@ class RecomContainer extends Container {
     vars: null,
     loading: false,
     openPositions: [],
+    selectedJob: null
   };
 
   handleSearch = async (value, displayError) => {
@@ -52,6 +53,17 @@ class RecomContainer extends Container {
       console.log(err);
     }
   }
+
+  setSelectedJob = async (recomContainer, selectedJobObject) => {
+    try {
+      await recomContainer.setState({
+        selectedJob: selectedJobObject
+      });
+    } catch (err) {
+      this.setState({ loading: false });
+      console.log(err);
+    }
+  };
 
   recommend = async (appContainer, displayError) => {
     try {
