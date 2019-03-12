@@ -24,7 +24,6 @@ client.interceptors.request.use(
     const user = JSON.parse(localStorage.getItem("appState"));
     let accessToken = user ? user.accessToken : "";
     accessToken = accessToken ? accessToken : "";
-    console.log(accessToken);
     reqConfig.headers.Authorization = `Bearer ${accessToken}`;
     return reqConfig;
   },
@@ -71,8 +70,7 @@ export function signupQuery(
 }
 
 const seco = axios.create({
-  baseURL: "http://localhost:8000/https://www.job-room.ch/",
-  //baseURL: 'http://localhost:8080/',
+  baseURL: env == "development" ? "http://localhost:8000/https://www.job-room.ch/" : "https://j4u.unil.ch:8000/https://www.job-room.ch/",
   timeout: 5000
 });
 

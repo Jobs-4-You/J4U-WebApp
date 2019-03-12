@@ -7,7 +7,6 @@ import { GrowTypo, Root, MenuButton } from "./StyledParts";
 import { Link } from "js/components/Divers/Link";
 
 function AnonHeader({ sign, from }) {
-  console.log(sign, "asdfa");
   return (
     <Root>
       <AppBar position="static">

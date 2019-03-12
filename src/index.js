@@ -77,7 +77,6 @@ const AnimSwitch = styled(AnimatedSwitch)`
 const wrapper = document.getElementById("app");
 
 const Home = ({ sign, location }) => {
-  console.log("xxxx", location.state);
   return (
     <div>
       <Helmet>

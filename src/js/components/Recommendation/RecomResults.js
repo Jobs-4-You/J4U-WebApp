@@ -21,6 +21,10 @@ const styles = theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  inline: {
+    float: 'inline',
+    marginRight: "1rem",
+  }
 });
 
 function OpenPosition({ recomContainer, i }) {
@@ -29,15 +33,33 @@ function OpenPosition({ recomContainer, i }) {
     return openPos.data.map(
       (job, i) =>
       <ListItem button key={i}>
-        <ListItemText inset primary={job.jobContent.jobDescriptions[0].title} 
-          onClick={_ => recomContainer.setSelectedJob(recomContainer, {
-            title: job.jobContent.jobDescriptions[0].title,
-            externalUrl: job.jobContent.externalUrl,
-            companyName: job.jobContent.company.name,
-            description: job.jobContent.jobDescriptions[0].description,
-            locationCity: job.jobContent.location.city,
-          })}
-        />
+        <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job)}>
+            <Typography>
+              {job.jobContent.jobDescriptions[0].title} 
+            </Typography>
+            <Typography>
+              {job.createdTime} 
+            </Typography>
+            <span className="inline">
+              <strong>{job.jobContent.company.name}</strong>
+            </span>
+            <span className="inline">
+              {job.jobContent.location.postalCode} {job.jobContent.location.city} ({job.jobContent.location.cantonCode})
+            </span>
+            <span className="inline">
+              {(job.jobContent.employment.workloadPercentageMin && job.jobContent.employment.workloadPercentageMin !== "100")  ? job.jobContent.employment.workloadPercentageMin + "% - " : ""}
+              {job.jobContent.employment.workloadPercentageMax + "%"}
+            </span>
+            <span className="inline">
+              {job.jobContent.employment.immediately == true ? "Tout de suite" : (job.jobContent.employment.startDate ? job.jobContent.employment.startDate : "À convenir") }
+            </span>
+            <span className="inline">
+              {job.jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
+            </span>
+            <Typography>
+              {job.jobContent.jobDescriptions[0].description.length >= 280 ? job.jobContent.jobDescriptions[0].description.substring(0, 279) + "..." : job.jobContent.jobDescriptions[0].description}
+            </Typography>
+          </ListItemText>
       </ListItem>
     );
   } else {
@@ -83,14 +105,33 @@ function JobDetail({ recomContainer }) {
             onClose={handleClose}
       >
         <DialogTitle align="center">
-          {selectedJob.title}
+          {selectedJob.jobContent.jobDescriptions[0].title}
         </DialogTitle>
         <DialogContent>
-          <Typography variant="subtitle2" paragraph={true}>
-            {selectedJob.company}
+          <Typography>
+            {selectedJob.jobContent.jobDescriptions[0].title} 
           </Typography>
           <Typography>
-            {selectedJob.description}
+            {selectedJob.createdTime} 
+          </Typography>
+          <span className="inline">
+            <strong>{selectedJob.jobContent.company.name}</strong>
+          </span>
+          <span className="inline">
+            {selectedJob.jobContent.location.postalCode} {selectedJob.jobContent.location.city} ({selectedJob.jobContent.location.cantonCode})
+          </span>
+          <span className="inline">
+            {(selectedJob.jobContent.employment.workloadPercentageMin && selectedJob.jobContent.employment.workloadPercentageMin !== "100")  ? selectedJob.jobContent.employment.workloadPercentageMin + "% - " : ""}
+            {selectedJob.jobContent.employment.workloadPercentageMax + "%"}
+          </span>
+          <span className="inline">
+            {selectedJob.jobContent.employment.immediately == true ? "Tout de suite" : (selectedJob.jobContent.employment.startDate ? selectedJob.jobContent.employment.startDate : "À convenir") }
+          </span>
+          <span className="inline">
+            {selectedJob.jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
+          </span>
+          <Typography>
+            {selectedJob.jobContent.jobDescriptions[0].description.length >= 280 ? selectedJob.jobContent.jobDescriptions[0].description.substring(0, 279) + "..." : selectedJob.jobContent.jobDescriptions[0].description}
           </Typography>
         </DialogContent>
       </Dialog>
