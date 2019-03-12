@@ -4,6 +4,7 @@ import { signupQuery } from "js/data";
 
 class UpContainer extends Container {
   state = {
+    dialogOpen: false,
     firstName: {
       value: "",
       valid: false
@@ -38,8 +39,21 @@ class UpContainer extends Container {
     }
   };
 
+  openDialog = e => {
+    this.setState({
+      dialogOpen: true
+    });
+  };
+
+  closeDialog = e => {
+    this.setState({
+      dialogOpen: false
+    });
+  };
+
   get valid() {
-    return Object.keys(this.state)
+    const s = Object.keys(this.state)
+    return s.slice(1, s.length)
       .map(x => this.state[x].valid)
       .reduce((acc, curr) => acc && curr);
   }
@@ -156,7 +170,7 @@ class UpContainer extends Container {
         this.state.plastaId.value,
         history
       );
-      history.push("/");
+      this.openDialog();
     } catch (err) {
       console.log(err.response);
       displayError(err.response.data.msg);

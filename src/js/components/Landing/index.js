@@ -1,7 +1,7 @@
 import React from 'react';
 import { Subscribe } from 'unstated'
 import AppContainer from 'js/containers/appContainer';
-import AnonLanding from './AnonLanding.';
+import AnonLanding from './AnonLanding';
 import AuthLanding from './AuthLanding';
 
 function Landing(props) {
