@@ -16,6 +16,10 @@ import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import { Button } from "@material-ui/core";
+import LoadingSeco from "./LoadingSeco";
+
 
 const styles = theme => ({
   root: {
@@ -71,15 +75,16 @@ function OpenPosition({ recomContainer, i }) {
 function JobResult({ recomContainer, job, rank, avam, classes }) {
   const { openPositions } = recomContainer.state;
   return (
-    <ExpansionPanel>
-      <ExpansionPanelSummary
-        expandIcon={<ExpandMoreIcon />}
-        onClick={_ => recomContainer.secoSearch(recomContainer, avam, rank - 1)}
-      >
+    <ExpansionPanel 
+      onChange={(event, expanded) => {
+        expanded ? recomContainer.secoSearch(recomContainer, avam, rank - 1) : null
+      }}>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Chip label={`Rank: ${rank}`} variant="outlined" />
         <Chip label={job} variant="outlined" />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
+        <LoadingSeco recomContainer={recomContainer} />
         <List component="nav" className={classes.root}>
           <OpenPosition recomContainer={recomContainer} i={rank - 1} />
         </List>
@@ -98,6 +103,11 @@ function JobDetail({ recomContainer }) {
   };
 
   if (selectedJob != null) {
+    
+    const jobContent = selectedJob.jobContent;
+    const applyChannel = jobContent.applyChannel;
+    
+
     return (
       <Dialog
             aria-labelledby={selectedJob.title}
@@ -106,61 +116,66 @@ function JobDetail({ recomContainer }) {
             onClose={handleClose}
             maxWidth={false}
       >
-        <DialogTitle align="center">
-          {selectedJob.jobContent.jobDescriptions[0].title}
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Fermer
+          </Button>
+        </DialogActions>
+        <DialogTitle align="left">
+          {jobContent.jobDescriptions[0].title}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={16}>
-            <Grid item xs={2}>
-            <Paper>
-                <span>
-                  <strong>{selectedJob.jobContent.company.name}</strong>
-                </span>
-                <Typography>
-                  {selectedJob.jobContent.company.street}
-                </Typography>
-                <Typography>
-                  {selectedJob.jobContent.postalCode} {selectedJob.jobContent.city}
-                </Typography>
-                <span>
-                  <strong>Votre personne de contact</strong>
-                </span>
-                <Typography>
-                 {selectedJob.jobContent.publicContact.salutation == "MS" ? "Madame" : "Monsieur"} {selectedJob.jobContent.publicContact.firstName} {selectedJob.jobContent.publicContact.lastName}
-                </Typography>
-                <Typography>
-                 {selectedJob.jobContent.publicContact.phone}
-                </Typography>
-                <Typography>
-                 {selectedJob.jobContent.publicContact.email}
-                </Typography>
-              </Paper>
+            <Grid item xs={3}>
+              <span>
+                <strong>{jobContent.company.name}</strong>
+              </span>
+              <Typography>
+                {jobContent.company.street}
+              </Typography>
+              <Typography>
+                {jobContent.company.postalCode} {jobContent.company.city}
+              </Typography>
+              <span>
+                <strong>{jobContent.publicContact ? "Votre personne de contact" : ""}</strong>
+              </span>
+              <Typography>
+                {jobContent.publicContact ? (
+                  (jobContent.publicContact.salutation == "MS" ? "Madame" : "Monsieur") + " " + jobContent.publicContact.firstName + " " + jobContent.publicContact.lastName
+                ) : ""}
+              </Typography>
+              <Typography>
+                {jobContent.publicContact ? jobContent.publicContact.phone : ""}
+              </Typography>
+              <Typography>
+                {jobContent.publicContact ? jobContent.publicContact.email : ""}
+              </Typography>
             </Grid>
             <Grid item xs={8}>
               <Typography>
-                {selectedJob.jobContent.jobDescriptions[0].title} 
+                {jobContent.jobDescriptions[0].title} 
               </Typography>
               <Typography>
                 Libre depuis : {selectedJob.createdTime ? new Date(selectedJob.createdTime).toLocaleDateString("fr-CH") : ""} 
               </Typography>
               <span className="inline">
-                <strong>{selectedJob.jobContent.company.name}</strong>
+                <strong>{jobContent.company.name}</strong>
               </span>
               <span className="inline">
-                {selectedJob.jobContent.location.postalCode} {selectedJob.jobContent.location.city} ({selectedJob.jobContent.location.cantonCode})
+                {jobContent.location.postalCode} {jobContent.location.city} ({jobContent.location.cantonCode})
               </span>
               <span className="inline">
-                {(selectedJob.jobContent.employment.workloadPercentageMin && selectedJob.jobContent.employment.workloadPercentageMin !== "100")  ? selectedJob.jobContent.employment.workloadPercentageMin + "% - " : ""}
-                {selectedJob.jobContent.employment.workloadPercentageMax + "%"}
+                {(jobContent.employment.workloadPercentageMin && jobContent.employment.workloadPercentageMin !== "100")  ? jobContent.employment.workloadPercentageMin + "% - " : ""}
+                {jobContent.employment.workloadPercentageMax + "%"}
               </span>
               <span className="inline">
-                {selectedJob.jobContent.employment.immediately == true ? "Tout de suite" : (selectedJob.jobContent.employment.startDate ? selectedJob.jobContent.employment.startDate : "À convenir") }
+                {jobContent.employment.immediately == true ? "Tout de suite" : (jobContent.employment.startDate ? jobContent.employment.startDate : "À convenir") }
               </span>
               <span className="inline">
-                {selectedJob.jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
+                {jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
               </span>
               <Typography>
-                {selectedJob.jobContent.jobDescriptions[0].description}
+                {jobContent.jobDescriptions[0].description}
               </Typography>
               <Typography>
                 Informations sur le poste 
@@ -171,7 +186,7 @@ function JobDetail({ recomContainer }) {
                 </strong>
               </span>
               <Typography>
-                {selectedJob.jobContent.location.postalCode} {selectedJob.jobContent.location.city} ({selectedJob.jobContent.location.cantonCode})
+                {jobContent.location.postalCode} {jobContent.location.city} ({jobContent.location.cantonCode})
               </Typography>
               <span>
                 <strong>
@@ -179,7 +194,7 @@ function JobDetail({ recomContainer }) {
                 </strong>
               </span>
               <Typography>
-                {selectedJob.jobContent.employment.immediately == true ? "Tout de suite" : (selectedJob.jobContent.employment.startDate ? selectedJob.jobContent.employment.startDate : "À convenir") }
+                {jobContent.employment.immediately == true ? "Tout de suite" : (jobContent.employment.startDate ? jobContent.employment.startDate : "À convenir") }
               </Typography>
               <span>
                 <strong>
@@ -187,8 +202,8 @@ function JobDetail({ recomContainer }) {
                 </strong>
               </span>
               <Typography>
-                {(selectedJob.jobContent.employment.workloadPercentageMin && selectedJob.jobContent.employment.workloadPercentageMin !== "100")  ? selectedJob.jobContent.employment.workloadPercentageMin + "% - " : ""}
-                {selectedJob.jobContent.employment.workloadPercentageMax + "%"}
+                {(jobContent.employment.workloadPercentageMin && jobContent.employment.workloadPercentageMin !== "100")  ? jobContent.employment.workloadPercentageMin + "% - " : ""}
+                {jobContent.employment.workloadPercentageMax + "%"}
               </Typography>
               <span>
                 <strong>
@@ -196,7 +211,7 @@ function JobDetail({ recomContainer }) {
                 </strong>
               </span>
               <Typography>
-                {selectedJob.jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
+                {jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
               </Typography>
               <Typography>
                 Connaissances linguistiques
@@ -211,45 +226,61 @@ function JobDetail({ recomContainer }) {
               </Typography>
               <span>
                 <strong>
-                {selectedJob.jobContent.applyChannel.emailAddress ? "Par courriel" : ""}
+                {applyChannel ? (applyChannel.emailAddress ? "Par courriel" : "") : ""}
                 </strong>
               </span>
               <Typography>
-                {selectedJob.jobContent.applyChannel.emailAddress ? selectedJob.jobContent.applyChannel.emailAddress : ""}
+                {applyChannel ? (applyChannel.emailAddress ? applyChannel.emailAddress : "") : ""}
               </Typography>
               <span>
                 <strong>
-                {selectedJob.jobContent.applyChannel.postAddress ? "Par courrier" : ""}
+                {applyChannel ? (applyChannel.postAddress ? "Par courrier" : "") : ""}
                 </strong>
               </span>
               <Typography>
-                {selectedJob.jobContent.applyChannel.postAddress ? (
-                  selectedJob.jobContent.applyChannel.postAddress.name ? selectedJob.jobContent.applyChannel.postAddress.name : ""
+                {applyChannel && applyChannel.postAddress ? (
+                  applyChannel.postAddress.name ? applyChannel.postAddress.name : ""
                 ) : ""
               }
               </Typography>
               <Typography>
-                {selectedJob.jobContent.applyChannel.postAddress ? (
-                  selectedJob.jobContent.applyChannel.postAddress.street && selectedJob.jobContent.applyChannel.postAddress.houseNumber ? 
-                    selectedJob.jobContent.applyChannel.postAddress.street + " " + selectedJob.jobContent.applyChannel.postAddress.houseNumber : ""
+                {applyChannel && applyChannel.postAddress ? (
+                  applyChannel.postAddress.street && applyChannel.postAddress.houseNumber ? 
+                    applyChannel.postAddress.street + " " + applyChannel.postAddress.houseNumber : ""
                   ) : ""
                 }
               </Typography>
               <Typography>
-              {selectedJob.jobContent.applyChannel.postAddress ? (
-                selectedJob.jobContent.applyChannel.postAddress.postalCode && selectedJob.jobContent.applyChannel.postAddress.city ? 
-                  selectedJob.jobContent.applyChannel.postAddress.postalCode + " " + selectedJob.jobContent.applyChannel.postAddress.city : ""
+              {applyChannel && applyChannel.postAddress ? (
+                applyChannel.postAddress.postalCode && applyChannel.postAddress.city ? 
+                  applyChannel.postAddress.postalCode + " " + applyChannel.postAddress.city : ""
                 ) : ""
               }
               </Typography>
               <Typography>
-              {selectedJob.jobContent.applyChannel.postAddress ? (
-                selectedJob.jobContent.applyChannel.postAddress.postOfficeBoxNumber ? selectedJob.jobContent.applyChannel.postAddress.postOfficeBoxNumber + " " + selectedJob.jobContent.applyChannel.postAddress.postOfficeBoxPostalCode + " " + selectedJob.jobContent.applyChannel.postAddress.postOfficeBoxCity : ""
+              {applyChannel && applyChannel.postAddress ? (
+                applyChannel.postAddress.postOfficeBoxNumber ? applyChannel.postAddress.postOfficeBoxNumber + " " + applyChannel.postAddress.postOfficeBoxPostalCode + " " + applyChannel.postAddress.postOfficeBoxCity : ""
                 ) : ""
               }
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
+              <Button
+              onClick={ () => {
+                recomContainer.handleJobApplication(
+                  {
+                    TYPE: 'JOB_APPLICATION',
+                    id: selectedJob.id,
+                    occupations: jobContent.occupations,
+                    timestamp: Date().toLocaleString()
+                  }
+                )}
+              }
+              color="primary"
+              size="medium"
+              variant="outlined">
+                <a href={jobContent.externalUrl} target="_blank">Postuler</a>
+              </Button>
             </Grid>
           </Grid>
         </DialogContent>

@@ -1,5 +1,5 @@
 import { Container } from 'unstated';
-import { recomQuery, searchQuery, secoQuery } from 'js/data';
+import { recomQuery, searchQuery, secoQuery, trackQuery } from 'js/data';
 
 class RecomContainer extends Container {
   state = {
@@ -11,7 +11,8 @@ class RecomContainer extends Container {
     vars: null,
     loading: false,
     openPositions: [],
-    selectedJob: null
+    selectedJob: null,
+    loadingSeco: false
   };
 
   handleSearch = async (value, displayError) => {
@@ -31,6 +32,7 @@ class RecomContainer extends Container {
   };
 
   secoSearch = async (recomContainer, avamList, i) => {
+    this.setState({ loadingSeco: true });
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
     for (let index = 0; index < avamList.length; index++) {
@@ -46,10 +48,11 @@ class RecomContainer extends Container {
       const newPos = this.state.openPositions;
       newPos[i] = positions
       await this.setState({
-        openPositions: newPos
+        openPositions: newPos,
+        loadingSeco:false
       });
     } catch (err) {
-      this.setState({ loading: false });
+      this.setState({ loadingSeco: false });
       console.log(err);
     }
   }
@@ -59,6 +62,21 @@ class RecomContainer extends Container {
       await recomContainer.setState({
         selectedJob: selectedJobObject
       });
+      const rest = await trackQuery({
+        TYPE: 'JOB_CLICK',
+        id: selectedJobObject.id,
+        occupations: selectedJobObject.occupations,
+        timestamp: Date().toLocaleString()
+      });
+    } catch (err) {
+      this.setState({ loading: false });
+      console.log(err);
+    }
+  };
+
+  handleJobApplication = async (data) => {
+    try {
+      const rest = await trackQuery(data);
     } catch (err) {
       this.setState({ loading: false });
       console.log(err);
