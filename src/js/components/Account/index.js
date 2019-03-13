@@ -19,7 +19,7 @@ function Account() {
               <Avatar>
                 <FaceIcon />
               </Avatar>
-              <ListItemText primary="First Name" secondary={appContainer.state.firstName} />
+              <ListItemText primary="Prénom" secondary={appContainer.state.firstName} />
             </ListItem>
             <li>
               <Divider variant="inset" />
@@ -28,7 +28,7 @@ function Account() {
               <Avatar>
                 <FaceIcon />
               </Avatar>
-              <ListItemText primary="Last Name" secondary={appContainer.state.lastName} />
+              <ListItemText primary="Nom" secondary={appContainer.state.lastName} />
             </ListItem>
             <li>
               <Divider variant="inset" />
@@ -46,7 +46,7 @@ function Account() {
               <Avatar>
                 <FaceIcon />
               </Avatar>
-              <ListItemText primary="Phone" secondary={appContainer.state.phone} />
+              <ListItemText primary="Numéro de téléphone" secondary={appContainer.state.phone} />
             </ListItem>
             <li>
               <Divider variant="inset" />

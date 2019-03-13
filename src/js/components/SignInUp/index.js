@@ -31,14 +31,14 @@ function SignInUp({ history, sign, from }) {
             <GrowTypo variant="subtitle1" color="inherit" grow={0}>
               <Link to="/signin" style={{ textDecoration: "none" }}>
                 {" "}
-                SIGN IN
+                SE CONNECTER
               </Link>
             </GrowTypo>
 
             <GrowTypo variant="subtitle1" color="inherit" grow={0}>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 {" "}
-                SIGN UP
+                SE INSCRIRE
               </Link>
             </GrowTypo>
           </MenuContainer>

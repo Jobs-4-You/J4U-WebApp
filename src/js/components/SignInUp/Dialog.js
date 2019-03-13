@@ -35,7 +35,7 @@ function D({ open, closeDialog }) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
-          SIGN IN
+          SE CONNECTER
         </Button>
       </DialogActions>
     </Dialog>

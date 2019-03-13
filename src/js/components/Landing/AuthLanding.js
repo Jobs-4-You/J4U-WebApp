@@ -5,6 +5,8 @@ import AppContainer from "js/containers/appContainer";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import CheckBox from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlank from '@material-ui/icons/CheckBoxOutlineBlank';
 
 const Container = styled("div")`
   margin: auto;
@@ -21,8 +23,11 @@ function AuthLanding({ appContainer }) {
             <br />
             <Divider />
             <br />
+            <Typography variant="title" paragraph={true}>
+              Liste de choses à faire
+            </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              You need to verify your account.
+              <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} /> Veuillez vérifier votre compte.
             </Typography>
             <br />
             <Divider />
@@ -34,31 +39,34 @@ function AuthLanding({ appContainer }) {
             <br />
             <Divider />
             <br />
+            <Typography variant="title" paragraph={true}>
+              Liste de choses à faire
+            </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              You need to complete the Qualtrics form by visiting: <br />
+            <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />  Veuillez remplir le formulaire Qualtrics en visitant : <br />
               <a
                 href={`https://fpse.qualtrics.com/jfe/form/SV_3VjBHgE8Lu9uICN?id=${
                   appContainer.state.surveyId
                 }`}
               >
-                Qualtrics Survey
+                Enquête
               </a>
             </Typography>
             <br />
             <Divider />
             <br />
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              If it's already done click on the button below to link your
-              account with the Qualtrics form data:
-            </Typography>
-            <Button
+              <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />Si c’est déjà fait, cliquez sur le bouton pour associer votre compte aux données du formulaire Qualtrics :
+              <Button
               onClick={appContainer.link}
               color="primary"
-              size="medium"
+              size="small"
               variant="outlined"
+              style={{marginLeft:'0.5rem'}}
             >
-              Link
+              Lien
             </Button>
+            </Typography>
             <br />
             <br />
             <br />
@@ -68,10 +76,11 @@ function AuthLanding({ appContainer }) {
         );
         const allRight = (
           <div>
+             <Typography variant="title" paragraph={true}>
+              Liste de choses à faire
+            </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              Welcome, you already have completed the Qualtrics survey and you
-              have verified your account. You can access the job recommendations
-              pannel.
+              <CheckBox fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} /> Bienvenue, vous avez déjà rempli le formulaire Qualtrics et votre compte a été vérifié. Vous pouvez accéder à vos recommandations professionnelles.
             </Typography>
             <Divider />
           </div>

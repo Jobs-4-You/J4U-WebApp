@@ -61,20 +61,20 @@ function SignIn({ classes, history, from }) {
               <LockIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              SE CONNECTER
             </Typography>
             <form className={classes.form}>
               <FormControl margin="normal" required error={!signContainer.state.email.valid} fullWidth>
-                <InputLabel htmlFor="email">Email Address</InputLabel>
+                <InputLabel htmlFor="email">Adresse Électronique</InputLabel>
                 <Input id="email" name="email" autoComplete="email" autoFocus value={signContainer.state.email.value} onChange={signContainer.handleEmailChange} />
               </FormControl>
               <FormControl margin="normal" required error={!signContainer.state.password.valid} fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
+                <InputLabel htmlFor="password">Mot de passe</InputLabel>
                 <Input name="password" type="password" id="password" autoComplete="current-password" value={signContainer.state.password.value} onChange={signContainer.handlePasswordChange} />
               </FormControl>
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                label="Se souvenir de moi"
               />
                 <Link to="signup" block={false}>
                   <Typography align="right" variant="button" inline={true} color="textPrimary">Créer un compte</Typography>
@@ -87,7 +87,7 @@ function SignIn({ classes, history, from }) {
                 color="primary"
                 className={classes.submit}
               >
-                Sign In
+                SE CONNECTER
               </Button>
             </form>
           </Paper>

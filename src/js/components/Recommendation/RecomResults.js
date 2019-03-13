@@ -289,7 +289,7 @@ function RecomRsults({ recomContainer }) {
   if (loading) {
     return (
       <ResContainer>
-        <FullTypo variant="title">Your recomendations</FullTypo>
+        <FullTypo variant="title">Vos recommandations</FullTypo>
         <Loader size={100} />
       </ResContainer>
     );
@@ -298,7 +298,7 @@ function RecomRsults({ recomContainer }) {
   if (jobs) {
     return (
       <ResContainer>
-        <FullTypo variant="title" align="center">Your recomendations</FullTypo>
+        <FullTypo variant="title" align="center">Vos recommandations</FullTypo>
         <br />
         <JobDetail recomContainer={recomContainer} />
         {jobs.map((job, i) => (

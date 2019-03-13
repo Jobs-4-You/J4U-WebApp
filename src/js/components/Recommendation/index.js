@@ -27,7 +27,7 @@ function Recommendation() {
           <div>
             <FormContainer>
               <Typography variant="title">
-                Job recommendation preferences
+                Préférences de Recommandation Professionnelle
               </Typography>
               <br />
               <AsyncSelect
@@ -69,7 +69,7 @@ function Recommendation() {
                 variant="contained"
                 color="secondary"
               >
-                RECOMMEND
+                Recommander
               </Submit>
               <br />
               <br />

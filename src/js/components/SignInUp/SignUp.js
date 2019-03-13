@@ -66,7 +66,7 @@ function SignUp({ classes, history }) {
               <LockIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Se inscrire
             </Typography>
             <form className={classes.form}>
               <FormControl
@@ -76,7 +76,7 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.firstName.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="firstName">First Name</InputLabel>
+                <InputLabel htmlFor="firstName">Prénom</InputLabel>
                 <Input
                   id="firstName"
                   name="firstName"
@@ -93,7 +93,7 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.lastName.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="firstName">Last Name</InputLabel>
+                <InputLabel htmlFor="firstName">Nom</InputLabel>
                 <Input
                   id="lastName"
                   name="lastName"
@@ -110,7 +110,7 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.phone.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="phone">Phone</InputLabel>
+                <InputLabel htmlFor="phone">Numéro de téléphone</InputLabel>
                 <Input
                   id="phone"
                   name="phone"
@@ -144,7 +144,7 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.emailConf.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="emailConf">Email Confirmation</InputLabel>
+                <InputLabel htmlFor="emailConf">Confirmation de l'émail</InputLabel>
                 <Input
                   id="emailConf"
                   name="emailConf"
@@ -161,7 +161,7 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.password.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="password">Password</InputLabel>
+                <InputLabel htmlFor="password">Mot de passe</InputLabel>
                 <Input
                   type="password"
                   id="password"
@@ -180,7 +180,7 @@ function SignUp({ classes, history }) {
                 fullWidth
               >
                 <InputLabel htmlFor="passwordConf">
-                  Password Confirmation
+                  Confirmation de mot de passe
                 </InputLabel>
                 <Input
                   type="password"
@@ -199,7 +199,7 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.plastaId.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="plastaId">Plasta ID</InputLabel>
+                <InputLabel htmlFor="plastaId">ID Plasta</InputLabel>
                 <Input
                   id="plastaId"
                   name="plastaId"
@@ -225,7 +225,7 @@ function SignUp({ classes, history }) {
                 color="primary"
                 className={classes.submit}
               >
-                Sign Up
+                Se Inscrire
               </Button>
             </form>
           </Paper>
