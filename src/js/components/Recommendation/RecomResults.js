@@ -6,7 +6,7 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import Grid from "@material-ui/core/Grid";
-import { ResContainer, Loader, FullTypo } from "./StyledParts";
+import { JobBit, Pre, ResContainer, Loader, FullTypo } from "./StyledParts";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
@@ -46,21 +46,21 @@ function OpenPosition({ recomContainer, i }) {
               {job.createdTime ? new Date(job.createdTime).toLocaleDateString("fr-CH") : ""} 
             </Typography>
             <span className="inline">
-              <strong>{job.jobContent.company.name}</strong>
+              <strong>{job.jobContent.company.name} &nbsp;</strong>
             </span>
-            <span className="inline">
+            <JobBit>
               {job.jobContent.location.postalCode} {job.jobContent.location.city} ({job.jobContent.location.cantonCode})
-            </span>
-            <span className="inline">
+            </JobBit>
+            <JobBit>
               {(job.jobContent.employment.workloadPercentageMin && job.jobContent.employment.workloadPercentageMin !== "100")  ? job.jobContent.employment.workloadPercentageMin + "% - " : ""}
               {job.jobContent.employment.workloadPercentageMax + "%"}
-            </span>
-            <span className="inline">
+            </JobBit>
+            <JobBit>
               {job.jobContent.employment.immediately == true ? "Tout de suite" : (job.jobContent.employment.startDate ? job.jobContent.employment.startDate : "À convenir") }
-            </span>
-            <span className="inline">
+            </JobBit>
+            <JobBit>
               {job.jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
-            </span>
+            </JobBit>
             <Typography>
               {job.jobContent.jobDescriptions[0].description.length >= 280 ? job.jobContent.jobDescriptions[0].description.substring(0, 279) + "..." : job.jobContent.jobDescriptions[0].description}
             </Typography>
@@ -121,122 +121,91 @@ function JobDetail({ recomContainer }) {
             Fermer
           </Button>
         </DialogActions>
-        <DialogTitle align="left">
-          {jobContent.jobDescriptions[0].title}
-        </DialogTitle>
         <DialogContent>
-          <Grid container spacing={16}>
-            <Grid item xs={3}>
-              <span>
-                <strong>{jobContent.company.name}</strong>
-              </span>
-              <Typography>
-                {jobContent.company.street}
-              </Typography>
-              <Typography>
-                {jobContent.company.postalCode} {jobContent.company.city}
-              </Typography>
-              <span>
-                <strong>{jobContent.publicContact ? "Votre personne de contact" : ""}</strong>
-              </span>
-              <Typography>
-                {jobContent.publicContact ? (
-                  (jobContent.publicContact.salutation == "MS" ? "Madame" : "Monsieur") + " " + jobContent.publicContact.firstName + " " + jobContent.publicContact.lastName
-                ) : ""}
-              </Typography>
-              <Typography>
-                {jobContent.publicContact ? jobContent.publicContact.phone : ""}
-              </Typography>
-              <Typography>
-                {jobContent.publicContact ? jobContent.publicContact.email : ""}
-              </Typography>
-            </Grid>
+        <Grid container spacing={16}>
             <Grid item xs={8}>
-              <Typography>
-                {jobContent.jobDescriptions[0].title} 
+              <Typography variant="title" paragraph={true}>
+                {jobContent.jobDescriptions[0].title}
               </Typography>
               <Typography>
-                Libre depuis : {selectedJob.createdTime ? new Date(selectedJob.createdTime).toLocaleDateString("fr-CH") : ""} 
+                  <strong>{jobContent.company.name}</strong> | Libre depuis : {selectedJob.createdTime ? new Date(selectedJob.createdTime).toLocaleDateString("fr-CH") : ""} 
               </Typography>
-              <span className="inline">
-                <strong>{jobContent.company.name}</strong>
-              </span>
-              <span className="inline">
-                {jobContent.location.postalCode} {jobContent.location.city} ({jobContent.location.cantonCode})
-              </span>
-              <span className="inline">
-                {(jobContent.employment.workloadPercentageMin && jobContent.employment.workloadPercentageMin !== "100")  ? jobContent.employment.workloadPercentageMin + "% - " : ""}
-                {jobContent.employment.workloadPercentageMax + "%"}
-              </span>
-              <span className="inline">
-                {jobContent.employment.immediately == true ? "Tout de suite" : (jobContent.employment.startDate ? jobContent.employment.startDate : "À convenir") }
-              </span>
-              <span className="inline">
-                {jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
-              </span>
-              <Typography>
-                {jobContent.jobDescriptions[0].description}
+              <Typography paragraph={true}>
+                <JobBit>
+                  {jobContent.location.postalCode} {jobContent.location.city} ({jobContent.location.cantonCode})
+                </JobBit>
+                <JobBit>
+                  {(jobContent.employment.workloadPercentageMin && jobContent.employment.workloadPercentageMin !== "100")  ? jobContent.employment.workloadPercentageMin + "% - " : ""}
+                  {jobContent.employment.workloadPercentageMax + "%"}
+                </JobBit>
+                <JobBit>
+                  {jobContent.employment.immediately == true ? "Tout de suite" : (jobContent.employment.startDate ? jobContent.employment.startDate : "À convenir") }
+                </JobBit>
+                <JobBit>
+                  {jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
+                </JobBit>
               </Typography>
-              <Typography>
+                <Pre>
+                  {jobContent.jobDescriptions[0].description}
+                </Pre>
+              <Typography variant="subheading">
                 Informations sur le poste 
               </Typography>
-              <span>
+              <Typography>
                 <strong>
                 Lieu de travail
                 </strong>
-              </span>
+              </Typography>
               <Typography>
                 {jobContent.location.postalCode} {jobContent.location.city} ({jobContent.location.cantonCode})
               </Typography>
-              <span>
+              <Typography>
                 <strong>
                 Entrée en fonction
                 </strong>
-              </span>
+              </Typography>
               <Typography>
                 {jobContent.employment.immediately == true ? "Tout de suite" : (jobContent.employment.startDate ? jobContent.employment.startDate : "À convenir") }
               </Typography>
-              <span>
+              <Typography>
                 <strong>
                 Taux d'occupation
                 </strong>
-              </span>
+              </Typography>
               <Typography>
                 {(jobContent.employment.workloadPercentageMin && jobContent.employment.workloadPercentageMin !== "100")  ? jobContent.employment.workloadPercentageMin + "% - " : ""}
                 {jobContent.employment.workloadPercentageMax + "%"}
               </Typography>
-              <span>
+              <Typography>
                 <strong>
                 Durée de l'engagement
                 </strong>
-              </span>
+              </Typography>
               <Typography>
                 {jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
               </Typography>
-              <Typography>
-                Connaissances linguistiques
+              <Typography variant="subheading">
+                <strong>Connaissances linguistiques</strong>
               </Typography>
-              <span>
-                <strong>
+              <Typography paragraph={true}>
                 Allemand
-                </strong>
-              </span>
-              <Typography>
+              </Typography>
+              <Typography variant="subheading">
                 Formes possibles de postulation 
               </Typography>
-              <span>
+              <Typography>
                 <strong>
                 {applyChannel ? (applyChannel.emailAddress ? "Par courriel" : "") : ""}
                 </strong>
-              </span>
+              </Typography>
               <Typography>
                 {applyChannel ? (applyChannel.emailAddress ? applyChannel.emailAddress : "") : ""}
               </Typography>
-              <span>
+              <Typography>
                 <strong>
                 {applyChannel ? (applyChannel.postAddress ? "Par courrier" : "") : ""}
                 </strong>
-              </span>
+              </Typography>
               <Typography>
                 {applyChannel && applyChannel.postAddress ? (
                   applyChannel.postAddress.name ? applyChannel.postAddress.name : ""
@@ -264,22 +233,46 @@ function JobDetail({ recomContainer }) {
               }
               </Typography>
             </Grid>
-            <Grid item xs={1}>
+
+            <Grid item xs={4}>
+              <Typography>
+                <strong>{jobContent.company.name}</strong>
+              </Typography>
+              <Typography>
+                {jobContent.company.street}
+              </Typography>
+              <Typography paragraph={true}>
+                {jobContent.company.postalCode} {jobContent.company.city}
+              </Typography>
+              <Typography>
+                <strong>{jobContent.publicContact ? "Votre personne de contact" : ""}</strong>
+              </Typography>
+              <Typography>
+                {jobContent.publicContact ? (
+                  (jobContent.publicContact.salutation == "MS" ? "Madame" : "Monsieur") + " " + jobContent.publicContact.firstName + " " + jobContent.publicContact.lastName
+                ) : ""}
+              </Typography>
+              <Typography>
+                {jobContent.publicContact ? jobContent.publicContact.phone : ""}
+              </Typography>
+              <Typography paragraph={true}>
+                {jobContent.publicContact ? jobContent.publicContact.email : ""}
+              </Typography>
               <Button
-              onClick={ () => {
-                recomContainer.handleJobApplication(
-                  {
-                    TYPE: 'JOB_APPLICATION',
-                    id: selectedJob.id,
-                    occupations: jobContent.occupations,
-                    timestamp: Date().toLocaleString()
-                  }
-                )}
-              }
-              color="primary"
-              size="medium"
-              variant="outlined">
-                <a href={jobContent.externalUrl} target="_blank">Postuler</a>
+                onClick={ () => {
+                  recomContainer.handleJobApplication(
+                    {
+                      TYPE: 'JOB_APPLICATION',
+                      id: selectedJob.id,
+                      occupations: jobContent.occupations,
+                      timestamp: Date().toLocaleString()
+                    }
+                  )}
+                }
+                color="primary"
+                size="medium"
+                variant="outlined">
+                  <a href={jobContent.externalUrl} target="_blank">Postuler</a>
               </Button>
             </Grid>
           </Grid>

@@ -34,3 +34,26 @@ export const Submit = styled(Button)`
 export const ResContainer = styled.div`
   margin: 50px;
 `;
+
+export const Pre = styled.pre`
+  white-space: pre-wrap;
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.46429em;
+`;
+
+export const JobBit = styled.span`
+  display: inline-block;
+  padding: .25em .4em;
+  font-size: 85%;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #eee;
+  font-weight: 400;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  margin-right: 0.5rem;
+`;
