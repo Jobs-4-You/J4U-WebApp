@@ -18,12 +18,25 @@ class AppContainer extends Container {
         alpha: 50,
         beta: 50,
         oldJobValue: null,
-        oldJobLabel: null
+        oldJobLabel: null,
+        drawerIsOpen: false
       };
 
   cacheState = () => {
     localStorage.setItem("appState", JSON.stringify(this.state));
   };
+
+  openDrawer = () => {
+    this.setState({
+      drawerIsOpen: true,
+    })
+  }
+
+  closeDrawer = () => {
+    this.setState({
+      drawerIsOpen: false,
+    })
+  }
 
   signin = async (user, password, history, from, displayError) => {
     try {
@@ -44,7 +57,7 @@ class AppContainer extends Container {
     }
   };
 
-  link = async () => {
+  link = async (displayError) => {
     try {
       const res = await linkQuery();
       this.cacheState();

@@ -36,16 +36,17 @@ const styles = theme => ({
 
 function OpenPosition({ recomContainer, i }) {
   const openPos  = recomContainer.state.openPositions[i];
+  console.log(openPos)
   if (openPos) {
-    return openPos.data.map(
+    return openPos.map(
       (job, i) =>
       <ListItem button key={i}>
         <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job)}>
             <Typography>
-              {job.jobContent.jobDescriptions[0].title} 
+              {job.jobContent.jobDescriptions[0].title}
             </Typography>
             <Typography>
-              {job.createdTime ? new Date(job.createdTime).toLocaleDateString("fr-CH") : ""} 
+              {job.createdTime ? new Date(job.createdTime).toLocaleDateString("fr-CH") : ""}
             </Typography>
             <span className="inline">
               <strong>{job.jobContent.company.name} &nbsp;</strong>
@@ -74,7 +75,7 @@ function OpenPosition({ recomContainer, i }) {
   }
 }
 
-function JobResult({ recomContainer, job, rank, avam, classes }) {
+function JobResult({ recomContainer, job, rank, avam, classes, errorContainer }) {
   const { openPositions } = recomContainer.state;
 
   const onPaginationChange = (page) => {
@@ -84,16 +85,16 @@ function JobResult({ recomContainer, job, rank, avam, classes }) {
       currentPage,
     }, () =>{recomContainer.secoSearch(recomContainer, avam, rank - 1)});
   }
-  
+
   const Center = {
     textAlign: 'center',
     display: recomContainer.state.openPositions[rank - 1] ? 'block' : 'none'
   };
 
   return (
-    <ExpansionPanel 
+    <ExpansionPanel
       onChange={(event, expanded) => {
-        expanded ? recomContainer.secoSearch(recomContainer, avam, rank - 1) : null
+        expanded ? recomContainer.secoSearch(recomContainer, avam, rank - 1, errorContainer.displayError) : null
       }}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Chip label={`Rank: ${rank}`} variant="outlined" />
@@ -133,10 +134,10 @@ function JobDetail({ recomContainer }) {
   };
 
   if (selectedJob != null) {
-    
+
     const jobContent = selectedJob.jobContent;
     const applyChannel = jobContent.applyChannel;
-    
+
 
     return (
       <Dialog
@@ -158,7 +159,7 @@ function JobDetail({ recomContainer }) {
                 {jobContent.jobDescriptions[0].title}
               </Typography>
               <Typography>
-                  <strong>{jobContent.company.name}</strong> | Libre depuis : {selectedJob.createdTime ? new Date(selectedJob.createdTime).toLocaleDateString("fr-CH") : ""} 
+                  <strong>{jobContent.company.name}</strong> | Libre depuis : {selectedJob.createdTime ? new Date(selectedJob.createdTime).toLocaleDateString("fr-CH") : ""}
               </Typography>
               <Typography paragraph={true}>
                 <JobBit>
@@ -179,7 +180,7 @@ function JobDetail({ recomContainer }) {
                   {jobContent.jobDescriptions[0].description}
                 </Pre>
               <Typography variant="subheading">
-                Informations sur le poste 
+                Informations sur le poste
               </Typography>
               <Typography>
                 <strong>
@@ -221,7 +222,7 @@ function JobDetail({ recomContainer }) {
                 Allemand
               </Typography>
               <Typography variant="subheading">
-                Formes possibles de postulation 
+                Formes possibles de postulation
               </Typography>
               <Typography>
                 <strong>
@@ -244,14 +245,14 @@ function JobDetail({ recomContainer }) {
               </Typography>
               <Typography>
                 {applyChannel && applyChannel.postAddress ? (
-                  applyChannel.postAddress.street && applyChannel.postAddress.houseNumber ? 
+                  applyChannel.postAddress.street && applyChannel.postAddress.houseNumber ?
                     applyChannel.postAddress.street + " " + applyChannel.postAddress.houseNumber : ""
                   ) : ""
                 }
               </Typography>
               <Typography>
               {applyChannel && applyChannel.postAddress ? (
-                applyChannel.postAddress.postalCode && applyChannel.postAddress.city ? 
+                applyChannel.postAddress.postalCode && applyChannel.postAddress.city ?
                   applyChannel.postAddress.postalCode + " " + applyChannel.postAddress.city : ""
                 ) : ""
               }
@@ -314,7 +315,7 @@ function JobDetail({ recomContainer }) {
   }
 }
 
-function RecomRsults({ recomContainer }) {
+function RecomRsults({ recomContainer, errorContainer }) {
   const { jobs, importance, vars, loading, avam, bfs } = recomContainer.state;
 
   if (loading) {
@@ -334,6 +335,7 @@ function RecomRsults({ recomContainer }) {
         <JobDetail recomContainer={recomContainer} />
         {jobs.map((job, i) => (
           <JobResult
+            errorContainer={errorContainer}
             job={job}
             rank={i + 1}
             key={i}

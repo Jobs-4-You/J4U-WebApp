@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Subscribe } from "unstated";
 import AppContainer from "js/containers/appContainer";
+import ErrorContainer from "js/containers/ErrorContainer";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -18,8 +19,8 @@ const LinkEnquete = {textDecoration:'none',color:'#2196f3'}
 
 function AuthLanding({ appContainer }) {
   return (
-    <Subscribe to={[AppContainer]}>
-      {appContainer => {
+    <Subscribe to={[AppContainer, ErrorContainer]}>
+      {(appContainer, errorContainer) => {
         const toVerify = (
           <div>
             <br />
@@ -46,7 +47,7 @@ function AuthLanding({ appContainer }) {
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
             <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />  Veuillez remplir le formulaire Qualtrics en visitant :
-              <Button 
+              <Button
                 color="primary"
                 size="small"
                 variant="outlined"
@@ -62,7 +63,7 @@ function AuthLanding({ appContainer }) {
             <Typography variant="subtitle1" color="inherit" grow={1}>
               <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />Si c’est déjà fait, cliquez sur le bouton pour associer votre compte aux données du formulaire Qualtrics :
               <Button
-              onClick={appContainer.link}
+              onClick={() => appContainer.link(errorContainer.displayError)}
               color="primary"
               size="small"
               variant="outlined"

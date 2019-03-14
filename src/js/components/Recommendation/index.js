@@ -78,7 +78,7 @@ function Recommendation() {
               <Divider />
               <br />
             </FormContainer>
-            <RecomResults recomContainer={recomContainer} />
+            <RecomResults recomContainer={recomContainer} errorContainer={errorContainer}/>
           </div>
         );
       }}

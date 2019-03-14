@@ -6,12 +6,12 @@ import SignInUp from "js/components/SignInUp";
 import { GrowTypo, Root, MenuButton } from "./StyledParts";
 import { Link } from "js/components/Divers/Link";
 
-function AnonHeader({ sign, from }) {
+function AnonHeader({ sign, from, openDrawer }) {
   return (
     <Root>
       <AppBar position="static">
         <Toolbar>
-          <MenuButton color="inherit" aria-label="Menu">
+          <MenuButton color="inherit" aria-label="Menu" onClick={openDrawer}>
             <MenuIcon />
           </MenuButton>
           <GrowTypo variant="h6" color="inherit" grow={1}>

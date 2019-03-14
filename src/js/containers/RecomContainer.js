@@ -1,7 +1,7 @@
 import { Container } from 'unstated';
 import { recomQuery, searchQuery, secoQuery, trackQuery } from 'js/data';
 
-/*  As we return 20 job group recommendations, 
+/*  As we return 20 job group recommendations,
     we initialize currentPage and totalSeco arrays with this number of integers
     currentPage needs to be initialized as 1 to work correctly
     totalSeco gets its value replaced as soon as SECO results are returned
@@ -19,6 +19,7 @@ class RecomContainer extends Container {
     vars: null,
     loading: false,
     openPositions: [],
+    totalCounts: [],
     selectedJob: null,
     loadingSeco: false,
     currentPage: currentPage,
@@ -41,7 +42,7 @@ class RecomContainer extends Container {
     }
   };
 
-  secoSearch = async (recomContainer, avamList, i) => {
+  secoSearch = async (recomContainer, avamList, i, displayError) => {
     this.setState({ loadingSeco: true });
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
@@ -54,16 +55,21 @@ class RecomContainer extends Container {
       );
     }
     try {
-      const positions = await secoQuery(professionCodes, recomContainer.state.currentPage[i]);
+      const res = await secoQuery(professionCodes, recomContainer.state.currentPage[i]);
+      console.log(res)
       const newPos = this.state.openPositions;
-      newPos[i] = positions
+      const counts = this.state.totalCounts;
+      newPos[i] = res.data.positions;
+      counts[i] = res.data.totalCount;
       await this.setState({
         openPositions: newPos,
+        totalCounts: counts,
         loadingSeco:false
       });
     } catch (err) {
       this.setState({ loadingSeco: false });
-      console.log(err);
+      console.log(err.response.data.msg);
+      displayError(err.response.data.msg);
     }
   }
 
@@ -110,7 +116,8 @@ class RecomContainer extends Container {
         isco08: res.data.isco08,
         avam: res.data.avam,
         bfs: res.data.bfs,
-        openPositions: Array.apply(null, Array(res.data.isco08.length))
+        openPositions: Array.apply(null, Array(res.data.isco08.length)),
+        totalCounts: Array.apply(null, Array(res.data.isco08.length))
       });
       appContainer.cacheState();
     } catch (err) {
