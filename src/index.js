@@ -145,10 +145,6 @@ const App = () => {
   return (
     <Subscribe to={[AppContainer, ErrorContainer]}>
       {(appContainer, errorContainer) => {
-        console.log(
-          errorContainer.state.message,
-          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-        );
         return (
           <div>
             <Error

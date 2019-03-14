@@ -46,8 +46,10 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
-  }
+  },
 });
+
+const linkCompte = {float: 'right', verticalAlign: 'middle', paddingTop: '1rem'};
 
 function SignIn({ classes, history, from }) {
 
@@ -76,8 +78,8 @@ function SignIn({ classes, history, from }) {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Se souvenir de moi"
               />
-                <Link to="signup" block={false}>
-                  <Typography align="right" variant="button" inline={true} color="textPrimary">Créer un compte</Typography>
+                <Link to="signup" style={linkCompte}>
+                  <Typography align="right" variant="button" paragraph={false} color="textPrimary">Créer un compte</Typography>
                 </Link>
               <Button
                 disabled={!signContainer.valid}

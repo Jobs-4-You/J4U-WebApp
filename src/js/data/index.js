@@ -74,7 +74,7 @@ const seco = axios.create({
   timeout: 5000
 });
 
-export function secoQuery(professionCodes) {
+export function secoQuery(professionCodes, currentPage) {
   var data = JSON.stringify({
     permanent: null,
     workloadPercentageMin: 0,
@@ -90,7 +90,7 @@ export function secoQuery(professionCodes) {
   return client({
     method: "post",
     url: "positions",
-    data: { codes: professionCodes }
+    data: { codes: professionCodes, currentPage: currentPage }
   });
 }
 

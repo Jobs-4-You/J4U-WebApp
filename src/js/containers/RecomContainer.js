@@ -12,7 +12,9 @@ class RecomContainer extends Container {
     loading: false,
     openPositions: [],
     selectedJob: null,
-    loadingSeco: false
+    loadingSeco: false,
+    currentPage: 1,
+    totalSeco: 100,
   };
 
   handleSearch = async (value, displayError) => {
@@ -44,7 +46,7 @@ class RecomContainer extends Container {
       );
     }
     try {
-      const positions = await secoQuery(professionCodes);
+      const positions = await secoQuery(professionCodes, recomContainer.state.currentPage);
       const newPos = this.state.openPositions;
       newPos[i] = positions
       await this.setState({

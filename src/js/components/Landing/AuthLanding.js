@@ -14,6 +14,8 @@ const Container = styled("div")`
   padding: 20px;
 `;
 
+const LinkEnquete = {textDecoration:'none',color:'#2196f3'}
+
 function AuthLanding({ appContainer }) {
   return (
     <Subscribe to={[AppContainer]}>
@@ -43,14 +45,16 @@ function AuthLanding({ appContainer }) {
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-            <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />  Veuillez remplir le formulaire Qualtrics en visitant : <br />
-              <a
-                href={`https://fpse.qualtrics.com/jfe/form/SV_3VjBHgE8Lu9uICN?id=${
-                  appContainer.state.surveyId
-                }`}
-              >
-                Enquête
-              </a>
+            <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />  Veuillez remplir le formulaire Qualtrics en visitant :
+              <Button 
+                color="primary"
+                size="small"
+                variant="outlined"
+                style={{marginLeft:'0.5rem'}}>
+                <a href={`https://fpse.qualtrics.com/jfe/form/SV_3VjBHgE8Lu9uICN?id=${appContainer.state.surveyId}`} style={LinkEnquete}>
+                  Enquête
+                </a>
+              </Button>
             </Typography>
             <br />
             <Divider />

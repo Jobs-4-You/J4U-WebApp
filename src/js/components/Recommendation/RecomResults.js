@@ -19,6 +19,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Button } from "@material-ui/core";
 import LoadingSeco from "./LoadingSeco";
+import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
 
 
 const styles = theme => ({
@@ -74,6 +76,18 @@ function OpenPosition({ recomContainer, i }) {
 
 function JobResult({ recomContainer, job, rank, avam, classes }) {
   const { openPositions } = recomContainer.state;
+
+  const onPaginationChange = (page) => {
+    recomContainer.setState({
+      currentPage: page,
+    }, () =>{recomContainer.secoSearch(recomContainer, avam, rank - 1)});
+  }
+  
+  const Center = {
+    textAlign: 'center',
+    display: recomContainer.state.openPositions[rank - 1] ? 'block' : 'none'
+  };
+
   return (
     <ExpansionPanel 
       onChange={(event, expanded) => {
@@ -86,7 +100,21 @@ function JobResult({ recomContainer, job, rank, avam, classes }) {
       <ExpansionPanelDetails>
         <LoadingSeco recomContainer={recomContainer} />
         <List component="nav" className={classes.root}>
+          <div style={Center}>
+            <Pagination
+              onChange={onPaginationChange}
+              current={recomContainer.state.currentPage}
+              total={recomContainer.state.totalSeco}
+              style={{display: 'inline-block'}} />
+          </div>
           <OpenPosition recomContainer={recomContainer} i={rank - 1} />
+          <div style={Center}>
+            <Pagination
+              onChange={onPaginationChange}
+              current={recomContainer.state.currentPage}
+              total={recomContainer.state.totalSeco}
+              style={{display: 'inline-block'}} />
+          </div>
         </List>
       </ExpansionPanelDetails>
     </ExpansionPanel>
@@ -286,6 +314,7 @@ function JobDetail({ recomContainer }) {
 
 function RecomRsults({ recomContainer }) {
   const { jobs, importance, vars, loading, avam, bfs } = recomContainer.state;
+
   if (loading) {
     return (
       <ResContainer>

@@ -6,9 +6,12 @@ import Button from '@material-ui/core/Button'
 import { GrowTypo, Root, MenuButton, AccountIcon } from './StyledParts'
 import { Link } from 'js/components/Divers/Link'
 
+const NavLink = {
+  textDecoration: 'none',
+  textTransform: 'uppercase'
+}
 
 function AuthHeader({ appContainer }) {
-  console.log(appContainer, '!!!!!')
   return (
     <Root>
       <AppBar position="static">
@@ -17,17 +20,17 @@ function AuthHeader({ appContainer }) {
             <MenuIcon />
           </MenuButton>
           <GrowTypo variant="h6" color="inherit" grow={0}>
-            <Link to="/" style={{ textDecoration: 'none' }}>J4U</Link>
+            <Link to="/" style={NavLink}>J4U</Link>
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={1}>
-            <Link to="/account" style={{ textDecoration: 'none' }}><AccountIcon /></Link>
+            <Link to="/account" style={NavLink}><AccountIcon /></Link>
             {`${appContainer.state.firstName} ${appContainer.state.lastName}`}
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={0}>
-            {appContainer.state.formDone ? <Link to="/recommendation" style={{ textDecoration: 'none' }}>Recommandation Professionnelle</Link> : null}
+            {appContainer.state.formDone ? <Link to="/recommendation" style={NavLink}>Recommandation Professionnelle</Link> : null}
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={0}>
-            <Link to="/logout" style={{ textDecoration: 'none' }}>Se Déconnecter</Link>
+            <Link to="/logout" style={NavLink}>Se Déconnecter</Link>
           </GrowTypo>
         </Toolbar>
       </AppBar>
