@@ -1,16 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 function LoadingSeco(recomContainer) {
+
+  const WrapLoading = {
+    paddingLeft: '1rem',
+    visibility: recomContainer.recomContainer.state.loadingSeco ? 'visible' : 'hidden'
+  };
     
-  if (recomContainer.recomContainer.state.loadingSeco) {
+  //if (recomContainer.recomContainer.state.loadingSeco) {
     return (
-        <div><CircularProgress/></div>
+        <span style={WrapLoading}><CircularProgress/></span>
     );
-  } else {
-      return null;
-  }
+  //} else {
+  //    return null;
+  //}
 }
 
 
