@@ -1,6 +1,14 @@
 import { Container } from 'unstated';
 import { recomQuery, searchQuery, secoQuery, trackQuery } from 'js/data';
 
+/*  As we return 20 job group recommendations, 
+    we initialize currentPage and totalSeco arrays with this number of integers
+    currentPage needs to be initialized as 1 to work correctly
+    totalSeco gets its value replaced as soon as SECO results are returned
+*/
+let currentPage = Array.from(new Array(20), () => 1);
+let totalSeco = Array.from(new Array(20), () => 100);
+
 class RecomContainer extends Container {
   state = {
     search: "",
@@ -13,8 +21,8 @@ class RecomContainer extends Container {
     openPositions: [],
     selectedJob: null,
     loadingSeco: false,
-    currentPage: 1,
-    totalSeco: 100,
+    currentPage: currentPage,
+    totalSeco: totalSeco,
   };
 
   handleSearch = async (value, displayError) => {
@@ -46,7 +54,7 @@ class RecomContainer extends Container {
       );
     }
     try {
-      const positions = await secoQuery(professionCodes, recomContainer.state.currentPage);
+      const positions = await secoQuery(professionCodes, recomContainer.state.currentPage[i]);
       const newPos = this.state.openPositions;
       newPos[i] = positions
       await this.setState({

@@ -78,8 +78,10 @@ function JobResult({ recomContainer, job, rank, avam, classes }) {
   const { openPositions } = recomContainer.state;
 
   const onPaginationChange = (page) => {
+    const { currentPage } = recomContainer.state;
+    currentPage[rank - 1] = page;
     recomContainer.setState({
-      currentPage: page,
+      currentPage,
     }, () =>{recomContainer.secoSearch(recomContainer, avam, rank - 1)});
   }
   
@@ -103,16 +105,16 @@ function JobResult({ recomContainer, job, rank, avam, classes }) {
           <div style={Center}>
             <Pagination
               onChange={onPaginationChange}
-              current={recomContainer.state.currentPage}
-              total={recomContainer.state.totalSeco}
+              current={recomContainer.state.currentPage[rank - 1]}
+              total={recomContainer.state.totalSeco[rank - 1]}
               style={{display: 'inline-block'}} />
           </div>
           <OpenPosition recomContainer={recomContainer} i={rank - 1} />
           <div style={Center}>
             <Pagination
               onChange={onPaginationChange}
-              current={recomContainer.state.currentPage}
-              total={recomContainer.state.totalSeco}
+              current={recomContainer.state.currentPage[rank - 1]}
+              total={recomContainer.state.totalSeco[rank - 1]}
               style={{display: 'inline-block'}} />
           </div>
         </List>
