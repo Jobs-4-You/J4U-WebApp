@@ -16,6 +16,9 @@ import Landing from "js/components/Landing";
 import Account from "js/components/Account";
 import Verified from "js/components/Verified";
 import Logout from "js/components/Logout";
+import Contact from "js/components/Contact";
+import About from "js/components/About";
+import Legal from "js/components/Legal";
 import history from "js/router";
 
 import Button from "@material-ui/core/Button";
@@ -85,6 +88,44 @@ const Home = ({ sign, location }) => {
       </Helmet>
       <Header sign={sign} from={location.state ? location.state.from : null} />
       <Landing />
+    </div>
+  );
+};
+
+const ContactView = () => {
+  return (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Contact</title>
+      </Helmet>
+      <Header />
+      <Contact />
+    </div>
+  );
+};
+const LegalView = () => {
+  return (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Legal</title>
+      </Helmet>
+      <Header />
+      <Legal />
+    </div>
+  );
+};
+
+const AboutView = () => {
+  return (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-About</title>
+      </Helmet>
+      <Header />
+      <About />
     </div>
   );
 };
@@ -170,6 +211,9 @@ const App = () => {
               />
               <Route exact path="/logout" component={LogoutView} />
               <Route exact path="/verified" component={VerifiedView} />
+              <Route exact path="/contact" component={ContactView} />
+              <Route exact path="/about" component={AboutView} />
+              <Route exact path="/legal" component={LegalView} />
               <PrivateRoute
                 authed={appContainer.state.formDone}
                 exact
