@@ -98,9 +98,9 @@ function JobResult({ recomContainer, job, rank, avam, classes }) {
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Chip label={`Rank: ${rank}`} variant="outlined" />
         <Chip label={job} variant="outlined" />
+        <LoadingSeco recomContainer={recomContainer} />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <LoadingSeco recomContainer={recomContainer} />
         <List component="nav" className={classes.root}>
           <div style={Center}>
             <Pagination
