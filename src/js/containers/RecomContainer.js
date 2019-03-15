@@ -8,7 +8,8 @@ import { recomQuery, searchQuery, secoQuery, trackQuery } from 'js/data';
 */
 let recomCount = 20;
 let currentPage = Array.from(new Array(recomCount), () => 1);
-let totalSeco = Array.from(new Array(recomCount), () => 100);
+let totalCounts = Array.from(new Array(recomCount), () => 100);
+let loadingSeco = Array.from(new Array(recomCount), () => false);
 
 class RecomContainer extends Container {
   state = {
@@ -22,9 +23,9 @@ class RecomContainer extends Container {
     openPositions: [],
     totalCounts: [],
     selectedJob: null,
-    loadingSeco: false,
+    loadingSeco: loadingSeco,
     currentPage: currentPage,
-    totalSeco: totalSeco,
+    totalCounts: totalCounts,
   };
 
   handleSearch = async (value, displayError) => {
@@ -44,7 +45,12 @@ class RecomContainer extends Container {
   };
 
   secoSearch = async (recomContainer, avamList, i, displayError) => {
-    this.setState({ loadingSeco: true });
+
+    // Updating the loader status for only one job title
+    const { loadingSeco } = this.state;
+    loadingSeco[i] = true;
+    
+    this.setState({ loadingSeco: loadingSeco });
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
     for (let index = 0; index < avamList.length; index++) {
@@ -57,18 +63,19 @@ class RecomContainer extends Container {
     }
     try {
       const res = await secoQuery(professionCodes, recomContainer.state.currentPage[i]);
-      console.log(res)
       const newPos = this.state.openPositions;
       const counts = this.state.totalCounts;
       newPos[i] = res.data.positions;
-      counts[i] = res.data.totalCount;
+      counts[i] = parseInt(res.data.totalCount) ? parseInt(res.data.totalCount) : 0;
+      loadingSeco[i] = false;
       await this.setState({
         openPositions: newPos,
         totalCounts: counts,
-        loadingSeco:false
+        loadingSeco:loadingSeco
       });
     } catch (err) {
-      this.setState({ loadingSeco: false });
+      loadingSeco[i] = false
+      this.setState({ loadingSeco: loadingSeco });
       console.log(err.response.data.msg);
       displayError(err.response.data.msg);
     }

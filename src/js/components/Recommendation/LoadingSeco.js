@@ -1,21 +1,15 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-function LoadingSeco(recomContainer) {
-
+function LoadingSeco(props) {
   const WrapLoading = {
     paddingLeft: '1rem',
-    visibility: recomContainer.recomContainer.state.loadingSeco ? 'visible' : 'hidden'
+    visibility: props.recomContainer.state.loadingSeco[props.jobIndex] ? 'visible' : 'hidden'
   };
     
-  //if (recomContainer.recomContainer.state.loadingSeco) {
-    return (
-        <span style={WrapLoading}><CircularProgress/></span>
-    );
-  //} else {
-  //    return null;
-  //}
+  return (
+      <span style={WrapLoading}><CircularProgress/></span>
+  );
 }
-
 
 export default LoadingSeco;

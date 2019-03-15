@@ -36,7 +36,6 @@ const styles = theme => ({
 
 function OpenPosition({ recomContainer, i }) {
   const openPos  = recomContainer.state.openPositions[i];
-  console.log(openPos)
   if (openPos) {
     return openPos.map(
       (job, i) =>
@@ -52,7 +51,7 @@ function OpenPosition({ recomContainer, i }) {
               <strong>{job.jobContent.company.name} &nbsp;</strong>
             </span>
             <JobBit>
-              {job.jobContent.location.postalCode} {job.jobContent.location.city} ({job.jobContent.location.cantonCode})
+              {job.jobContent.location ? job.jobContent.location.postalCode + " " + job.jobContent.location.city  + " " + job.jobContent.location.cantonCode : null})
             </JobBit>
             <JobBit>
               {(job.jobContent.employment.workloadPercentageMin && job.jobContent.employment.workloadPercentageMin !== "100")  ? job.jobContent.employment.workloadPercentageMin + "% - " : ""}
@@ -77,46 +76,60 @@ function OpenPosition({ recomContainer, i }) {
 
 function JobResult({ recomContainer, job, rank, avam, classes, errorContainer }) {
   const { openPositions } = recomContainer.state;
-
+  
+  // rank starts from 1, while result arrays are obviously indexed from 0
+  let jobIndex = rank - 1;
+  
   const onPaginationChange = (page) => {
     const { currentPage } = recomContainer.state;
-    currentPage[rank - 1] = page;
+    currentPage[jobIndex] = page;
     recomContainer.setState({
       currentPage,
-    }, () =>{recomContainer.secoSearch(recomContainer, avam, rank - 1)});
-  }
+    }, () =>{recomContainer.secoSearch(recomContainer, avam, jobIndex)});
+  };
 
   const Center = {
     textAlign: 'center',
-    display: recomContainer.state.openPositions[rank - 1] ? 'block' : 'none'
+    display: recomContainer.state.totalCounts[jobIndex] ? 'block' : 'none'
+  };
+
+  const noResults = {
+    display: recomContainer.state.totalCounts[jobIndex] === 0 ? 'block' : 'none',
+    textAlign: 'center'
   };
 
   return (
     <ExpansionPanel
       onChange={(event, expanded) => {
-        expanded ? recomContainer.secoSearch(recomContainer, avam, rank - 1, errorContainer.displayError) : null
+        expanded ? recomContainer.secoSearch(recomContainer, avam, jobIndex, errorContainer.displayError) : null
       }}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Chip label={`Rank: ${rank}`} variant="outlined" />
         <Chip label={job} variant="outlined" />
-        <LoadingSeco recomContainer={recomContainer} />
+        <LoadingSeco recomContainer={recomContainer} jobIndex={jobIndex} />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <List component="nav" className={classes.root}>
           <div style={Center}>
+            <Typography>{recomContainer.state.totalCounts[jobIndex]} résultats trouvés</Typography>
             <Pagination
               onChange={onPaginationChange}
-              current={recomContainer.state.currentPage[rank - 1]}
-              total={recomContainer.state.totalSeco[rank - 1]}
+              current={recomContainer.state.currentPage[jobIndex]}
+              total={recomContainer.state.totalCounts[jobIndex]}
               style={{display: 'inline-block'}} />
           </div>
-          <OpenPosition recomContainer={recomContainer} i={rank - 1} />
+
+          <OpenPosition recomContainer={recomContainer} i={jobIndex} />
+
           <div style={Center}>
             <Pagination
               onChange={onPaginationChange}
-              current={recomContainer.state.currentPage[rank - 1]}
-              total={recomContainer.state.totalSeco[rank - 1]}
+              current={recomContainer.state.currentPage[jobIndex]}
+              total={recomContainer.state.totalCounts[jobIndex]}
               style={{display: 'inline-block'}} />
+          </div>
+          <div style={noResults}>
+            <Typography>Aucun résultat trouvé pour ce poste spécifique.</Typography>
           </div>
         </List>
       </ExpansionPanelDetails>
