@@ -1,6 +1,8 @@
 import { Container } from "unstated";
-import { signinQuery, linkQuery } from "js/data";
+import { signinQuery, linkQuery, userInfosQuery } from "js/data";
 import history from "js/router";
+
+localStorage.clear();
 
 class AppContainer extends Container {
   state = localStorage.getItem("appState")
@@ -23,7 +25,8 @@ class AppContainer extends Container {
       };
 
   cacheState = () => {
-    localStorage.setItem("appState", JSON.stringify(this.state));
+    //localStorage.setItem("appState", JSON.stringify(this.state));
+    return
   };
 
   openDrawer = () => {
@@ -38,6 +41,19 @@ class AppContainer extends Container {
     })
   }
 
+  getInfos = async (displayError) => {
+    try {
+      const x = await userInfosQuery();
+      console.log(x.data);
+      await this.setState({
+        ...x.data
+      });
+    } catch (err) {
+      console.log(err);
+      displayError(err.response.data.msg);
+    }
+  };
+
   signin = async (user, password, history, from, displayError) => {
     try {
       const x = await signinQuery(user, password);
@@ -46,6 +62,8 @@ class AppContainer extends Container {
         ...x.data
       });
       this.cacheState();
+      console.log(x, 'asdfadfsdfa')
+      localStorage.setItem('accessToken', x.data.accessToken)
       if (from) {
         history.push(from.pathname);
       } else {

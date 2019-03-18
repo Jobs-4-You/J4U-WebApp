@@ -21,9 +21,8 @@ function errorResponseHandler(error) {
 
 client.interceptors.request.use(
   reqConfig => {
-    const user = JSON.parse(localStorage.getItem("appState"));
-    let accessToken = user ? user.accessToken : "";
-    accessToken = accessToken ? accessToken : "";
+    const a = localStorage.getItem('accessToken');
+    const accessToken = a ? a : '';
     reqConfig.headers.Authorization = `Bearer ${accessToken}`;
     return reqConfig;
   },
@@ -124,5 +123,12 @@ export function linkQuery(job) {
   return client({
     method: "get",
     url: "link"
+  });
+}
+
+export function userInfosQuery() {
+  return client({
+    method: "get",
+    url: "userinfos"
   });
 }
