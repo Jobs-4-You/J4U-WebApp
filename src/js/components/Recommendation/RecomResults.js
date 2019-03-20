@@ -12,15 +12,17 @@ import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grow from '@material-ui/core/Grow';
 import { Button } from "@material-ui/core";
 import LoadingSeco from "./LoadingSeco";
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
+import Languages from "./Languages";
 
 
 const styles = theme => ({
@@ -42,7 +44,7 @@ function OpenPosition({ recomContainer, i }) {
       <ListItem button key={i}>
         <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job)}>
             <Typography>
-              {job.jobContent.jobDescriptions[0].title}
+              <strong>{job.jobContent.jobDescriptions[0].title}</strong>
             </Typography>
             <Typography>
               {job.createdTime ? new Date(job.createdTime).toLocaleDateString("fr-CH") : ""}
@@ -142,16 +144,24 @@ function JobDetail({ recomContainer }) {
 
   const handleClose = () => {
     recomContainer.setState({
-      selectedJob: null
+      selectedJob: null,
+      applied: false
     });
   };
+
+  const postulation = {
+    marginTop: '1rem'
+  }
 
   if (selectedJob != null) {
 
     const jobContent = selectedJob.jobContent;
     const applyChannel = jobContent.applyChannel;
 
-
+    const postulerLink = {
+      textDecoration: "none",
+      color: "white"
+    }
     return (
       <Dialog
             aria-labelledby={selectedJob.title}
@@ -228,54 +238,18 @@ function JobDetail({ recomContainer }) {
               <Typography>
                 {jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
               </Typography>
-              <Typography variant="subheading">
-                <strong>Connaissances linguistiques</strong>
-              </Typography>
-              <Typography paragraph={true}>
-                Allemand
-              </Typography>
-              <Typography variant="subheading">
-                Formes possibles de postulation
-              </Typography>
-              <Typography>
-                <strong>
-                {applyChannel ? (applyChannel.emailAddress ? "Par courriel" : "") : ""}
-                </strong>
-              </Typography>
-              <Typography>
-                {applyChannel ? (applyChannel.emailAddress ? applyChannel.emailAddress : "") : ""}
-              </Typography>
-              <Typography>
-                <strong>
-                {applyChannel ? (applyChannel.postAddress ? "Par courrier" : "") : ""}
-                </strong>
-              </Typography>
-              <Typography>
-                {applyChannel && applyChannel.postAddress ? (
-                  applyChannel.postAddress.name ? applyChannel.postAddress.name : ""
-                ) : ""
+              
+              {jobContent.languageSkills !== undefined &&  jobContent.languageSkills.length !== 0  ? 
+                <Typography variant="subheading">
+                  <strong>Connaissances linguistiques</strong>
+                </Typography>
+              : null }
+              
+              {
+                jobContent.languageSkills.map((language, z) => (
+                  <Typography key={z}>{Languages[language.languageIsoCode]}</Typography>
+                ))
               }
-              </Typography>
-              <Typography>
-                {applyChannel && applyChannel.postAddress ? (
-                  applyChannel.postAddress.street && applyChannel.postAddress.houseNumber ?
-                    applyChannel.postAddress.street + " " + applyChannel.postAddress.houseNumber : ""
-                  ) : ""
-                }
-              </Typography>
-              <Typography>
-              {applyChannel && applyChannel.postAddress ? (
-                applyChannel.postAddress.postalCode && applyChannel.postAddress.city ?
-                  applyChannel.postAddress.postalCode + " " + applyChannel.postAddress.city : ""
-                ) : ""
-              }
-              </Typography>
-              <Typography>
-              {applyChannel && applyChannel.postAddress ? (
-                applyChannel.postAddress.postOfficeBoxNumber ? applyChannel.postAddress.postOfficeBoxNumber + " " + applyChannel.postAddress.postOfficeBoxPostalCode + " " + applyChannel.postAddress.postOfficeBoxCity : ""
-                ) : ""
-              }
-              </Typography>
             </Grid>
 
             <Grid item xs={4}>
@@ -288,22 +262,9 @@ function JobDetail({ recomContainer }) {
               <Typography paragraph={true}>
                 {jobContent.company.postalCode} {jobContent.company.city}
               </Typography>
-              <Typography>
-                <strong>{jobContent.publicContact ? "Votre personne de contact" : ""}</strong>
-              </Typography>
-              <Typography>
-                {jobContent.publicContact ? (
-                  (jobContent.publicContact.salutation == "MS" ? "Madame" : "Monsieur") + " " + jobContent.publicContact.firstName + " " + jobContent.publicContact.lastName
-                ) : ""}
-              </Typography>
-              <Typography>
-                {jobContent.publicContact ? jobContent.publicContact.phone : ""}
-              </Typography>
-              <Typography paragraph={true}>
-                {jobContent.publicContact ? jobContent.publicContact.email : ""}
-              </Typography>
               <Button
                 onClick={ () => {
+                  !jobContent.externalUrl ? recomContainer.setState({applied: true}) : {};
                   recomContainer.handleJobApplication(
                     {
                       TYPE: 'JOB_APPLICATION',
@@ -313,11 +274,73 @@ function JobDetail({ recomContainer }) {
                     }
                   )}
                 }
-                color="primary"
+                color="secondary"
                 size="medium"
-                variant="outlined">
-                  <a href={jobContent.externalUrl} target="_blank">Postuler</a>
+                variant="contained">
+                  <a href={jobContent.externalUrl} target="_blank" style={postulerLink}>Postuler</a>
               </Button>
+              <Grow in={recomContainer.state.applied}>
+                <Card style={postulation}>
+                  <CardContent>
+                    <Typography variant="subheading">
+                      Formes possibles de postulation
+                    </Typography>
+                    <Typography>
+                      <strong>
+                      {applyChannel ? (applyChannel.emailAddress ? "Par courriel" : "") : ""}
+                      </strong>
+                    </Typography>
+                    <Typography>
+                      {applyChannel ? (applyChannel.emailAddress ? applyChannel.emailAddress : "") : ""}
+                    </Typography>
+                    <Typography>
+                      <strong>
+                      {applyChannel ? (applyChannel.postAddress ? "Par courrier" : "") : ""}
+                      </strong>
+                    </Typography>
+                    <Typography>
+                      {applyChannel && applyChannel.postAddress ? (
+                        applyChannel.postAddress.name ? applyChannel.postAddress.name : ""
+                      ) : ""
+                    }
+                    </Typography>
+                    <Typography>
+                      {applyChannel && applyChannel.postAddress ? (
+                        applyChannel.postAddress.street && applyChannel.postAddress.houseNumber ?
+                          applyChannel.postAddress.street + " " + applyChannel.postAddress.houseNumber : ""
+                        ) : ""
+                      }
+                    </Typography>
+                    <Typography>
+                    {applyChannel && applyChannel.postAddress ? (
+                      applyChannel.postAddress.postalCode && applyChannel.postAddress.city ?
+                        applyChannel.postAddress.postalCode + " " + applyChannel.postAddress.city : ""
+                      ) : ""
+                    }
+                    </Typography>
+                    <Typography>
+                    {applyChannel && applyChannel.postAddress ? (
+                      applyChannel.postAddress.postOfficeBoxNumber ? applyChannel.postAddress.postOfficeBoxNumber + " " + applyChannel.postAddress.postOfficeBoxPostalCode + " " + applyChannel.postAddress.postOfficeBoxCity : ""
+                      ) : ""
+                    }
+                    </Typography>
+                    <Typography>
+                      <strong>{jobContent.publicContact ? "Votre personne de contact" : ""}</strong>
+                    </Typography>
+                    <Typography>
+                      {jobContent.publicContact ? (
+                        (jobContent.publicContact.salutation == "MS" ? "Madame" : "Monsieur") + " " + jobContent.publicContact.firstName + " " + jobContent.publicContact.lastName
+                      ) : ""}
+                    </Typography>
+                    <Typography>
+                      {jobContent.publicContact ? jobContent.publicContact.phone : ""}
+                    </Typography>
+                    <Typography paragraph={true}>
+                      {jobContent.publicContact ? jobContent.publicContact.email : ""}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grow>
             </Grid>
           </Grid>
         </DialogContent>

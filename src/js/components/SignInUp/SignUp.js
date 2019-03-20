@@ -59,7 +59,6 @@ function SignUp({ classes, history }) {
       {(appContainer, upContainer, errorContainer) => (
         <main className={classes.main}>
           <Dialog open={upContainer.state.dialogOpen} closeDialog={upContainer.closeDialog}/>
-          {console.log(upContainer, "-----")}
           <CssBaseline />
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -71,7 +70,6 @@ function SignUp({ classes, history }) {
             <form className={classes.form}>
               <FormControl
                 margin="normal"
-                autoFocus
                 required
                 error={!upContainer.state.firstName.valid}
                 fullWidth
@@ -80,8 +78,8 @@ function SignUp({ classes, history }) {
                 <Input
                   id="firstName"
                   name="firstName"
+                  autoFocus={true}
                   autoComplete="first-name"
-                  autoFocus
                   value={upContainer.state.firstName.value}
                   onChange={upContainer.handleFNameChange}
                 />
@@ -98,7 +96,6 @@ function SignUp({ classes, history }) {
                   id="lastName"
                   name="lastName"
                   autoComplete="last-name"
-                  autoFocus
                   value={upContainer.state.lastName.value}
                   onChange={upContainer.handleLNameChange}
                 />
@@ -110,12 +107,11 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.phone.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="phone">Numéro de téléphone</InputLabel>
+                <InputLabel htmlFor="phone">Numéro de téléphone portable</InputLabel>
                 <Input
                   id="phone"
                   name="phone"
                   autoComplete="phone"
-                  autoFocus
                   value={upContainer.state.phone.value}
                   onChange={upContainer.handlePhoneChange}
                 />
@@ -132,7 +128,6 @@ function SignUp({ classes, history }) {
                   id="email"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                   value={upContainer.state.email.value}
                   onChange={upContainer.handleEmailChange}
                 />
@@ -149,7 +144,6 @@ function SignUp({ classes, history }) {
                   id="emailConf"
                   name="emailConf"
                   autoComplete="email-conf"
-                  autoFocus
                   value={upContainer.state.emailConf.value}
                   onChange={upContainer.handleEmailConfChange}
                 />
@@ -167,7 +161,6 @@ function SignUp({ classes, history }) {
                   id="password"
                   name="password"
                   autoComplete="password"
-                  autoFocus
                   value={upContainer.state.password.value}
                   onChange={upContainer.handlePasswordChange}
                 />
@@ -187,7 +180,6 @@ function SignUp({ classes, history }) {
                   id="passwordConf"
                   name="passwordConf"
                   autoComplete="password-conf"
-                  autoFocus
                   value={upContainer.state.passwordConf.value}
                   onChange={upContainer.handlePasswordConfChange}
                 />

@@ -88,7 +88,8 @@ class UpContainer extends Container {
   };
 
   validatePhone = x => {
-    return validator.isMobilePhone(x);
+    let minimalPhoneLength = 9;
+    return x.length >= minimalPhoneLength;
   };
 
   handleEmailChange = e => {

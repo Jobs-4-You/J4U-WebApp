@@ -6,6 +6,7 @@ import { recomQuery, searchQuery, secoQuery, trackQuery } from 'js/data';
     currentPage needs to be initialized as 1 to work correctly
     totalSeco gets its value replaced as soon as SECO results are returned
 */
+
 let recomCount = 20;
 let currentPage = Array.from(new Array(recomCount), () => 1);
 let totalCounts = Array.from(new Array(recomCount), () => 100);
@@ -26,6 +27,7 @@ class RecomContainer extends Container {
     loadingSeco: loadingSeco,
     currentPage: currentPage,
     totalCounts: totalCounts,
+    applied: false
   };
 
   handleSearch = async (value, displayError) => {
