@@ -44,7 +44,6 @@ class AppContainer extends Container {
   getInfos = async (displayError) => {
     try {
       const x = await userInfosQuery();
-      console.log(x.data);
       await this.setState({
         ...x.data
       });
@@ -62,7 +61,6 @@ class AppContainer extends Container {
         ...x.data
       });
       this.cacheState();
-      console.log(x, 'asdfadfsdfa')
       localStorage.setItem('accessToken', x.data.accessToken)
       if (from) {
         history.push(from.pathname);

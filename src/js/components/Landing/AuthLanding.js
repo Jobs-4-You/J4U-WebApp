@@ -46,7 +46,7 @@ function AuthLanding({ appContainer }) {
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-            <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />  Veuillez remplir le formulaire Qualtrics en visitant :
+            <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />  Veuillez remplir le questionnaire initial, qui prend généralement entre 45 minutes et une heure :
               <Button
                 color="primary"
                 size="small"
@@ -61,7 +61,7 @@ function AuthLanding({ appContainer }) {
             <Divider />
             <br />
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />Si c’est déjà fait, cliquez sur le bouton pour associer votre compte aux données du formulaire Qualtrics :
+              <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} />Si c’est déjà fait, cliquez sur le bouton pour associer votre compte aux données du questionnaire :
               <Button
               onClick={() => appContainer.link(errorContainer.displayError)}
               color="primary"
@@ -85,7 +85,7 @@ function AuthLanding({ appContainer }) {
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              <CheckBox fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} /> Bienvenue, vous avez déjà rempli le formulaire Qualtrics et votre compte a été vérifié. Vous pouvez accéder à vos recommandations professionnelles.
+              <CheckBox fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} /> Bienvenue, vous avez déjà rempli le questionnaire initial et votre compte a été vérifié. Vous pouvez accéder à vos recommandations professionnelles.
             </Typography>
             <Divider />
           </div>

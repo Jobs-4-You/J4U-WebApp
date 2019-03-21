@@ -338,6 +338,12 @@ function JobDetail({ recomContainer }) {
                     <Typography paragraph={true}>
                       {jobContent.publicContact ? jobContent.publicContact.email : ""}
                     </Typography>
+                    <Button
+                      color="secondary"
+                      size="medium"
+                      variant="contained">
+                        Générer certificat
+                    </Button>
                   </CardContent>
                 </Card>
               </Grow>

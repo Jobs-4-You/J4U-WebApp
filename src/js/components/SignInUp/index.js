@@ -38,7 +38,7 @@ function SignInUp({ history, sign, from }) {
             <GrowTypo variant="subtitle1" color="inherit" grow={0}>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 {" "}
-                SE INSCRIRE
+                S'INSCRIRE
               </Link>
             </GrowTypo>
           </MenuContainer>

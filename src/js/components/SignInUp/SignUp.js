@@ -65,7 +65,7 @@ function SignUp({ classes, history }) {
               <LockIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Se inscrire
+              S'inscrire
             </Typography>
             <form className={classes.form}>
               <FormControl
@@ -217,7 +217,7 @@ function SignUp({ classes, history }) {
                 color="primary"
                 className={classes.submit}
               >
-                Se Inscrire
+                S'inscrire
               </Button>
             </form>
           </Paper>
