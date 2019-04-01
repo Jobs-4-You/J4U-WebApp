@@ -36,6 +36,10 @@ class UpContainer extends Container {
     plastaId: {
       value: "",
       valid: false
+    },
+    birthdate: {
+      value: "",
+      valid: false
     }
   };
 
@@ -78,6 +82,17 @@ class UpContainer extends Container {
 
   validateLName = x => {
     return validator.isAlpha(x);
+  };
+
+  handleBirthdateChange = e => {
+    const newValue = e.target.value;
+    this.setState({
+      birthdate: { value: newValue, valid: this.validateBirthdate(newValue) }
+    });
+  };
+
+  validateBirthdate = x => {
+    return validator.isBefore(x);
   };
 
   handlePhoneChange = e => {
@@ -156,7 +171,8 @@ class UpContainer extends Container {
   };
 
   validatePlastaId = x => {
-    return validator.isNumeric(x);
+    // Checking if the Plasta ID contains numbers, letters, and has a length of at least 7 characters
+    return x.match(/[a-z]/g) && x.match(/[0-9]/g) && x.length >= 7;
   };
 
   handleSubmit = async (e, appContainer, history, displayError) => {

@@ -6,6 +6,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
+import {Chat, VerifiedUser, Info} from "@material-ui/icons";
 import AppContainer from "js/containers/appContainer";
 import AnonHeader from "./AnonHeader";
 import AuthHeader from "./AuthHeader";
@@ -43,7 +44,7 @@ function ButtonAppBar({ sign, from }) {
                   <List>
                     <ListItem button>
                       <ListItemIcon>
-                        <InboxIcon />
+                        <Chat />
                       </ListItemIcon>
                       <ListItemText primary="Contact" onClick={() => history.push('/contact')}/>
                     </ListItem>
@@ -51,17 +52,17 @@ function ButtonAppBar({ sign, from }) {
                   <List>
                     <ListItem button>
                       <ListItemIcon>
-                        <InboxIcon />
+                        <Info />
                       </ListItemIcon>
-                      <ListItemText primary="About" onClick={() => history.push('/about')}/>
+                      <ListItemText primary="À propos" onClick={() => history.push('/about')}/>
                     </ListItem>
                   </List>
                   <List>
                     <ListItem button>
                       <ListItemIcon>
-                        <InboxIcon />
+                        <VerifiedUser />
                       </ListItemIcon>
-                      <ListItemText primary="Legal Infos" onClick={() => history.push('/legal')}/>
+                      <ListItemText primary="Informations légales " onClick={() => history.push('/legal')}/>
                     </ListItem>
                   </List>
                 </div>

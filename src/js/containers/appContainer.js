@@ -82,7 +82,7 @@ class AppContainer extends Container {
         this.cacheState();
       } else {
         alert(
-          "Malheureusement, nous n'avons pas pu associer votre compte. Veuillez compléter le formulaire Qualtrics jusqu'au bout puis réessayez."
+          "Malheureusement, nous n'avons pas pu associer votre compte. Veuillez compléter le formulaire jusqu'au bout puis réessayez."
         );
       }
     } catch (err) {

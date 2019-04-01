@@ -106,7 +106,7 @@ function JobResult({ recomContainer, job, rank, avam, classes, errorContainer })
         expanded ? recomContainer.secoSearch(recomContainer, avam, jobIndex, errorContainer.displayError) : null
       }}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <Chip label={`Rank: ${rank}`} variant="outlined" />
+        <Chip label={`Rang: ${rank}`} variant="outlined" />
         <Chip label={job} variant="outlined" />
         <LoadingSeco recomContainer={recomContainer} jobIndex={jobIndex} />
       </ExpansionPanelSummary>

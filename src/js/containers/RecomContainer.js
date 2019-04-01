@@ -1,5 +1,5 @@
 import { Container } from 'unstated';
-import { recomQuery, searchQuery, secoQuery, trackQuery } from 'js/data';
+import { recomQuery, searchQuery, secoQuery, trackQuery, locationsQuery } from 'js/data';
 
 /*  As we return 20 job group recommendations,
     we initialize currentPage and totalSeco arrays with this number of integers
@@ -45,6 +45,23 @@ class RecomContainer extends Container {
       displayError(err.response.data.msg);
     }
   };
+  
+  handleLocations = async (value, displayError) => {
+    try {
+      const res = await locationsQuery(value);
+      const options = res.data.map(v => {
+        return {
+          label: v.localities.city,
+          value: v.localities.communalCode
+        };
+      });
+      return options;
+    } catch (err) {
+      console.log(err.response.data.msg);
+      displayError(err.response.data.msg);
+    }
+  };
+  
 
   secoSearch = async (recomContainer, avamList, i, displayError) => {
 

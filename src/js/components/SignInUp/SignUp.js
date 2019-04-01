@@ -9,6 +9,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
+import TextField from "@material-ui/core/TextField";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -50,6 +51,9 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3
+  },
+  textField: {
+    width: '100%',
   }
 });
 
@@ -98,6 +102,26 @@ function SignUp({ classes, history }) {
                   autoComplete="last-name"
                   value={upContainer.state.lastName.value}
                   onChange={upContainer.handleLNameChange}
+                />
+              </FormControl>
+
+              <FormControl
+                margin="normal"
+                fullWidth
+                required
+                error={!upContainer.state.birthdate.valid}
+              >
+                <TextField
+                  id="birthdate"
+                  label="Date de naissance"
+                  type="date"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                  error={!upContainer.state.birthdate.valid}
+                  onChange={upContainer.handleBirthdateChange}
                 />
               </FormControl>
 
@@ -198,6 +222,7 @@ function SignUp({ classes, history }) {
                   autoComplete="plasta-id"
                   value={upContainer.state.plastaId.value}
                   onChange={upContainer.handlePlastaIdChange}
+                  placeholder="XX123456"
                 />
               </FormControl>
 

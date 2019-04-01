@@ -119,6 +119,16 @@ export function searchQuery(job) {
   });
 }
 
+export function locationsQuery(loc) {
+  return client({
+    method: "get",
+    url: "locations",
+    params: {
+      loc
+    }
+  });
+}
+
 export function linkQuery(job) {
   return client({
     method: "get",

@@ -14,7 +14,7 @@ const selectStyles = {
     ...base,
     opacity: state.isDisabled ? ".5" : "1",
     backgroundColor: "white",
-    zIndex: "999",
+    /*zIndex: "999",*/
     fontFamily: 'Roboto'
   })
 };
@@ -56,6 +56,17 @@ function Recommendation() {
                 value={Math.round(appContainer.state.beta)}
                 aria-labelledby="label"
                 onChange={appContainer.setBeta}
+              />
+              <AsyncSelect
+                cacheOptions
+                styles={selectStyles}
+                isClearable={true}
+                defaultInputValue="Neuchatel (NE)"
+                placeholder="Canton, Lieu de travail"
+                loadOptions={v =>
+                  recomContainer.handleLocations(v, errorContainer.displayError)
+                }
+                defaultOptions
               />
               <Submit
                 onClick={_ =>
