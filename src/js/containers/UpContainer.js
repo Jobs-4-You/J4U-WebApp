@@ -172,7 +172,7 @@ class UpContainer extends Container {
 
   validatePlastaId = x => {
     // Checking if the Plasta ID contains numbers, letters, and has a length of at least 7 characters
-    return x.match(/[a-z]/g) && x.match(/[0-9]/g) && x.length >= 7;
+    return (x.match(/[a-z]/g) || x.match(/[A-Z]/g)) && x.match(/[0-9]/g) && x.length >= 7;
   };
 
   handleSubmit = async (e, appContainer, history, displayError) => {

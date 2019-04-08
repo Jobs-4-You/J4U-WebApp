@@ -1,6 +1,7 @@
 import React from "react";
 import { Subscribe } from "unstated";
 import AsyncSelect from "react-select/lib/Async";
+import Select from "react-select/lib/Select";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import RecomContainer from "js/containers/RecomContainer";
@@ -18,6 +19,8 @@ const selectStyles = {
     fontFamily: 'Roboto'
   })
 };
+
+const defaultLocation = [{label:"Neuchâtel (NE)",value:"NE"}];
 
 function Recommendation() {
   return (
@@ -61,12 +64,12 @@ function Recommendation() {
                 cacheOptions
                 styles={selectStyles}
                 isClearable={true}
-                defaultInputValue="Neuchatel (NE)"
-                placeholder="Canton, Lieu de travail"
+                placeholder="Canton"
                 loadOptions={v =>
                   recomContainer.handleLocations(v, errorContainer.displayError)
                 }
                 defaultOptions
+                onChange={recomContainer.setLocation}
               />
               <Submit
                 onClick={_ =>
