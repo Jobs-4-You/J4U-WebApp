@@ -1,6 +1,7 @@
 import { Container } from "unstated";
-import { signinQuery, linkQuery, userInfosQuery } from "js/data";
+import { signinQuery, linkQuery, userInfosQuery, sendVericationQuery } from "js/data";
 import history from "js/router";
+import { sendVerificationQuery } from "../data";
 
 localStorage.clear();
 
@@ -10,6 +11,7 @@ class AppContainer extends Container {
     : {
         firstName: null,
         lastName: null,
+        birthDate: null,
         email: null,
         phone: null,
         accessToken: null,
@@ -90,6 +92,17 @@ class AppContainer extends Container {
       displayError(err.response.data.msg);
     }
   };
+
+  sendVerification = async (displayError) => {
+    try {
+      const res = await sendVerificationQuery();
+      this.cacheState();
+    } catch (err) {
+      console.log(err);
+      displayError(err.response.data.msg);
+    }
+  };
+
 
   setOldJobValue = job => {
     this.setState({

@@ -37,6 +37,15 @@ function Account() {
               <Avatar>
                 <FaceIcon />
               </Avatar>
+              <ListItemText primary="Date de naissance" secondary={appContainer.state.birthDate} />
+            </ListItem>
+            <li>
+              <Divider variant="inset" />
+            </li>
+            <ListItem>
+              <Avatar>
+                <FaceIcon />
+              </Avatar>
               <ListItemText primary="Email" secondary={appContainer.state.email} />
             </ListItem>
             <li>

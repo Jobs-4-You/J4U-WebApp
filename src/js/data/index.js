@@ -50,7 +50,8 @@ export function signupQuery(
   email,
   phone,
   password,
-  plastaId
+  plastaId,
+  birthDate,
 ) {
   const data = {
     firstName,
@@ -58,7 +59,8 @@ export function signupQuery(
     phone,
     email,
     password,
-    plastaId
+    plastaId,
+    birthDate,
   };
   console.log(data);
   return client({
@@ -140,5 +142,12 @@ export function userInfosQuery() {
   return client({
     method: "get",
     url: "userinfos"
+  });
+}
+
+export function sendVerificationQuery() {
+  return client({
+    method: "get",
+    url: "sendverification"
   });
 }

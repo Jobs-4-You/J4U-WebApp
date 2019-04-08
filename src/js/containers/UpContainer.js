@@ -185,6 +185,7 @@ class UpContainer extends Container {
         this.state.phone.value,
         this.state.password.value,
         this.state.plastaId.value,
+        this.state.birthdate.value,
         history
       );
       this.openDialog();

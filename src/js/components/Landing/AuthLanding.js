@@ -31,6 +31,15 @@ function AuthLanding({ appContainer }) {
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
               <CheckBoxOutlineBlank fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} /> Veuillez vérifier votre compte.
+              <Button
+              onClick={() => appContainer.sendVerification(errorContainer.displayError)}
+              color="primary"
+              size="small"
+              variant="outlined"
+              style={{marginLeft:'0.5rem'}}
+            >
+            Renvoyer
+            </Button>
             </Typography>
             <br />
             <Divider />
