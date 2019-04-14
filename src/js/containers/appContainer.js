@@ -1,7 +1,11 @@
 import { Container } from "unstated";
-import { signinQuery, linkQuery, userInfosQuery, sendVericationQuery } from "js/data";
+import {
+  signinQuery,
+  linkQuery,
+  userInfosQuery,
+  sendVerificationQuery
+} from "js/data";
 import history from "js/router";
-import { sendVerificationQuery } from "../data";
 
 localStorage.clear();
 
@@ -28,22 +32,22 @@ class AppContainer extends Container {
 
   cacheState = () => {
     //localStorage.setItem("appState", JSON.stringify(this.state));
-    return
+    return;
   };
 
   openDrawer = () => {
     this.setState({
-      drawerIsOpen: true,
-    })
-  }
+      drawerIsOpen: true
+    });
+  };
 
   closeDrawer = () => {
     this.setState({
-      drawerIsOpen: false,
-    })
-  }
+      drawerIsOpen: false
+    });
+  };
 
-  getInfos = async (displayError) => {
+  getInfos = async displayError => {
     try {
       const x = await userInfosQuery();
       await this.setState({
@@ -63,7 +67,7 @@ class AppContainer extends Container {
         ...x.data
       });
       this.cacheState();
-      localStorage.setItem('accessToken', x.data.accessToken)
+      localStorage.setItem("accessToken", x.data.accessToken);
       if (from) {
         history.push(from.pathname);
       } else {
@@ -75,7 +79,7 @@ class AppContainer extends Container {
     }
   };
 
-  link = async (displayError) => {
+  link = async displayError => {
     try {
       const res = await linkQuery();
       this.cacheState();
@@ -93,7 +97,7 @@ class AppContainer extends Container {
     }
   };
 
-  sendVerification = async (displayError) => {
+  sendVerification = async displayError => {
     try {
       const res = await sendVerificationQuery();
       this.cacheState();
@@ -102,7 +106,6 @@ class AppContainer extends Container {
       displayError(err.response.data.msg);
     }
   };
-
 
   setOldJobValue = job => {
     this.setState({

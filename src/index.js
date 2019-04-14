@@ -19,6 +19,7 @@ import Logout from "js/components/Logout";
 import Contact from "js/components/Contact";
 import About from "js/components/About";
 import Legal from "js/components/Legal";
+import Reset from "js/components/Reset";
 import history from "js/router";
 
 import Button from "@material-ui/core/Button";
@@ -89,6 +90,19 @@ const Home = ({ sign, location }) => {
       </Helmet>
       <Header sign={sign} from={location.state ? location.state.from : null} />
       <Landing />
+    </div>
+  );
+};
+
+const ResetView = ({ location }) => {
+  return (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Reset-Password</title>
+      </Helmet>
+      <Header />
+      <Reset token={location.search.slice(7, location.search.length)}/>
     </div>
   );
 };
@@ -215,6 +229,7 @@ const App = () => {
               <Route exact path="/contact" component={ContactView} />
               <Route exact path="/about" component={AboutView} />
               <Route exact path="/legal" component={LegalView} />
+              <Route exact path="/reset" component={ResetView} />
               <PrivateRoute
                 authed={appContainer.state.formDone}
                 exact

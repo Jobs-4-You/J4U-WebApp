@@ -1,6 +1,6 @@
 import React from "react";
 import { Subscribe } from "unstated";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,10 +11,8 @@ import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import AppContainer from "js/containers/appContainer";
-import SignContainer from "js/containers/SignContainer";
+import ResetContainer from "js/containers/ResetContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
-import DialogForgotten from "./DialogForgotten";
 
 const styles = theme => ({
   main: {
@@ -30,6 +28,8 @@ const styles = theme => ({
   },
   paper: {
     paddingTop: theme.spacing.unit * 8,
+    maxHeight: "98vh",
+    overflow: "auto",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -46,95 +46,68 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3
+  },
+  textField: {
+    width: "100%"
   }
 });
 
-const linkCompte = {
-  float: "right",
-  verticalAlign: "middle",
-  paddingTop: "1rem"
-};
-
-function SignIn({ classes, history, from }) {
+function Reset({ classes, token }) {
   return (
-    <Subscribe to={[AppContainer, SignContainer, ErrorContainer]}>
-      {(appContainer, signContainer, errorContainer) => (
+    <Subscribe to={[ResetContainer, ErrorContainer]}>
+      {(resetContainer, errorContainer) => (
         <main className={classes.main}>
-          <DialogForgotten
-            open={signContainer.state.dialogOpen}
-            closeDialog={signContainer.closeDialog}
-            value={signContainer.state.emailForgottenPwd}
-            valueChange={signContainer.emailForgottenPwdChange}
-            reset={signContainer.resetPassword}
-            displayError={errorContainer.displayError}
-          />
           <CssBaseline />
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              SE CONNECTER
+              Réinitialisation du mot de passe
             </Typography>
             <form className={classes.form}>
               <FormControl
                 margin="normal"
                 required
-                error={!signContainer.state.email.valid}
-                fullWidth
-              >
-                <InputLabel htmlFor="email">Adresse Électronique</InputLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  value={signContainer.state.email.value}
-                  onChange={signContainer.handleEmailChange}
-                />
-              </FormControl>
-              <FormControl
-                margin="normal"
-                required
-                error={!signContainer.state.password.valid}
+                error={!resetContainer.state.password.valid}
                 fullWidth
               >
                 <InputLabel htmlFor="password">Mot de passe</InputLabel>
                 <Input
-                  name="password"
                   type="password"
                   id="password"
-                  autoComplete="current-password"
-                  value={signContainer.state.password.value}
-                  onChange={signContainer.handlePasswordChange}
+                  name="password"
+                  autoComplete="password"
+                  value={resetContainer.state.password.value}
+                  onChange={resetContainer.handlePasswordChange}
                 />
               </FormControl>
-              <Button
-                onClick={signContainer.openDialog}
-                variant="text"
-                color="primary"
-                className={classes.submit}
+
+              <FormControl
+                margin="normal"
+                required
+                error={!resetContainer.state.passwordConf.valid}
+                fullWidth
               >
-                Renvoi du mot de passe
-              </Button>
-              <Link to="signup" style={linkCompte}>
-                <Typography
-                  align="right"
-                  variant="button"
-                  paragraph={false}
-                  color="textPrimary"
-                >
-                  Créer un compte
-                </Typography>
-              </Link>
+                <InputLabel htmlFor="passwordConf">
+                  Confirmation de mot de passe
+                </InputLabel>
+                <Input
+                  type="password"
+                  id="passwordConf"
+                  name="passwordConf"
+                  autoComplete="password-conf"
+                  value={resetContainer.state.passwordConf.value}
+                  onChange={resetContainer.handlePasswordConfChange}
+                />
+              </FormControl>
+
               <Button
-                disabled={!signContainer.valid}
+                disabled={!resetContainer.valid}
                 onClick={e =>
-                  signContainer.handleSubmit(
-                    e,
-                    appContainer,
-                    history,
-                    from,
+                  resetContainer.reset(
+                    token,
+                    resetContainer.state.password.value,
                     errorContainer.displayError
                   )
                 }
@@ -143,7 +116,7 @@ function SignIn({ classes, history, from }) {
                 color="primary"
                 className={classes.submit}
               >
-                SE CONNECTER
+                Réinitialiser
               </Button>
             </form>
           </Paper>
@@ -153,4 +126,4 @@ function SignIn({ classes, history, from }) {
   );
 }
 
-export default withStyles(styles)(withRouter(SignIn));
+export default withStyles(styles)(withRouter(Reset));

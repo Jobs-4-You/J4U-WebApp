@@ -1,48 +1,86 @@
-import { Container } from 'unstated';
-import validator from 'validator';
+import { Container } from "unstated";
+import { resetPasswordMailQuery } from "js/data";
+import validator from "validator";
 
 class SignContainer extends Container {
-
   state = {
+    dialogOpen: false,
+    emailForgottenPwd: '',
     email: {
-      value: '',
-      valid: false,
+      value: "",
+      valid: false
     },
     password: {
-      value: '',
-      valid: false,
-    },
+      value: "",
+      valid: false
+    }
+  };
+
+  openDialog = () => {
+    this.setState({dialogOpen: true})
+  }
+
+  closeDialog = () => {
+    this.setState({dialogOpen: false})
+  }
+
+  emailForgottenPwdChange = (e) => {
+    this.setState({emailForgottenPwd: e.target.value})
+  }
+
+  resetPassword = async (email, displayError) => {
+    try {
+      const res = await resetPasswordMailQuery(email);
+      this.openDialog()
+    } catch (err) {
+      console.log(err);
+      displayError(err.response.data.msg);
+    }
   };
 
 
-  validateEmail = (x) => {
+  validateEmail = x => {
     return validator.isEmail(x);
-  }
+  };
 
-  validatePassword = (x) => {
+  validatePassword = x => {
     return validator.isLength(x, { min: 4, max: 16 });
-  }
+  };
 
   get valid() {
-    return Object.keys(this.state).map(x => this.state[x].valid).reduce((acc, curr) => acc && curr);
+    const s = Object.keys(this.state)
+    return s.slice(2, s.length)
+      .map(x => this.state[x].valid)
+      .reduce((acc, curr) => acc && curr);
   }
 
-  handleEmailChange = (e) => {
+  handleEmailChange = e => {
     const newValue = e.target.value;
-    this.setState({ email: { value: newValue, valid: this.validateEmail(newValue) } })
-  }
+    this.setState({
+      email: { value: newValue, valid: this.validateEmail(newValue) }
+    });
+  };
 
-  handlePasswordChange = (e) => {
+  handlePasswordChange = e => {
     const newValue = e.target.value;
-    this.setState({ password: { value: e.target.value, valid: this.validatePassword(newValue) } })
-  }
+    this.setState({
+      password: {
+        value: e.target.value,
+        valid: this.validatePassword(newValue)
+      }
+    });
+  };
 
   handleSubmit = (e, appContainer, history, from, displayError) => {
     e.preventDefault();
-    appContainer.signin(this.state.email.value, this.state.password.value, history, from, displayError);
-  }
-
-
+    appContainer.signin(
+      this.state.email.value,
+      this.state.password.value,
+      history,
+      from,
+      displayError
+    );
+  };
 }
 
 export default SignContainer;

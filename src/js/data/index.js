@@ -152,3 +152,22 @@ export function sendVerificationQuery() {
     url: "sendverification"
   });
 }
+
+export function resetPasswordMailQuery(email) {
+  return client({
+    method: "get",
+    url: "resetpasswordmail",
+    params: {
+      email
+    }
+  });
+}
+
+export function resetPasswordQuery(data) {
+  console.log(data)
+  return client({
+    method: "post",
+    url: "resetpassword",
+    data
+  });
+}
