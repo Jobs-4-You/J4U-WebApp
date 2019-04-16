@@ -1,4 +1,8 @@
+import HMR from 'unstated-hmr'; // Just load the library before initializing the containers
 if (module.hot) module.hot.accept()
+const env = process.env.NODE_ENV;
+HMR.isEnabled = env === 'development';
+
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";

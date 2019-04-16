@@ -1,6 +1,9 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
   devtool: "source-map",
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {

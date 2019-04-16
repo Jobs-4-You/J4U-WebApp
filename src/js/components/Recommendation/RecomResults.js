@@ -78,10 +78,10 @@ function OpenPosition({ recomContainer, i }) {
 
 function JobResult({ recomContainer, job, rank, avam, classes, errorContainer }) {
   const { openPositions } = recomContainer.state;
-  
+
   // rank starts from 1, while result arrays are obviously indexed from 0
   let jobIndex = rank - 1;
-  
+
   const onPaginationChange = (page) => {
     const { currentPage } = recomContainer.state;
     currentPage[jobIndex] = page;
@@ -238,13 +238,13 @@ function JobDetail({ recomContainer }) {
               <Typography>
                 {jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
               </Typography>
-              
-              {jobContent.languageSkills !== undefined &&  jobContent.languageSkills.length !== 0  ? 
+
+              {jobContent.languageSkills !== undefined &&  jobContent.languageSkills.length !== 0  ?
                 <Typography variant="subheading">
                   <strong>Connaissances linguistiques</strong>
                 </Typography>
               : null }
-              
+
               {
                 jobContent.languageSkills.map((language, z) => (
                   <Typography key={z}>{Languages[language.languageIsoCode]}</Typography>
