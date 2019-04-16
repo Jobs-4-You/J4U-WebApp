@@ -35,7 +35,7 @@ function AnonLanding() {
           &nbsp;&nbsp;&nbsp;
           <img src="https://www.unige.ch/communication/files/1614/8890/7268/logo.jpg" />
         </Center>
-      </div>        
+      </div>
     </Container>
   )
 }
