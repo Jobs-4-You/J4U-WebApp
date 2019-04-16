@@ -63,12 +63,13 @@ function Recommendation() {
               <AsyncSelect
                 cacheOptions
                 styles={selectStyles}
-                isClearable={true}
+                isClearable={false}
                 placeholder="Canton"
                 loadOptions={v =>
                   recomContainer.handleLocations(v, errorContainer.displayError)
                 }
                 defaultOptions
+                defaultValue={defaultLocation}
                 onChange={recomContainer.setLocation}
               />
               <Submit

@@ -264,7 +264,7 @@ function JobDetail({ recomContainer }) {
               </Typography>
               <Button
                 onClick={ () => {
-                  !jobContent.externalUrl ? recomContainer.setState({applied: true}) : {};
+                  recomContainer.setState({applied: true});
                   recomContainer.handleJobApplication(
                     {
                       TYPE: 'JOB_APPLICATION',
@@ -277,7 +277,7 @@ function JobDetail({ recomContainer }) {
                 color="secondary"
                 size="medium"
                 variant="contained">
-                  <a href={jobContent.externalUrl} target="_blank" style={postulerLink}>Postuler</a>
+                  Postuler
               </Button>
               <Grow in={recomContainer.state.applied}>
                 <Card style={postulation}>
