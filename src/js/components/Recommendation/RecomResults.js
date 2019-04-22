@@ -268,9 +268,8 @@ function JobDetail({ recomContainer }) {
                   recomContainer.handleJobApplication(
                     {
                       TYPE: 'JOB_APPLICATION',
-                      id: selectedJob.id,
-                      occupations: jobContent.occupations,
-                      timestamp: Date().toLocaleString()
+                      JOBID: selectedJob.id,
+                      OCCUPATIONS: jobContent.occupations
                     }
                   )}
                 }
@@ -347,10 +346,9 @@ function JobDetail({ recomContainer }) {
                         recomContainer.handleJobApplication(
                           {
                             TYPE: 'EXTERNAL_APPLICATION',
-                            id: selectedJob.id,
-                            occupations: jobContent.occupations,
-                            url: jobContent.externalUrl || jobContent.applyChannel.formUrl,
-                            timestamp: Date().toLocaleString()
+                            JOBID: selectedJob.id,
+                            OCCUPATIONS: jobContent.occupations,
+                            EXTERNALURL: jobContent.externalUrl || jobContent.applyChannel.formUrl
                           }
                         );
                         window.open(jobContent.externalUrl || jobContent.applyChannel.formUrl,"_blank");

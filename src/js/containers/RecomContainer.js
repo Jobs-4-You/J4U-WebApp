@@ -85,6 +85,12 @@ class RecomContainer extends Container {
     }
     try {
       const res = await secoQuery(professionCodes, recomContainer.state.currentPage[i], recomContainer.state.locationValue);
+      const rest = await trackQuery({
+        TYPE: 'JOB_GROUP_NAVIGATION',
+        PROFESSIONCODES: professionCodes,
+        PAGE: recomContainer.state.currentPage[i],
+        LOCATION: recomContainer.state.locationValue
+      });
       const newPos = this.state.openPositions;
       const counts = this.state.totalCounts;
       newPos[i] = res.data.positions;
@@ -110,9 +116,8 @@ class RecomContainer extends Container {
       });
       const rest = await trackQuery({
         TYPE: 'JOB_CLICK',
-        id: selectedJobObject.id,
-        occupations: selectedJobObject.occupations,
-        timestamp: Date().toLocaleString()
+        JOBID: selectedJobObject.id,
+        OCCUPATIONS: selectedJobObject.occupations
       });
     } catch (err) {
       this.setState({ loading: false });
