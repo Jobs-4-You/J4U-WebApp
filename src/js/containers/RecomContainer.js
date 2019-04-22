@@ -26,8 +26,7 @@ class RecomContainer extends Container {
     selectedJob: null,
     loadingSeco: loadingSeco,
     currentPage: currentPage,
-    locationValue: null,
-    locationLabel:null,
+    locationValue: "NE",
     totalCounts: totalCounts,
     applied: false
   };
@@ -50,134 +49,16 @@ class RecomContainer extends Container {
 
   setLocation = location => {
     this.setState({
-      locationValue: location.value,
-      locationLabel: location.label
+      locationValue: location.value
     });
   };
   
   handleLocations = async (searched, displayError) => {
     try {
-      /*
-      const res = await locationsQuery(value);
-      const options = res.data.map(v => {
-        return {
-          label: v.localities.city,
-          value: v.localities.communalCode
-        };
-      });
-      */
-      let arr = [
-        {
-          label: "Tous les cantons",
-          value: ""
-        },
-        {
-          label: "Argovie (AG)",
-          value: "AG"
-        },
-        {
-          label: "Appenzell Rhodes-Intérieures (AI)",
-          value: "AI"
-        },
-        {
-          label: "Appenzell Rhodes-Extérieures (AR)",
-          value: "AR"
-        },
-        {
-          label: "Berne (BE)",
-          value: "BE"
-        },
-        {
-          label: "Bâle-Campagne (BL)",
-          value: "BL"
-        },
-        {
-          label: "Bâle-Ville (BS)",
-          value: "BS"
-        },
-        {
-          label: "Fribourg (FR)",
-          value: "FR"
-        },
-        {
-          label: "Genève (GE)",
-          value: "GE"
-        },
-        {
-          label: "Glaris (GL)",
-          value: "GL"
-        },
-        {
-          label: "Grisons (GR)",
-          value: "GR"
-        },
-        {
-          label: "Jura (JU)",
-          value: "JU"
-        },
-        {
-          label: "Lucerne (LU)",
-          value: "LU"
-        },
-        {
-          label: "Neuchâtel (NE)",
-          value: "NE"
-        },
-        {
-          label: "Nidwald (NW)",
-          value: "NW"
-        },
-        {
-          label: "Obwald (OW)",
-          value: "OW"
-        },
-        {
-          label: "Saint-Gall (SG)",
-          value: "SG"
-        },
-        {
-          label: "Schaffhouse (SH)",
-          value: "SH"
-        },
-        {
-          label: "Soleure (SO)",
-          value: "SO"
-        },
-        {
-          label: "Schwytz (SZ)",
-          value: "SZ"
-        },
-        {
-          label: "Thurgovie (TG)",
-          value: "TG"
-        },
-        {
-          label: "Tessin (TI)",
-          value: "TI"
-        },
-        {
-          label: "Uri (UR)",
-          value: "UR"
-        },
-        {
-          label: "Vaud (VD)",
-          value: "VD"
-        },
-        {
-          label: "Valais (VS)",
-          value: "VS"
-        },
-        {
-          label: "Zoug (ZG)",
-          value: "ZG"
-        },
-        {
-          label: "Zurich (ZH)",
-          value: "ZH"
-        }
-       ];
       
+      let arr = [{label:"Tous les cantons",value:""},{label:"Argovie (AG)",value:"AG"},{label:"Appenzell Rhodes-Intérieures (AI)",value:"AI"},{label:"Appenzell Rhodes-Extérieures (AR)",value:"AR"},{label:"Berne (BE)",value:"BE"},{label:"Bâle-Campagne (BL)",value:"BL"},{label:"Bâle-Ville (BS)",value:"BS"},{label:"Fribourg (FR)",value:"FR"},{label:"Genève (GE)",value:"GE"},{label:"Glaris (GL)",value:"GL"},{label:"Grisons (GR)",value:"GR"},{label:"Jura (JU)",value:"JU"},{label:"Lucerne (LU)",value:"LU"},{label:"Neuchâtel (NE)",value:"NE"},{label:"Nidwald (NW)",value:"NW"},{label:"Obwald (OW)",value:"OW"},{label:"Saint-Gall (SG)",value:"SG"},{label:"Schaffhouse (SH)",value:"SH"},{label:"Soleure (SO)",value:"SO"},{label:"Schwytz (SZ)",value:"SZ"},{label:"Thurgovie (TG)",value:"TG"},{label:"Tessin (TI)",value:"TI"},{label:"Uri (UR)",value:"UR"},{label:"Vaud (VD)",value:"VD"},{label:"Valais (VS)",value:"VS"},{label:"Zoug (ZG)",value:"ZG"},{label:"Zurich (ZH)",value:"ZH"}];
       return arr;
+
     } catch (err) {
       console.log(err.response.data.msg);
       displayError(err.response.data.msg);
@@ -248,15 +129,15 @@ class RecomContainer extends Container {
     }
   };
 
-  recommend = async (appContainer, displayError) => {
+  recommend = async (appContainer, recomContainer, displayError) => {
     try {
-      const { oldJobValue, oldJobLabel, locationValue, locationLabel, alpha, beta } = appContainer.state;
+      const { oldJobValue, oldJobLabel, alpha, beta } = appContainer.state;
+      const { locationValue } = this.state;
       await this.setState({ loading: true });
       const res = await recomQuery({
         oldJobValue,
         oldJobLabel,
         locationValue,
-        locationLabel,
         alpha,
         beta
       });

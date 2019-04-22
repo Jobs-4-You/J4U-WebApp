@@ -65,15 +65,15 @@ function Recommendation() {
                 styles={selectStyles}
                 isClearable={false}
                 placeholder="Canton"
-                loadOptions={v =>
-                  recomContainer.handleLocations(v, errorContainer.displayError)
+                loadOptions={v => 
+                    recomContainer.handleLocations(v, errorContainer.displayError)
                 }
                 defaultOptions
                 defaultValue={defaultLocation}
                 onChange={recomContainer.setLocation}
               />
               <Submit
-                onClick={_ =>
+                onClick={_ => 
                   recomContainer.recommend(
                     appContainer,
                     errorContainer.displayError

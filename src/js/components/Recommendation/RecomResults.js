@@ -343,10 +343,23 @@ function JobDetail({ recomContainer }) {
 
                     {jobContent.externalUrl || jobContent.applyChannel.formUrl ?
                     <Button
+                      onClick={() => {
+                        recomContainer.handleJobApplication(
+                          {
+                            TYPE: 'EXTERNAL_APPLICATION',
+                            id: selectedJob.id,
+                            occupations: jobContent.occupations,
+                            url: jobContent.externalUrl || jobContent.applyChannel.formUrl,
+                            timestamp: Date().toLocaleString()
+                          }
+                        );
+                        window.open(jobContent.externalUrl || jobContent.applyChannel.formUrl,"_blank");
+                      }
+                      }
                       color="secondary"
                       size="medium"
                       variant="contained">
-                        <a href={jobContent.externalUrl || jobContent.applyChannel.formUrl} target="_blank" style={postulerLink}>Site externe</a>
+                        Site externe
                     </Button>
                     : ""
                     }
