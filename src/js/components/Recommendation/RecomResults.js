@@ -53,7 +53,7 @@ function OpenPosition({ recomContainer, i }) {
               <strong>{job.jobContent.company.name} &nbsp;</strong>
             </span>
             <JobBit>
-              {job.jobContent.location ? job.jobContent.location.postalCode + " " + job.jobContent.location.city  + " " + job.jobContent.location.cantonCode : null})
+              {job.jobContent.location ? (job.jobContent.location.postalCode || "") + " " + (job.jobContent.location.city  || "") + " " + (job.jobContent.location.cantonCode || "") : {}}
             </JobBit>
             <JobBit>
               {(job.jobContent.employment.workloadPercentageMin && job.jobContent.employment.workloadPercentageMin !== "100")  ? job.jobContent.employment.workloadPercentageMin + "% - " : ""}
@@ -186,7 +186,7 @@ function JobDetail({ recomContainer }) {
               </Typography>
               <Typography paragraph={true}>
                 <JobBit>
-                  {jobContent.location.postalCode} {jobContent.location.city} ({jobContent.location.cantonCode})
+                  {(jobContent.location.postalCode || "")} {(jobContent.location.city || "")} ({(jobContent.location.cantonCode || "")})
                 </JobBit>
                 <JobBit>
                   {(jobContent.employment.workloadPercentageMin && jobContent.employment.workloadPercentageMin !== "100")  ? jobContent.employment.workloadPercentageMin + "% - " : ""}
@@ -243,7 +243,7 @@ function JobDetail({ recomContainer }) {
                 <Typography variant="subheading">
                   <strong>Connaissances linguistiques</strong>
                 </Typography>
-              : null }
+              : "" }
 
               {
                 jobContent.languageSkills.map((language, z) => (
@@ -263,7 +263,7 @@ function JobDetail({ recomContainer }) {
                 {jobContent.company.postalCode} {jobContent.company.city}
               </Typography>
               <Button
-                onClick={ () => {
+                onClick={() => {
                   recomContainer.setState({applied: true});
                   recomContainer.handleJobApplication(
                     {
@@ -276,15 +276,17 @@ function JobDetail({ recomContainer }) {
                 }
                 color="secondary"
                 size="medium"
+                disabled={recomContainer.state.applied}
                 variant="contained">
                   Postuler
               </Button>
               <Grow in={recomContainer.state.applied}>
                 <Card style={postulation}>
                   <CardContent>
-                    <Typography variant="subheading">
+                    <Typography variant="subheading" paragraph={true}>
                       Formes possibles de postulation
                     </Typography>
+                    
                     <Typography>
                       <strong>
                       {applyChannel ? (applyChannel.emailAddress ? "Par courriel" : "") : ""}
@@ -338,12 +340,26 @@ function JobDetail({ recomContainer }) {
                     <Typography paragraph={true}>
                       {jobContent.publicContact ? jobContent.publicContact.email : ""}
                     </Typography>
+
+                    {jobContent.externalUrl || jobContent.applyChannel.formUrl ?
+                    <Button
+                      color="secondary"
+                      size="medium"
+                      variant="contained">
+                        <a href={jobContent.externalUrl || jobContent.applyChannel.formUrl} target="_blank" style={postulerLink}>Site externe</a>
+                    </Button>
+                    : ""
+                    }
+                    
+                    {/*
                     <Button
                       color="secondary"
                       size="medium"
                       variant="contained">
                         Générer certificat
                     </Button>
+                    */}
+
                   </CardContent>
                 </Card>
               </Grow>

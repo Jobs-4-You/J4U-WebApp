@@ -34,7 +34,7 @@ function Recommendation() {
               </Typography>
               <br />
               <AsyncSelect
-                cacheOptions
+                cacheOptionscd 
                 styles={selectStyles}
                 defaultInputValue={appContainer.state.oldJobLabel}
                 loadOptions={v =>
