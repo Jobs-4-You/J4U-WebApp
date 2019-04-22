@@ -92,7 +92,8 @@ class UpContainer extends Container {
   };
 
   validateBirthdate = x => {
-    return validator.isBefore(x);
+    // Chosen date must be inferior or equal to (today - 18 years)
+    return new Date(x) <= (Date.now() - 567993600000)
   };
 
   handlePhoneChange = e => {
