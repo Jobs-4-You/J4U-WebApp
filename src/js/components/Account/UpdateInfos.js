@@ -13,9 +13,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppContainer from "js/containers/appContainer";
-import UpContainer from "js/containers/UpContainer";
+import UpContainer from "js/containers/UpdateContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
-import Dialog from "./Dialog";
 
 const styles = theme => ({
   main: {
@@ -51,23 +50,21 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   },
   textField: {
-    width: '100%',
+    width: "100%"
   }
 });
 
-function SignUp({ classes, history }) {
+function UpdateInfos({ classes, history }) {
   return (
     <Subscribe to={[AppContainer, UpContainer, ErrorContainer]}>
-      {(appContainer, upContainer, errorContainer) => (
+      {(appContainer, upContainer, errorContainer) => {
+        console.log(upContainer.state)
+        return (
         <main className={classes.main}>
-          <Dialog open={upContainer.state.dialogOpen} closeDialog={upContainer.closeDialog}/>
           <CssBaseline />
           <Paper className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockIcon />
-            </Avatar>
             <Typography component="h1" variant="h5">
-              S'inscrire
+              Modifier les informations du compte
             </Typography>
             <form className={classes.form}>
               <FormControl
@@ -115,9 +112,10 @@ function SignUp({ classes, history }) {
                   type="date"
                   className={classes.textField}
                   InputLabelProps={{
-                    shrink: true,
+                    shrink: true
                   }}
                   fullWidth
+                  value={new Date(upContainer.state.birthdate.value).toISOString().slice(0,10)}
                   error={!upContainer.state.birthdate.valid}
                   onChange={upContainer.handleBirthdateChange}
                 />
@@ -129,7 +127,9 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.phone.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="phone">Numéro de téléphone portable</InputLabel>
+                <InputLabel htmlFor="phone">
+                  Numéro de téléphone portable
+                </InputLabel>
                 <Input
                   id="phone"
                   name="phone"
@@ -161,7 +161,9 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.emailConf.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="emailConf">Confirmation de l'émail</InputLabel>
+                <InputLabel htmlFor="emailConf">
+                  Confirmation de l'émail
+                </InputLabel>
                 <Input
                   id="emailConf"
                   name="emailConf"
@@ -171,41 +173,6 @@ function SignUp({ classes, history }) {
                 />
               </FormControl>
 
-              <FormControl
-                margin="normal"
-                required
-                error={!upContainer.state.password.valid}
-                fullWidth
-              >
-                <InputLabel htmlFor="password">Mot de passe</InputLabel>
-                <Input
-                  type="password"
-                  id="password"
-                  name="password"
-                  autoComplete="password"
-                  value={upContainer.state.password.value}
-                  onChange={upContainer.handlePasswordChange}
-                />
-              </FormControl>
-
-              <FormControl
-                margin="normal"
-                required
-                error={!upContainer.state.passwordConf.valid}
-                fullWidth
-              >
-                <InputLabel htmlFor="passwordConf">
-                  Confirmation de mot de passe
-                </InputLabel>
-                <Input
-                  type="password"
-                  id="passwordConf"
-                  name="passwordConf"
-                  autoComplete="password-conf"
-                  value={upContainer.state.passwordConf.value}
-                  onChange={upContainer.handlePasswordConfChange}
-                />
-              </FormControl>
 
               <FormControl
                 margin="normal"
@@ -240,14 +207,14 @@ function SignUp({ classes, history }) {
                 color="primary"
                 className={classes.submit}
               >
-                S'inscrire
+                Mettre à jour
               </Button>
             </form>
           </Paper>
         </main>
-      )}
+      )}}
     </Subscribe>
   );
 }
 
-export default withStyles(styles)(withRouter(SignUp));
+export default withStyles(styles)(withRouter(UpdateInfos));

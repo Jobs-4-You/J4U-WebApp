@@ -70,6 +70,30 @@ export function signupQuery(
   });
 }
 
+export function updateQuery(
+  firstName,
+  lastName,
+  email,
+  phone,
+  plastaId,
+  birthDate,
+) {
+  const data = {
+    firstName,
+    lastName,
+    phone,
+    email,
+    plastaId,
+    birthDate,
+  };
+  console.log(data);
+  return client({
+    method: "post",
+    url: "update",
+    data: data
+  });
+}
+
 const seco = axios.create({
   baseURL: env == "development" ? "http://localhost:8000/https://www.job-room.ch/" : "https://j4u.unil.ch:8000/https://www.job-room.ch/",
   timeout: 5000

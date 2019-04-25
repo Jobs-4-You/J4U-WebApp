@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppContainer from "js/containers/appContainer";
 import SignContainer from "js/containers/SignContainer";
+import UpdateContainer from "js/containers/UpdateContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
 import DialogForgotten from "./DialogForgotten";
 
@@ -57,8 +58,8 @@ const linkCompte = {
 
 function SignIn({ classes, history, from }) {
   return (
-    <Subscribe to={[AppContainer, SignContainer, ErrorContainer]}>
-      {(appContainer, signContainer, errorContainer) => (
+    <Subscribe to={[AppContainer, SignContainer, ErrorContainer, UpdateContainer]}>
+      {(appContainer, signContainer, errorContainer, updateContainer) => (
         <main className={classes.main}>
           <DialogForgotten
             open={signContainer.state.dialogOpen}
@@ -135,7 +136,8 @@ function SignIn({ classes, history, from }) {
                     appContainer,
                     history,
                     from,
-                    errorContainer.displayError
+                    errorContainer.displayError,
+                    updateContainer
                   )
                 }
                 fullWidth

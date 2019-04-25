@@ -71,14 +71,15 @@ class SignContainer extends Container {
     });
   };
 
-  handleSubmit = (e, appContainer, history, from, displayError) => {
+  handleSubmit = (e, appContainer, history, from, displayError, updateContainer) => {
     e.preventDefault();
     appContainer.signin(
       this.state.email.value,
       this.state.password.value,
       history,
       from,
-      displayError
+      displayError,
+      updateContainer
     );
   };
 }
