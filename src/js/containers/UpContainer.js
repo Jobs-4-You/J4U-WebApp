@@ -3,6 +3,7 @@ import validator from "validator";
 import { signupQuery } from "js/data";
 
 class UpContainer extends Container {
+  
   state = {
     dialogOpen: false,
     firstName: {
@@ -42,7 +43,7 @@ class UpContainer extends Container {
       valid: false
     },
     group: {
-      value: "",
+      value: window.location.hash.match(/group=([^&#]*)/) ? window.location.hash.match(/group=([^&#]*)/)[1] : "",
       valid: true
     }
   };
