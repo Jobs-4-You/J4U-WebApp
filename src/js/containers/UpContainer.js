@@ -36,7 +36,7 @@ class UpContainer extends Container {
     },
     plastaId: {
       value: "",
-      valid: false
+      valid: true
     },
     birthdate: {
       value: "",
