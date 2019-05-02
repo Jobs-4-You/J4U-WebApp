@@ -100,8 +100,18 @@ function AuthLanding({ appContainer }) {
           </div>
         );
 
+        const blockedText = (
+          <div>
+            <Typography variant="subtitle1" color="inherit" grow={1}>
+              <CheckBox fontSize="large" style={{float:'left', clear:'none', marginRight:'0.5rem'}} /> Bienvenue. Votre compte est prêt pour la session initiale.
+            </Typography>
+          </div>
+        );
+
         let text;
-        if (appContainer.state.verified && appContainer.state.formDone) {
+        if (appContainer.state.blocked && appContainer.state.verified) {
+          text = blockedText;
+        } else if (appContainer.state.verified && appContainer.state.formDone) {
           text = allRight;
         } else if (!appContainer.state.verified) {
           text = toVerify;
