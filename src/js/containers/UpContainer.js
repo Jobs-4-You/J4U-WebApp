@@ -112,7 +112,12 @@ class UpContainer extends Container {
     const newValue = e.target.value;
     this.setState({
       email: { value: newValue, valid: this.validateEmail(newValue) }
-    });
+    }, () => {
+      // Revalidating the e-mail confirmation field for cases when users change the email input's value
+      this.setState({
+        emailConf: { value: this.state.emailConf.value, valid: this.validateEmailConf(this.state.emailConf.value) }
+      });
+    });    
   };
 
   validateEmail = x => {
@@ -133,10 +138,12 @@ class UpContainer extends Container {
   handlePasswordChange = e => {
     const newValue = e.target.value;
     this.setState({
-      password: {
-        value: e.target.value,
-        valid: this.validatePassword(newValue)
-      }
+      password: {value: e.target.value,valid: this.validatePassword(newValue)}
+    }, () => {
+      // Revalidating the password confirmation field for cases when users change the password input's value
+      this.setState({
+        passwordConf: { value: this.state.passwordConf.value, valid: this.validatePasswordConf(this.state.passwordConf.value) }
+      });
     });
   };
 
@@ -166,7 +173,7 @@ class UpContainer extends Container {
     this.setState({
       plastaId: {
         value: e.target.value,
-        valid: this.validatePlastaId(newValue)
+        valid: true
       }
     });
   };

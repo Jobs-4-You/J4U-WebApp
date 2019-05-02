@@ -55,6 +55,7 @@ const styles = theme => ({
   }
 });
 
+
 function SignUp({ classes, history }) {
   return (
     <Subscribe to={[AppContainer, UpContainer, ErrorContainer]}>
