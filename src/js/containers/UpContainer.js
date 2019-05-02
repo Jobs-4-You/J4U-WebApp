@@ -40,6 +40,10 @@ class UpContainer extends Container {
     birthdate: {
       value: "",
       valid: false
+    },
+    group: {
+      value: "",
+      valid: true
     }
   };
 
@@ -178,6 +182,15 @@ class UpContainer extends Container {
     });
   };
 
+  handleGroupChange = e => {
+    this.setState({
+      group: {
+        value: e.target.value,
+        valid: true
+      }
+    });
+  }
+
   validatePlastaId = x => {
     // Checking if the Plasta ID contains numbers, letters, and has a length of at least 7 characters
     return (x.match(/[a-z]/g) || x.match(/[A-Z]/g)) && x.match(/[0-9]/g) && x.length >= 7;
@@ -194,6 +207,7 @@ class UpContainer extends Container {
         this.state.password.value,
         this.state.plastaId.value,
         this.state.birthdate.value,
+        this.state.group.value,
         history
       );
       this.openDialog();
