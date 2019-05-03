@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Update</title>
+    <script>
+        function send() {
+            var data = {
+                    "field": document.getElementById("field").value,
+                    "value": document.getElementById("value").value,
+                    "group": document.getElementById("group").value,
+                    "password": document.getElementById("passoword").value
+                };
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+
+            xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                res = JSON.parse(this.responseText).response;
+                if (res.length > 0 && res[0].pwd_hash !== undefined) {
+                    res.forEach(function(v){ delete v.pwd_hash });
+                    document.getElementById("affectedrows").innerHTML = "";
+				    document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
+                } else if (res == "wrong password") {
+                    alert("Wrong password");
+                } else {
+                    alert("No records found for this group value");
+                }
+            }
+            });
+
+            xhr.open("POST", "http://" + window.location.hostname + ":5000/updategroup");
+            xhr.setRequestHeader("accept", "application/json, text/plain, */*");
+            xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+
+            xhr.send(JSON.stringify(data));
+
+        }
+
+        var _table_ = document.createElement('table'),
+        _tr_ = document.createElement('tr'),
+        _th_ = document.createElement('th'),
+        _td_ = document.createElement('td');
+
+        _table_.setAttribute('border', '1');
+
+        // Builds the HTML Table out of myList json data from Ivy restful service.
+        function buildHtmlTable(arr) {
+            var table = _table_.cloneNode(false),
+                columns = addAllColumnHeaders(arr, table);
+            for (var i=0, maxi=arr.length; i < maxi; ++i) {
+                var tr = _tr_.cloneNode(false);
+                for (var j=0, maxj=columns.length; j < maxj ; ++j) {
+                    var td = _td_.cloneNode(false);
+                        cellValue = arr[i][columns[j]];
+                    td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+            return table;
+        }
+        
+        // Adds a header row to the table and returns the set of columns.
+        // Need to do union of keys from all records as some records may not contain
+        // all records
+        function addAllColumnHeaders(arr, table)
+        {
+            var columnSet = [],
+                tr = _tr_.cloneNode(false);
+            for (var i=0, l=arr.length; i < l; i++) {
+                for (var key in arr[i]) {
+                    if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
+                        columnSet.push(key);
+                        var th = _th_.cloneNode(false);
+                        th.appendChild(document.createTextNode(key));
+                        tr.appendChild(th);
+                    }
+                }
+            }
+            table.appendChild(tr);
+            return columnSet;
+        }
+
+    </script>
+</head>
+<body>
+
+<div>
+    <form action="." method="post">
+        <fieldset>
+            <legend>Update form</legend>
+            <p>
+                <label>Field</label>
+                <select id="field">
+                    <option value="blocked">blocked</option>
+                    <option value="fixedOldJobValue">fixedOldJobValue</option>
+                    <option value="fixedAlphaBeta">fixedAlphaBeta</option>
+                </select>
+            </p>
+            <p>
+                <label>Value</label>
+                <select id="value">
+                    <option value="1">true</option>
+                    <option value="0">false</option>
+                </select>
+            </p>
+            <p>
+                <label>Group code</label>
+                <input type="text" id="group">
+            </p>
+        </fieldset>
+        <fieldset>
+            <p>
+                <label>Your password</label>
+                <input type="password" id="passoword">
+            </p>
+        </fieldset>
+        <p>
+            <button type="button" onclick="send()">Submit</button>
+        </p>
+    </form>
+</div>
+
+<div id="affectedrows"></div>
+
+</body>
+</html>
