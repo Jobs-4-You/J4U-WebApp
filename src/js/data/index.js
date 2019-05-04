@@ -52,6 +52,7 @@ export function signupQuery(
   password,
   plastaId,
   birthDate,
+  group
 ) {
   const data = {
     firstName,
@@ -61,6 +62,7 @@ export function signupQuery(
     password,
     plastaId,
     birthDate,
+    group
   };
   console.log(data);
   return client({

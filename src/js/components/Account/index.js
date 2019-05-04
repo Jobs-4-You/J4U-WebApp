@@ -10,6 +10,7 @@ import AppContainer from "js/containers/appContainer";
 import UpdateContainer from "js/containers/UpdateContainer";
 import UpdateInfos from "./UpdateInfos";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -29,15 +30,21 @@ class UpdateDialog extends React.Component {
     this.setState({ open: false });
   };
 
+  const 
+
   render() {
     return (
-      <div>
+      <Paper
+        align="center"
+        elevation={0}
+        square={true}
+        style={{padding: "1rem 0"}}>
         <Button
           variant="outlined"
           color="primary"
           onClick={this.handleClickOpen}
         >
-        Modifer les informations
+        Modifier les informations
         </Button>
         <Dialog
           open={this.state.open}
@@ -46,7 +53,7 @@ class UpdateDialog extends React.Component {
         >
             <UpdateInfos />
         </Dialog>
-      </div>
+      </Paper>
     );
   }
 }

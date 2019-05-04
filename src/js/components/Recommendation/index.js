@@ -15,10 +15,21 @@ const selectStyles = {
     ...base,
     opacity: state.isDisabled ? ".5" : "1",
     backgroundColor: "white",
-    /*zIndex: "999",*/
+    zIndex: "999",
     fontFamily: 'Roboto'
   })
 };
+
+const locationStyles = {
+  container: (base, state) => ({
+    ...base,
+    opacity: state.isDisabled ? ".5" : "1",
+    backgroundColor: "white",
+    zIndex: "998",
+    fontFamily: 'Roboto'
+  })
+};
+
 
 const defaultLocation = [{label:"Neuchâtel (NE)",value:"NE"}];
 
@@ -62,7 +73,7 @@ function Recommendation() {
               />
               <AsyncSelect
                 cacheOptions
-                styles={selectStyles}
+                styles={locationStyles}
                 isClearable={false}
                 placeholder="Canton"
                 loadOptions={v => 

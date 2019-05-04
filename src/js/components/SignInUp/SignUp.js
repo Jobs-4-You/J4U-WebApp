@@ -56,6 +56,7 @@ const styles = theme => ({
 });
 
 function SignUp({ classes, history }) {
+  
   return (
     <Subscribe to={[AppContainer, UpContainer, ErrorContainer]}>
       {(appContainer, upContainer, errorContainer) => (
@@ -209,7 +210,6 @@ function SignUp({ classes, history }) {
 
               <FormControl
                 margin="normal"
-                required
                 error={!upContainer.state.plastaId.valid}
                 fullWidth
               >
@@ -221,6 +221,19 @@ function SignUp({ classes, history }) {
                   value={upContainer.state.plastaId.value}
                   onChange={upContainer.handlePlastaIdChange}
                   placeholder="XX123456"
+                />
+              </FormControl>
+
+              <FormControl
+                margin="normal"
+                fullWidth
+              >
+                <InputLabel htmlFor="group">Group</InputLabel>
+                <Input
+                  id="group"
+                  name="group"
+                  value={upContainer.state.group.value}
+                  onChange={upContainer.handleGroupChange}
                 />
               </FormControl>
 

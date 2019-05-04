@@ -3,6 +3,7 @@ import { Subscribe } from "unstated";
 import { withRouter, Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
@@ -46,14 +47,23 @@ const styles = theme => ({
     marginTop: theme.spacing.unit
   },
   submit: {
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3
   }
 });
 
 const linkCompte = {
-  float: "right",
-  verticalAlign: "middle",
-  paddingTop: "1rem"
+  textAlign: "center",
+  paddingTop: "1rem",
+  paddingBottom: "1rem",
+  textDecoration: "none",
+  color: "#2196f3",
+  clear: "both",
+  display:"block",
+  fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+  fontSize: "0.875rem",
+  fontWeight: "500",
+  textTransform: "uppercase"
 };
 
 function SignIn({ classes, history, from }) {
@@ -110,24 +120,7 @@ function SignIn({ classes, history, from }) {
                   onChange={signContainer.handlePasswordChange}
                 />
               </FormControl>
-              <Button
-                onClick={signContainer.openDialog}
-                variant="text"
-                color="primary"
-                className={classes.submit}
-              >
-                Renvoi du mot de passe
-              </Button>
-              <Link to="signup" style={linkCompte}>
-                <Typography
-                  align="right"
-                  variant="button"
-                  paragraph={false}
-                  color="textPrimary"
-                >
-                  Créer un compte
-                </Typography>
-              </Link>
+              
               <Button
                 disabled={!signContainer.valid}
                 onClick={e =>
@@ -147,6 +140,26 @@ function SignIn({ classes, history, from }) {
               >
                 SE CONNECTER
               </Button>
+
+              <Button
+                onClick={signContainer.openDialog}
+                variant="text"
+                align="center"
+                textAlign="center"
+                style={linkCompte}
+                fullWidth
+              >
+                Mot de passe oublié?
+              </Button>
+
+              <Divider variant="inset" />
+
+              <Link to="signup"
+                style={linkCompte}
+                paragraph={true}>
+                  Créer un compte
+              </Link>
+              
             </form>
           </Paper>
         </main>

@@ -3,6 +3,7 @@ import validator from "validator";
 import { signupQuery } from "js/data";
 
 class UpContainer extends Container {
+  
   state = {
     dialogOpen: false,
     firstName: {
@@ -35,11 +36,15 @@ class UpContainer extends Container {
     },
     plastaId: {
       value: "",
-      valid: false
+      valid: true
     },
     birthdate: {
       value: "",
       valid: false
+    },
+    group: {
+      value: window.location.hash.match(/group=([^&#]*)/) ? window.location.hash.match(/group=([^&#]*)/)[1] : "",
+      valid: true
     }
   };
 
@@ -112,7 +117,12 @@ class UpContainer extends Container {
     const newValue = e.target.value;
     this.setState({
       email: { value: newValue, valid: this.validateEmail(newValue) }
-    });
+    }, () => {
+      // Revalidating the e-mail confirmation field for cases when users change the email input's value
+      this.setState({
+        emailConf: { value: this.state.emailConf.value, valid: this.validateEmailConf(this.state.emailConf.value) }
+      });
+    });    
   };
 
   validateEmail = x => {
@@ -133,10 +143,12 @@ class UpContainer extends Container {
   handlePasswordChange = e => {
     const newValue = e.target.value;
     this.setState({
-      password: {
-        value: e.target.value,
-        valid: this.validatePassword(newValue)
-      }
+      password: {value: e.target.value,valid: this.validatePassword(newValue)}
+    }, () => {
+      // Revalidating the password confirmation field for cases when users change the password input's value
+      this.setState({
+        passwordConf: { value: this.state.passwordConf.value, valid: this.validatePasswordConf(this.state.passwordConf.value) }
+      });
     });
   };
 
@@ -166,10 +178,19 @@ class UpContainer extends Container {
     this.setState({
       plastaId: {
         value: e.target.value,
-        valid: this.validatePlastaId(newValue)
+        valid: true
       }
     });
   };
+
+  handleGroupChange = e => {
+    this.setState({
+      group: {
+        value: e.target.value,
+        valid: true
+      }
+    });
+  }
 
   validatePlastaId = x => {
     // Checking if the Plasta ID contains numbers, letters, and has a length of at least 7 characters
@@ -187,6 +208,7 @@ class UpContainer extends Container {
         this.state.password.value,
         this.state.plastaId.value,
         this.state.birthdate.value,
+        this.state.group.value,
         history
       );
       this.openDialog();
