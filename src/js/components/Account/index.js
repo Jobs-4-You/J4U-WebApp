@@ -7,7 +7,8 @@ import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import FaceIcon from "@material-ui/icons/Face";
 import AppContainer from "js/containers/appContainer";
-import UpdateContainer from "js/containers/UpdateContainer";
+import SignContainer from "js/containers/SignContainer";
+import ErrorContainer from "js/containers/ErrorContainer";
 import UpdateInfos from "./UpdateInfos";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -19,7 +20,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 class UpdateDialog extends React.Component {
   state = {
-    open: false
+    open: false,
+    openPwd: false
   };
 
   handleClickOpen = () => {
@@ -30,7 +32,16 @@ class UpdateDialog extends React.Component {
     this.setState({ open: false });
   };
 
-  const 
+  handleOpenPwd = () => {
+    this.setState({ openPwd: true });
+    this.props.passwordReset();
+  };
+
+  handleClosePwd = () => {
+    this.setState({ openPwd: false });
+  };
+
+  const;
 
   render() {
     return (
@@ -38,20 +49,44 @@ class UpdateDialog extends React.Component {
         align="center"
         elevation={0}
         square={true}
-        style={{padding: "1rem 0"}}>
+        style={{ padding: "1rem 0" }}
+      >
         <Button
           variant="outlined"
           color="primary"
           onClick={this.handleClickOpen}
         >
-        Modifier les informations
+          Modifier les informations
         </Button>
+        <Button variant="outlined" color="primary" onClick={this.handleOpenPwd}>
+          Changer le mot de passe
+        </Button>
+
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-            <UpdateInfos />
+          <UpdateInfos />
+        </Dialog>
+        <Dialog
+          open={this.state.openPwd}
+          onClose={this.handleClosePwd}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+          Changement de mot de passe
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Un mail a été envoyé pour ré-initialiser cotre mot de passe
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClosePwd} color="primary">
+              Ok
+            </Button>
+          </DialogActions>
         </Dialog>
       </Paper>
     );
@@ -60,8 +95,8 @@ class UpdateDialog extends React.Component {
 
 function Account() {
   return (
-    <Subscribe to={[AppContainer, UpdateContainer]}>
-      {(appContainer, updateContainer) => {
+    <Subscribe to={[AppContainer, SignContainer, ErrorContainer]}>
+      {(appContainer, signContainer, errorContainer) => {
         return (
           <List>
             <ListItem>
@@ -136,7 +171,7 @@ function Account() {
             <li>
               <Divider variant="inset" />
             </li>
-            <UpdateDialog />
+            <UpdateDialog passwordReset={() => signContainer.resetPassword(appContainer.state.email, errorContainer.displayError)}/>
           </List>
         );
       }}

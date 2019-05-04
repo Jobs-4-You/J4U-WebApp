@@ -52,10 +52,10 @@ class RecomContainer extends Container {
       locationValue: location.value
     });
   };
-  
+
   handleLocations = async (searched, displayError) => {
     try {
-      
+
       let arr = [{label:"Tous les cantons",value:""},{label:"Argovie (AG)",value:"AG"},{label:"Appenzell Rhodes-Intérieures (AI)",value:"AI"},{label:"Appenzell Rhodes-Extérieures (AR)",value:"AR"},{label:"Berne (BE)",value:"BE"},{label:"Bâle-Campagne (BL)",value:"BL"},{label:"Bâle-Ville (BS)",value:"BS"},{label:"Fribourg (FR)",value:"FR"},{label:"Genève (GE)",value:"GE"},{label:"Glaris (GL)",value:"GL"},{label:"Grisons (GR)",value:"GR"},{label:"Jura (JU)",value:"JU"},{label:"Lucerne (LU)",value:"LU"},{label:"Neuchâtel (NE)",value:"NE"},{label:"Nidwald (NW)",value:"NW"},{label:"Obwald (OW)",value:"OW"},{label:"Saint-Gall (SG)",value:"SG"},{label:"Schaffhouse (SH)",value:"SH"},{label:"Soleure (SO)",value:"SO"},{label:"Schwytz (SZ)",value:"SZ"},{label:"Thurgovie (TG)",value:"TG"},{label:"Tessin (TI)",value:"TI"},{label:"Uri (UR)",value:"UR"},{label:"Vaud (VD)",value:"VD"},{label:"Valais (VS)",value:"VS"},{label:"Zoug (ZG)",value:"ZG"},{label:"Zurich (ZH)",value:"ZH"}];
       return arr;
 
@@ -64,14 +64,14 @@ class RecomContainer extends Container {
       displayError(err.response.data.msg);
     }
   };
-  
+
 
   secoSearch = async (recomContainer, avamList, i, displayError) => {
 
     // Updating the loader status for only one job title
     const { loadingSeco } = this.state;
     loadingSeco[i] = true;
-    
+
     this.setState({ loadingSeco: loadingSeco });
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
@@ -104,6 +104,7 @@ class RecomContainer extends Container {
     } catch (err) {
       loadingSeco[i] = false
       this.setState({ loadingSeco: loadingSeco });
+      console.log(err)
       console.log(err.response.data.msg);
       displayError(err.response.data.msg);
     }

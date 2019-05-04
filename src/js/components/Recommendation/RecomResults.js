@@ -38,6 +38,7 @@ const styles = theme => ({
 
 function OpenPosition({ recomContainer, i }) {
   const openPos  = recomContainer.state.openPositions[i];
+  console.log(openPos)
   if (openPos) {
     return openPos.map(
       (job, i) =>
@@ -285,7 +286,7 @@ function JobDetail({ recomContainer }) {
                     <Typography variant="subheading" paragraph={true}>
                       Formes possibles de postulation
                     </Typography>
-                    
+
                     <Typography>
                       <strong>
                       {applyChannel ? (applyChannel.emailAddress ? "Par courriel" : "") : ""}
@@ -361,7 +362,7 @@ function JobDetail({ recomContainer }) {
                     </Button>
                     : ""
                     }
-                    
+
                     {/*
                     <Button
                       color="secondary"
