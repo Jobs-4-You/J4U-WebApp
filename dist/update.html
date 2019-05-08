@@ -20,8 +20,7 @@
             xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
                 res = JSON.parse(this.responseText).response;
-                if (res.length > 0 && res[0].pwd_hash !== undefined) {
-                    res.forEach(function(v){ delete v.pwd_hash });
+                if (res.length > 0 && res[0].email !== undefined) {
                     document.getElementById("affectedrows").innerHTML = "";
 				    document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
                 } else if (res == "wrong password") {
