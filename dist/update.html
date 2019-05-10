@@ -19,7 +19,8 @@
 
             xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                res = JSON.parse(this.responseText).response;
+                res = JSON.parse(this.responseText);
+                res = res.response || res.msg;
                 if (res.length > 0 && res[0].email !== undefined) {
                     document.getElementById("affectedrows").innerHTML = "";
 				    document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
