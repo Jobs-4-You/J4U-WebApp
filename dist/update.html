@@ -115,7 +115,9 @@
         <fieldset>
             <p>
                 <label>Your password</label>
-                <input type="password" id="password">
+                <input 
+                    type="password" id="password"
+                    readonly onfocus="this.removeAttribute('readonly');">
             </p>
         </fieldset>
         <p>
