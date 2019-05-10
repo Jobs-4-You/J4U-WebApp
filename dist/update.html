@@ -31,7 +31,7 @@
             }
             });
 
-            xhr.open("POST", "http://" + window.location.hostname + ":5000/updategroup");
+            xhr.open("POST", window.location.protocol + "//" + window.location.hostname + ":5000/updategroup");
             xhr.setRequestHeader("accept", "application/json, text/plain, */*");
             xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
