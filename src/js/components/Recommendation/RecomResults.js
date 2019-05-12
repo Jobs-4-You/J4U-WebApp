@@ -38,12 +38,11 @@ const styles = theme => ({
 
 function OpenPosition({ recomContainer, i }) {
   const openPos  = recomContainer.state.openPositions[i];
-  console.log(openPos);
   if (openPos) {
     return openPos.map(
       (job, i) =>
       <ListItem button key={i}>
-        <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job)}>
+        <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job.jobAdvertisement)}>
             <Typography>
               <strong>{job.jobAdvertisement.jobContent.jobDescriptions[0].title}</strong>
             </Typography>
