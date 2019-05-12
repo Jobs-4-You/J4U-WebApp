@@ -38,36 +38,36 @@ const styles = theme => ({
 
 function OpenPosition({ recomContainer, i }) {
   const openPos  = recomContainer.state.openPositions[i];
-  console.log(openPos)
+  console.log(openPos);
   if (openPos) {
     return openPos.map(
       (job, i) =>
       <ListItem button key={i}>
         <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job)}>
             <Typography>
-              <strong>{job.jobContent.jobDescriptions[0].title}</strong>
+              <strong>{job.jobAdvertisement.jobContent.jobDescriptions[0].title}</strong>
             </Typography>
             <Typography>
-              {job.createdTime ? new Date(job.createdTime).toLocaleDateString("fr-CH") : ""}
+              {job.jobAdvertisement.createdTime ? new Date(job.jobAdvertisement.createdTime).toLocaleDateString("fr-CH") : ""}
             </Typography>
             <span className="inline">
-              <strong>{job.jobContent.company.name} &nbsp;</strong>
+              <strong>{job.jobAdvertisement.jobContent.company.name} &nbsp;</strong>
             </span>
             <JobBit>
-              {job.jobContent.location ? (job.jobContent.location.postalCode || "") + " " + (job.jobContent.location.city  || "") + " " + (job.jobContent.location.cantonCode || "") : {}}
+              {job.jobAdvertisement.jobContent.location ? (job.jobAdvertisement.jobContent.location.postalCode || "") + " " + (job.jobAdvertisement.jobContent.location.city  || "") + " " + (job.jobAdvertisement.jobContent.location.cantonCode || "") : {}}
             </JobBit>
             <JobBit>
-              {(job.jobContent.employment.workloadPercentageMin && job.jobContent.employment.workloadPercentageMin !== "100")  ? job.jobContent.employment.workloadPercentageMin + "% - " : ""}
-              {job.jobContent.employment.workloadPercentageMax + "%"}
+              {(job.jobAdvertisement.jobContent.employment.workloadPercentageMin && job.jobAdvertisement.jobContent.employment.workloadPercentageMin !== "100")  ? job.jobAdvertisement.jobContent.employment.workloadPercentageMin + "% - " : ""}
+              {job.jobAdvertisement.jobContent.employment.workloadPercentageMax + "%"}
             </JobBit>
             <JobBit>
-              {job.jobContent.employment.immediately == true ? "Tout de suite" : (job.jobContent.employment.startDate ? job.jobContent.employment.startDate : "À convenir") }
+              {job.jobAdvertisement.jobContent.employment.immediately == true ? "Tout de suite" : (job.jobAdvertisement.jobContent.employment.startDate ? job.jobAdvertisement.jobContent.employment.startDate : "À convenir") }
             </JobBit>
             <JobBit>
-              {job.jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
+              {job.jobAdvertisement.jobContent.employment.permanent == true ? "Indeterminé" : "Durée limitée"}
             </JobBit>
             <Typography>
-              {job.jobContent.jobDescriptions[0].description.length >= 280 ? job.jobContent.jobDescriptions[0].description.substring(0, 279) + "..." : job.jobContent.jobDescriptions[0].description}
+              {job.jobAdvertisement.jobContent.jobDescriptions[0].description.length >= 280 ? job.jobAdvertisement.jobContent.jobDescriptions[0].description.substring(0, 279) + "..." : job.jobAdvertisement.jobContent.jobDescriptions[0].description}
             </Typography>
           </ListItemText>
       </ListItem>
@@ -156,7 +156,7 @@ function JobDetail({ recomContainer }) {
 
   if (selectedJob != null) {
 
-    const jobContent = selectedJob.jobContent;
+    const jobContent = selectedJob.jobAdvertisement.jobContent;
     const applyChannel = jobContent.applyChannel;
 
     const postulerLink = {
@@ -165,8 +165,8 @@ function JobDetail({ recomContainer }) {
     }
     return (
       <Dialog
-            aria-labelledby={selectedJob.title}
-            aria-describedby={selectedJob.title}
+            aria-labelledby={selectedJob.jobAdvertisement.title}
+            aria-describedby={selectedJob.jobAdvertisement.title}
             open={selectedJob !== null}
             onClose={handleClose}
             maxWidth={false}
@@ -183,7 +183,7 @@ function JobDetail({ recomContainer }) {
                 {jobContent.jobDescriptions[0].title}
               </Typography>
               <Typography>
-                  <strong>{jobContent.company.name}</strong> | Libre depuis : {selectedJob.createdTime ? new Date(selectedJob.createdTime).toLocaleDateString("fr-CH") : ""}
+                  <strong>{jobContent.company.name}</strong> | Libre depuis : {selectedJob.jobAdvertisement.createdTime ? new Date(selectedJob.jobAdvertisement.createdTime).toLocaleDateString("fr-CH") : ""}
               </Typography>
               <Typography paragraph={true}>
                 <JobBit>
@@ -269,7 +269,7 @@ function JobDetail({ recomContainer }) {
                   recomContainer.handleJobApplication(
                     {
                       TYPE: 'JOB_APPLICATION',
-                      JOBID: selectedJob.id,
+                      JOBID: selectedJob.jobAdvertisement.id,
                       OCCUPATIONS: jobContent.occupations
                     }
                   )}
@@ -347,7 +347,7 @@ function JobDetail({ recomContainer }) {
                         recomContainer.handleJobApplication(
                           {
                             TYPE: 'EXTERNAL_APPLICATION',
-                            JOBID: selectedJob.id,
+                            JOBID: selectedJob.jobAdvertisement.id,
                             OCCUPATIONS: jobContent.occupations,
                             EXTERNALURL: jobContent.externalUrl || jobContent.applyChannel.formUrl
                           }
