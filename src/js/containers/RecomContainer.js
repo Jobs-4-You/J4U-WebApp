@@ -105,8 +105,7 @@ class RecomContainer extends Container {
       loadingSeco[i] = false
       this.setState({ loadingSeco: loadingSeco });
       console.log(err)
-      console.log(err.response.data.msg || "Nothing on the response object");
-      displayError(err.response.data.msg || "Une erreur est survenue. Veuillez réessayer.");
+      displayError(err.response || "Une erreur est survenue. Veuillez réessayer.");
     }
   }
 
