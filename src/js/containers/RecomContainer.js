@@ -1,5 +1,12 @@
-import { Container } from 'unstated';
-import { recomQuery, searchQuery, secoQuery, trackQuery, locationsQuery } from 'js/data';
+import { Container } from "unstated";
+import {
+  recomQuery,
+  searchQuery,
+  secoQuery,
+  trackQuery,
+  locationsQuery
+} from "js/data";
+import debounce from "debounce-promise";
 
 /*  As we return 20 job group recommendations,
     we initialize currentPage and totalSeco arrays with this number of integers
@@ -31,7 +38,7 @@ class RecomContainer extends Container {
     applied: false
   };
 
-  handleSearch = async (value, displayError) => {
+  handleSearch = debounce(async (value, displayError) => {
     try {
       const res = await searchQuery(value);
       const options = res.data.map(v => {
@@ -45,7 +52,7 @@ class RecomContainer extends Container {
       console.log(err.response.data.msg);
       displayError(err.response.data.msg);
     }
-  };
+  }, 500);
 
   setLocation = location => {
     this.setState({
@@ -55,19 +62,43 @@ class RecomContainer extends Container {
 
   handleLocations = async (searched, displayError) => {
     try {
-
-      let arr = [{label:"Tous les cantons",value:""},{label:"Argovie (AG)",value:"AG"},{label:"Appenzell Rhodes-Intérieures (AI)",value:"AI"},{label:"Appenzell Rhodes-Extérieures (AR)",value:"AR"},{label:"Berne (BE)",value:"BE"},{label:"Bâle-Campagne (BL)",value:"BL"},{label:"Bâle-Ville (BS)",value:"BS"},{label:"Fribourg (FR)",value:"FR"},{label:"Genève (GE)",value:"GE"},{label:"Glaris (GL)",value:"GL"},{label:"Grisons (GR)",value:"GR"},{label:"Jura (JU)",value:"JU"},{label:"Lucerne (LU)",value:"LU"},{label:"Neuchâtel (NE)",value:"NE"},{label:"Nidwald (NW)",value:"NW"},{label:"Obwald (OW)",value:"OW"},{label:"Saint-Gall (SG)",value:"SG"},{label:"Schaffhouse (SH)",value:"SH"},{label:"Soleure (SO)",value:"SO"},{label:"Schwytz (SZ)",value:"SZ"},{label:"Thurgovie (TG)",value:"TG"},{label:"Tessin (TI)",value:"TI"},{label:"Uri (UR)",value:"UR"},{label:"Vaud (VD)",value:"VD"},{label:"Valais (VS)",value:"VS"},{label:"Zoug (ZG)",value:"ZG"},{label:"Zurich (ZH)",value:"ZH"}];
+      let arr = [
+        { label: "Tous les cantons", value: "" },
+        { label: "Argovie (AG)", value: "AG" },
+        { label: "Appenzell Rhodes-Intérieures (AI)", value: "AI" },
+        { label: "Appenzell Rhodes-Extérieures (AR)", value: "AR" },
+        { label: "Berne (BE)", value: "BE" },
+        { label: "Bâle-Campagne (BL)", value: "BL" },
+        { label: "Bâle-Ville (BS)", value: "BS" },
+        { label: "Fribourg (FR)", value: "FR" },
+        { label: "Genève (GE)", value: "GE" },
+        { label: "Glaris (GL)", value: "GL" },
+        { label: "Grisons (GR)", value: "GR" },
+        { label: "Jura (JU)", value: "JU" },
+        { label: "Lucerne (LU)", value: "LU" },
+        { label: "Neuchâtel (NE)", value: "NE" },
+        { label: "Nidwald (NW)", value: "NW" },
+        { label: "Obwald (OW)", value: "OW" },
+        { label: "Saint-Gall (SG)", value: "SG" },
+        { label: "Schaffhouse (SH)", value: "SH" },
+        { label: "Soleure (SO)", value: "SO" },
+        { label: "Schwytz (SZ)", value: "SZ" },
+        { label: "Thurgovie (TG)", value: "TG" },
+        { label: "Tessin (TI)", value: "TI" },
+        { label: "Uri (UR)", value: "UR" },
+        { label: "Vaud (VD)", value: "VD" },
+        { label: "Valais (VS)", value: "VS" },
+        { label: "Zoug (ZG)", value: "ZG" },
+        { label: "Zurich (ZH)", value: "ZH" }
+      ];
       return arr;
-
     } catch (err) {
       console.log(err.response.data.msg);
       displayError(err.response.data.msg);
     }
   };
 
-
   secoSearch = async (recomContainer, avamList, i, displayError) => {
-
     // Updating the loader status for only one job title
     const { loadingSeco } = this.state;
     loadingSeco[i] = true;
@@ -76,17 +107,19 @@ class RecomContainer extends Container {
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
     for (let index = 0; index < avamList.length; index++) {
-      professionCodes.push(
-        {
-          "type": "AVAM",
-          "value": avamList[index]
-        }
-      );
+      professionCodes.push({
+        type: "AVAM",
+        value: avamList[index]
+      });
     }
     try {
-      const res = await secoQuery(professionCodes, recomContainer.state.currentPage[i], recomContainer.state.locationValue);
+      const res = await secoQuery(
+        professionCodes,
+        recomContainer.state.currentPage[i],
+        recomContainer.state.locationValue
+      );
       const rest = await trackQuery({
-        TYPE: 'JOB_GROUP_NAVIGATION',
+        TYPE: "JOB_GROUP_NAVIGATION",
         PROFESSIONCODES: professionCodes,
         PAGE: recomContainer.state.currentPage[i],
         LOCATION: recomContainer.state.locationValue
@@ -94,19 +127,21 @@ class RecomContainer extends Container {
       const newPos = this.state.openPositions;
       const counts = this.state.totalCounts;
       newPos[i] = res.data.positions;
-      counts[i] = parseInt(res.data.totalCount) ? parseInt(res.data.totalCount) : 0;
+      counts[i] = parseInt(res.data.totalCount)
+        ? parseInt(res.data.totalCount)
+        : 0;
       loadingSeco[i] = false;
       await this.setState({
         openPositions: newPos,
         totalCounts: counts,
-        loadingSeco:loadingSeco
+        loadingSeco: loadingSeco
       });
     } catch (err) {
-      loadingSeco[i] = false
+      loadingSeco[i] = false;
       this.setState({ loadingSeco: loadingSeco });
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   setSelectedJob = async (recomContainer, selectedJobObject) => {
     try {
@@ -114,7 +149,7 @@ class RecomContainer extends Container {
         selectedJob: selectedJobObject
       });
       const rest = await trackQuery({
-        TYPE: 'JOB_CLICK',
+        TYPE: "JOB_CLICK",
         JOBID: selectedJobObject.jobAdvertisement.id,
         OCCUPATIONS: selectedJobObject.jobAdvertisement.occupations
       });
@@ -124,7 +159,7 @@ class RecomContainer extends Container {
     }
   };
 
-  handleJobApplication = async (data) => {
+  handleJobApplication = async data => {
     try {
       const rest = await trackQuery(data);
     } catch (err) {

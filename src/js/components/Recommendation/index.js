@@ -16,7 +16,7 @@ const selectStyles = {
     opacity: state.isDisabled ? ".5" : "1",
     backgroundColor: "white",
     zIndex: "999",
-    fontFamily: 'Roboto'
+    fontFamily: "Roboto"
   })
 };
 
@@ -26,12 +26,11 @@ const locationStyles = {
     opacity: state.isDisabled ? ".5" : "1",
     backgroundColor: "white",
     zIndex: "998",
-    fontFamily: 'Roboto'
+    fontFamily: "Roboto"
   })
 };
 
-
-const defaultLocation = [{label:"Neuchâtel (NE)",value:"NE"}];
+const defaultLocation = [{ label: "Neuchâtel (NE)", value: "NE" }];
 
 function Recommendation() {
   return (
@@ -45,7 +44,7 @@ function Recommendation() {
               </Typography>
               <br />
               <AsyncSelect
-                cacheOptionscd 
+                cacheOptionscd
                 styles={selectStyles}
                 defaultInputValue={appContainer.state.oldJobLabel}
                 loadOptions={v =>
@@ -56,7 +55,8 @@ function Recommendation() {
               />
               <br />
               <Typography id="label">
-              Importance de mon profil personnel : {(appContainer.state.alpha / 100).toFixed(2)}{" "}
+                Importance de mon profil personnel :{" "}
+                {(appContainer.state.alpha / 100).toFixed(2)}{" "}
               </Typography>
               <StyledSlider
                 value={Math.round(appContainer.state.alpha)}
@@ -64,7 +64,8 @@ function Recommendation() {
                 onChange={appContainer.setAlpha}
               />
               <Typography id="label">
-              Importance de mon poste antérieur : {(appContainer.state.beta / 100).toFixed(2)}
+                Importance de mon poste antérieur :{" "}
+                {(appContainer.state.beta / 100).toFixed(2)}
               </Typography>
               <StyledSlider
                 value={Math.round(appContainer.state.beta)}
@@ -76,15 +77,15 @@ function Recommendation() {
                 styles={locationStyles}
                 isClearable={false}
                 placeholder="Canton"
-                loadOptions={v => 
-                    recomContainer.handleLocations(v, errorContainer.displayError)
+                loadOptions={v =>
+                  recomContainer.handleLocations(v, errorContainer.displayError)
                 }
                 defaultOptions
                 defaultValue={defaultLocation}
                 onChange={recomContainer.setLocation}
               />
               <Submit
-                onClick={_ => 
+                onClick={_ =>
                   recomContainer.recommend(
                     appContainer,
                     errorContainer.displayError
@@ -104,7 +105,10 @@ function Recommendation() {
               <Divider />
               <br />
             </FormContainer>
-            <RecomResults recomContainer={recomContainer} errorContainer={errorContainer}/>
+            <RecomResults
+              recomContainer={recomContainer}
+              errorContainer={errorContainer}
+            />
           </div>
         );
       }}
