@@ -36,13 +36,17 @@ const styles = theme => ({
   }
 });
 
+const pagStyle = {
+  display: 'inline-block'
+}
+
 function OpenPosition({ recomContainer, i }) {
   const openPos  = recomContainer.state.openPositions[i];
   if (openPos) {
     return openPos.map(
       (job, i) =>
       <ListItem button key={i}>
-        <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job.jobAdvertisement)}>
+        <ListItemText inset onClick={_ => recomContainer.setSelectedJob(recomContainer, job)}>
             <Typography>
               <strong>{job.jobAdvertisement.jobContent.jobDescriptions[0].title}</strong>
             </Typography>
@@ -50,7 +54,7 @@ function OpenPosition({ recomContainer, i }) {
               {job.jobAdvertisement.createdTime ? new Date(job.jobAdvertisement.createdTime).toLocaleDateString("fr-CH") : ""}
             </Typography>
             <span className="inline">
-              <strong>{job.jobAdvertisement.jobContent.company.name} &nbsp;</strong>
+              <strong>{job.jobAdvertisement.jobContent.company.name}</strong>
             </span>
             <JobBit>
               {job.jobAdvertisement.jobContent.location ? (job.jobAdvertisement.jobContent.location.postalCode || "") + " " + (job.jobAdvertisement.jobContent.location.city  || "") + " " + (job.jobAdvertisement.jobContent.location.cantonCode || "") : {}}
@@ -92,7 +96,8 @@ function JobResult({ recomContainer, job, rank, avam, classes, errorContainer })
 
   const Center = {
     textAlign: 'center',
-    display: recomContainer.state.totalCounts[jobIndex] ? 'block' : 'none'
+    //display: recomContainer.state.totalCounts[jobIndex] ? 'block' : 'none',
+    display: 'none'
   };
 
   const noResults = {
@@ -112,13 +117,14 @@ function JobResult({ recomContainer, job, rank, avam, classes, errorContainer })
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <List component="nav" className={classes.root}>
+        
           <div style={Center}>
             <Typography>{recomContainer.state.totalCounts[jobIndex]} résultats trouvés</Typography>
             <Pagination
               onChange={onPaginationChange}
               current={recomContainer.state.currentPage[jobIndex]}
               total={recomContainer.state.totalCounts[jobIndex]}
-              style={{display: 'inline-block'}} />
+              style={pagStyle} />
           </div>
 
           <OpenPosition recomContainer={recomContainer} i={jobIndex} />
@@ -128,7 +134,7 @@ function JobResult({ recomContainer, job, rank, avam, classes, errorContainer })
               onChange={onPaginationChange}
               current={recomContainer.state.currentPage[jobIndex]}
               total={recomContainer.state.totalCounts[jobIndex]}
-              style={{display: 'inline-block'}} />
+              style={pagStyle} />
           </div>
           <div style={noResults}>
             <Typography>Aucun résultat trouvé pour ce poste spécifique.</Typography>

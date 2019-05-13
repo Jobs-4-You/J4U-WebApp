@@ -105,7 +105,6 @@ class RecomContainer extends Container {
       loadingSeco[i] = false
       this.setState({ loadingSeco: loadingSeco });
       console.log(err)
-      displayError(err.response || "Une erreur est survenue. Veuillez réessayer.");
     }
   }
 
@@ -116,8 +115,8 @@ class RecomContainer extends Container {
       });
       const rest = await trackQuery({
         TYPE: 'JOB_CLICK',
-        JOBID: selectedJobObject.id,
-        OCCUPATIONS: selectedJobObject.occupations
+        JOBID: selectedJobObject.jobAdvertisement.id,
+        OCCUPATIONS: selectedJobObject.jobAdvertisement.occupations
       });
     } catch (err) {
       this.setState({ loading: false });
