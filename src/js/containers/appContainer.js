@@ -28,7 +28,9 @@ class AppContainer extends Container {
         oldJobValue: null,
         oldJobLabel: null,
         drawerIsOpen: false,
-        blocked: null
+        blocked: null,
+        fixedOldJobValue: null,
+        fixedAlphaBeta: null
       };
 
   cacheState = () => {
