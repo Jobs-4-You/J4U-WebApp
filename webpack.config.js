@@ -31,11 +31,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebPackPlugin({
+    new HtmlWebPackPlugin({§
       template: "./src/index.html",
       filename: "./index.html"
     }),
-    new BundleAnalyzerPlugin(),
+    //:new BundleAnalyzerPlugin(),
   ],
   resolve: {
     modules: ["node_modules", "src"]
