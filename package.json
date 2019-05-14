@@ -4,8 +4,8 @@
   "description": "Web application for the \"Jobs For You\" project.",
   "main": "index.js",
   "scripts": {
-    "build-prod": "webpack --mode production --json",
-    "build-dev": "webpack --mode development --json",
+    "build-prod": "webpack --mode production",
+    "build-dev": "webpack --mode development",
     "bundle-stats": "webpack --mode production --profile --json > ./reports/stats.json",
     "stats-view": "webpack-bundle-analyzer ./reports/stats.json",
     "start": "webpack-dev-server --open --mode development --inline --hot"
