@@ -154,11 +154,13 @@ function SignIn({ classes, history, from }) {
 
               <Divider variant="inset" />
 
+              {/*
               <Link to="signup"
                 style={linkCompte}
                 paragraph={true}>
                   Créer un compte
               </Link>
+              */}
               
             </form>
           </Paper>
