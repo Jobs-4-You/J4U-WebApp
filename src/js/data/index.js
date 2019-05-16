@@ -8,10 +8,11 @@ const baseURL =
 
 const client = axios.create({
   baseURL: baseURL,
-  timeout: 5000
+  timeout: 5000,
 });
 
 function errorResponseHandler(error) {
+  console.log(error)
   if (error.response.status === 401) {
     history.push("/logout");
   } else {
@@ -160,6 +161,7 @@ export function locationsQuery(loc) {
 
 export function linkQuery(job) {
   return client({
+    timeout: 20000,
     method: "get",
     url: "link"
   });
