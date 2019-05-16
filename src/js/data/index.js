@@ -125,6 +125,7 @@ export function secoQuery(professionCodes, currentPage, locationValue) {
 
 export function recomQuery(data) {
   return client({
+    timeout: 20000,
     method: "post",
     url: "recom",
     data
