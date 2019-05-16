@@ -8,7 +8,7 @@ const baseURL =
 
 const client = axios.create({
   baseURL: baseURL,
-  timeout: 5000,
+  timeout: 20000,
 });
 
 function errorResponseHandler(error) {
@@ -125,7 +125,6 @@ export function secoQuery(professionCodes, currentPage, locationValue) {
 
 export function recomQuery(data) {
   return client({
-    timeout: 20000,
     method: "post",
     url: "recom",
     data
@@ -162,7 +161,6 @@ export function locationsQuery(loc) {
 
 export function linkQuery(job) {
   return client({
-    timeout: 20000,
     method: "get",
     url: "link"
   });
