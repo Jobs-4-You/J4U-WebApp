@@ -30,7 +30,7 @@ function AuthHeader({ appContainer }) {
             {`${appContainer.state.firstName} ${appContainer.state.lastName}`}
           </GrowTypo>
           <GrowTypo variant="subtitle1" color="inherit" grow={0}>
-            {appContainer.state.formDone ? (
+            {appContainer.state.formDone && !appContainer.state.blocked ? (
               <Link to="/recommendation" style={NavLink}>
                 Recommandation Professionnelle
               </Link>
