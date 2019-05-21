@@ -8,10 +8,10 @@
     <script>
         function send() {
             
-            if (confirm("Confirm the update for group" + 
+            if (confirm("Confirm the update for group " + 
                         document.getElementById("group").value + 
                         "?")) {
-                            
+
                 var data = {
                         "field": document.getElementById("field").value,
                         "value": document.getElementById("value").value,
@@ -42,6 +42,8 @@
                 xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
                 xhr.send(JSON.stringify(data));
+
+                document.getElementById("group").value = 0;
 
             }
 
