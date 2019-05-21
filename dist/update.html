@@ -7,36 +7,43 @@
     <title>Update</title>
     <script>
         function send() {
-            var data = {
-                    "field": document.getElementById("field").value,
-                    "value": document.getElementById("value").value,
-                    "group": document.getElementById("group").value,
-                    "password": document.getElementById("password").value
-                };
+            
+            if (confirm("Confirm the update for group" + 
+                        document.getElementById("group").value + 
+                        "?")) {
+                            
+                var data = {
+                        "field": document.getElementById("field").value,
+                        "value": document.getElementById("value").value,
+                        "group": document.getElementById("group").value,
+                        "password": document.getElementById("password").value
+                    };
 
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = false;
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
 
-            xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                res = JSON.parse(this.responseText);
-                res = res.response || res.msg;
-                if (res.length > 0 && res[0].email !== undefined) {
-                    document.getElementById("affectedrows").innerHTML = "";
-				    document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
-                } else if (res == "wrong password") {
-                    alert("Wrong password");
-                } else {
-                    alert("No records found for this group value");
+                xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    res = JSON.parse(this.responseText);
+                    res = res.response || res.msg;
+                    if (res.length > 0 && res[0].email !== undefined) {
+                        document.getElementById("affectedrows").innerHTML = "";
+                        document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
+                    } else if (res == "wrong password") {
+                        alert("Wrong password");
+                    } else {
+                        alert("No records found for this group value");
+                    }
                 }
+                });
+
+                xhr.open("POST", window.location.protocol + "//" + window.location.hostname + ":5000/updategroup");
+                xhr.setRequestHeader("accept", "application/json, text/plain, */*");
+                xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+
+                xhr.send(JSON.stringify(data));
+
             }
-            });
-
-            xhr.open("POST", window.location.protocol + "//" + window.location.hostname + ":5000/updategroup");
-            xhr.setRequestHeader("accept", "application/json, text/plain, */*");
-            xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-
-            xhr.send(JSON.stringify(data));
 
         }
 
