@@ -23,18 +23,19 @@
                 xhr.withCredentials = false;
 
                 xhr.addEventListener("readystatechange", function () {
-                if (this.readyState === 4) {
-                    res = JSON.parse(this.responseText);
-                    res = res.response || res.msg;
-                    if (res.length > 0 && res[0].email !== undefined) {
-                        document.getElementById("affectedrows").innerHTML = "";
-                        document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
-                    } else if (res == "wrong password") {
-                        alert("Wrong password");
-                    } else {
-                        alert("No records found for this group value");
+                    if (this.readyState === 4) {
+                        res = JSON.parse(this.responseText);
+                        res = res.response || res.msg;
+                        if (res.length > 0 && res[0].email !== undefined) {
+                            document.getElementById("affectedrows").innerHTML = "";
+                            document.getElementById("title").innerHTML = "Update Results - Users affected by query";
+                            document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
+                        } else if (res == "wrong password") {
+                            alert("Wrong password");
+                        } else {
+                            alert("No records found for this group value");
+                        }
                     }
-                }
                 });
 
                 xhr.open("POST", window.location.protocol + "//" + window.location.hostname + ":5000/updategroup");
@@ -46,6 +47,42 @@
                 document.getElementById("group").value = "";
 
             }
+
+        }
+
+        function listUsers() {
+            
+            var data = {
+                    "group": document.getElementById("groupQuery").value,
+                    "password": document.getElementById("passwordQuery").value
+                };
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    res = JSON.parse(this.responseText);
+                    res = res.response || res.msg;
+                    if (res.length > 0 && res[0].email !== undefined) {
+                        document.getElementById("affectedrows").innerHTML = "";
+                        document.getElementById("title").innerHTML = "Search Results - Users matching query criteria";
+                        document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
+                    } else if (res == "wrong password") {
+                        alert("Wrong password");
+                    } else {
+                        alert("No records found for this group value");
+                    }
+                }
+            });
+
+            xhr.open("POST", window.location.protocol + "//" + window.location.hostname + ":5000/listusers");
+            xhr.setRequestHeader("accept", "application/json, text/plain, */*");
+            xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+
+            xhr.send(JSON.stringify(data));
+
+            document.getElementById("group").value = "";
 
         }
 
@@ -101,6 +138,23 @@
 <div>
     <form action="." method="post">
         <fieldset>
+            <legend>List users</legend>
+            <p>
+                <label>Group code (leave empty to list all users)</label>
+                <input type="text" id="groupQuery">
+            </p>
+            <p>
+                <label>Your password</label>
+                <input 
+                    type="password" id="passwordQuery"
+                    readonly onfocus="this.removeAttribute('readonly');">
+            </p>
+            <p>
+            <button type="button" onclick="listUsers()">Submit</button>
+            </p>
+        </fieldset>
+        <p></p>
+        <fieldset>
             <legend>Update form</legend>
             <p>
                 <label>Field</label>
@@ -121,21 +175,22 @@
                 <label>Group code</label>
                 <input type="text" id="group">
             </p>
-        </fieldset>
-        <fieldset>
             <p>
                 <label>Your password</label>
                 <input 
                     type="password" id="password"
                     readonly onfocus="this.removeAttribute('readonly');">
             </p>
+            <p>
+                <button type="button" onclick="send()">Submit</button>
+            </p>
         </fieldset>
-        <p>
-            <button type="button" onclick="send()">Submit</button>
-        </p>
     </form>
 </div>
 
+<div>
+    <h1 id="title"></h1>
+</div>
 <div id="affectedrows"></div>
 
 </body>
