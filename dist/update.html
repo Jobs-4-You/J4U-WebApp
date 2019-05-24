@@ -131,6 +131,17 @@
             return columnSet;
         }
 
+        function togglePassword(button, id) {
+            var x = document.getElementById(id);
+            if (x.type === "password") {
+                x.type = "text";
+                button.innerHTML = "Hide password";
+            } else {
+                x.type = "password";
+                button.innerHTML = "Show password";
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -148,6 +159,7 @@
                 <input 
                     type="password" id="passwordQuery"
                     readonly onfocus="this.removeAttribute('readonly');">
+                <button type="button" onclick="togglePassword(this,'passwordQuery');">Show Password</button>
             </p>
             <p>
             <button type="button" onclick="listUsers()">Submit</button>
@@ -180,6 +192,7 @@
                 <input 
                     type="password" id="password"
                     readonly onfocus="this.removeAttribute('readonly');">
+                <button type="button" onclick="togglePassword(this,'password');">Show Password</button>
             </p>
             <p>
                 <button type="button" onclick="send()">Submit</button>
