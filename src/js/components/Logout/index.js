@@ -8,7 +8,7 @@ const baseURL = env == 'development' ? 'http://localhost:8080' :
 
 function Logout(props) {
   console.log('aaa')
-  localStorage.clear();
+  localStorage.setItem("token", null);
   window.location.replace(baseURL);
   return (
     <div>

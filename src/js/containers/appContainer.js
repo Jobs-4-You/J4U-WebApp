@@ -5,9 +5,8 @@ import {
   userInfosQuery,
   sendVerificationQuery
 } from "js/data";
+import { logSessionTime } from "js/tracking";
 import history from "js/router";
-
-localStorage.clear();
 
 class AppContainer extends Container {
   state = localStorage.getItem("appState")
@@ -62,16 +61,34 @@ class AppContainer extends Container {
     }
   };
 
-  signin = async (user, password, history, from, displayError, updateContainer) => {
+  signin = async (
+    user,
+    password,
+    history,
+    from,
+    displayError,
+    updateContainer
+  ) => {
     try {
       const x = await signinQuery(user, password);
       console.log(x.data);
       await this.setState({
         ...x.data
       });
-      updateContainer.init(this)
+      updateContainer.init(this);
       this.cacheState();
       localStorage.setItem("accessToken", x.data.accessToken);
+
+      console.log(`CURRENT SESSION TIME`, localStorage.getItem("sessionTime"));
+      await logSessionTime();
+      const freq = 1000;
+      localStorage.setItem("sessionTime", 0);
+      setInterval(function() {
+        const currentSessionTime = parseFloat(localStorage.getItem("sessionTime"));
+        console.log(currentSessionTime)
+        localStorage.setItem("sessionTime", currentSessionTime + freq);
+      }, freq);
+
       if (from) {
         history.push(from.pathname);
       } else {

@@ -1,17 +1,30 @@
-import { trackQuery } from 'js/data';
+import { trackQuery } from "js/data";
 
 export function logPageView(path) {
-  const user = localStorage.getItem('appState') ? JSON.parse(localStorage.getItem('appState')) : null;
-
-  if (!user) {
-    return
-  }
-
   const data = {
-    TYPE: 'PAGE_VIEW',
-    USER: user.email,
-    PAGE: path,
-  }
+    TYPE: "PAGE_VIEW",
+    PAGE: path
+  };
 
   trackQuery(data);
+}
+
+export async function logSessionTime() {
+  const sessionTime = localStorage.getItem("sessionTime");
+
+  console.log(`SESSION TIME ${sessionTime}`);
+
+  if (!sessionTime) {
+    console.log("NO PREVIOUS TIME");
+    return;
+  }
+
+  console.log("PREVIOUS TIME LOGGING");
+
+  const data = {
+    TYPE: "SESSION_TIME",
+    SESSION_TIME: sessionTime
+  };
+
+  await trackQuery(data);
 }
