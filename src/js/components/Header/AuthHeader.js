@@ -32,7 +32,7 @@ function AuthHeader({ appContainer }) {
           <GrowTypo variant="subtitle1" color="inherit" grow={0}>
             {appContainer.state.formDone && !appContainer.state.blocked ? (
               <Link to="/recommendation" style={NavLink}>
-                Recommandation Professionnelle
+                Recommandations professionnelles
               </Link>
             ) : null}
           </GrowTypo>

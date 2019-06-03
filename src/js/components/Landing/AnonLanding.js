@@ -26,8 +26,16 @@ function AnonLanding() {
         <Typography variant="subtitle1" color="inherit" grow={1} paragraph={true}>
             <Warning style={{verticalAlign: "middle"}} /> Veuillez vous connecter ou créer un compte.
         </Typography>
+        <Typography paragraph={true}>
+          Bienvenue sur notre page web !
+        </Typography>
+        <Typography paragraph={true}>
+          Les universités de Lausanne et de Genève mènent actuellement une étude sur l'amélioration de la recherche d'emploi, financée par le Fonds National Suisse de la recherche scientifique.
+        </Typography>
+        <Typography paragraph={true}>
+          Dans le cadre de cette étude, des scientifiques ont développé un outil de recherche d’emploi personnalisé « Job For You » (J4U). Cet outil novateur vise à élargir le champ de votre recherche d’emploi en cohérence avec <strong><i>vos compétences</i></strong> : qu’est-ce que <strong><i>vos compétences</i></strong> vous permet réellement de faire ?
+        </Typography>
         <Typography paragraph={false}>
-          Bienvenue sur notre page web. Les universités de Lausanne et de Genève mènent actuellement une étude sur l'amélioration de la recherche d'emploi, financée par le Fonds national suisse de la recherche scientifique. Dans le cadre de cette étude, j4U est un outil conçu et construit pour accélérer la sortie des demandeurs d'emploi de leur épisode de chômage. J4U vise à élargir le champ de recherche d’emploi des demandeurs d’emploi tout en se basant sur leurs compétences: ce que leurs compétences leur permettent vraiment de faire (et pas juste ce qu’ils ont déjà fait!) .
           Veuillez cliquer <Link to="/about" style={aboutLink}>ici</Link> pour en savoir plus sur nous.
         </Typography>
         <Center>

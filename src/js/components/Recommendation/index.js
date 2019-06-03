@@ -41,7 +41,7 @@ function Recommendation() {
           <div>
             <FormContainer>
               <Typography variant="title">
-                Préférences de Recommandation Professionnelle
+                Taper votre profession antérieure
               </Typography>
               <br />
               <div style={{
@@ -74,7 +74,7 @@ function Recommendation() {
                     Importance de mon profil personnel : {Math.round(appContainer.state.alpha)}
                   </Typography>
                   <Typography>
-                    Importance de mon poste antérieur : {Math.round(appContainer.state.beta)}
+                    Importance de ma profession antérieure : {Math.round(appContainer.state.beta)}
                   </Typography>
               </div>
 
