@@ -75,7 +75,7 @@ class UpContainer extends Container {
   };
 
   validateFName = x => {
-    return validator.isAlpha(x);
+    return !validator.isEmpty(x);
   };
 
   handleLNameChange = e => {
@@ -86,7 +86,7 @@ class UpContainer extends Container {
   };
 
   validateLName = x => {
-    return validator.isAlpha(x);
+    return !validator.isEmpty(x);
   };
 
   handleBirthdateChange = e => {

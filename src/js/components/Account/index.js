@@ -4,6 +4,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import FaceIcon from "@material-ui/icons/Face";
 import AppContainer from "js/containers/appContainer";
@@ -51,16 +52,24 @@ class UpdateDialog extends React.Component {
         square={true}
         style={{ padding: "1rem 0" }}
       >
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={this.handleClickOpen}
-        >
-          Modifier les informations
-        </Button>
-        <Button variant="outlined" color="primary" onClick={this.handleOpenPwd}>
-          Changer le mot de passe
-        </Button>
+        <Typography paragraph={true}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleClickOpen}>
+            Modifier les informations
+          </Button>
+        </Typography>
+        <Typography paragraph={true}>
+          <Button variant="contained" color="primary" onClick={this.handleOpenPwd}>
+            Changer le mot de passe
+          </Button>
+        </Typography>
+        <Typography paragraph={true}>
+          <Button href="#/" color="primary" variant="contained">
+            Page d'accueil
+          </Button>
+        </Typography>
 
         <Dialog
           open={this.state.open}

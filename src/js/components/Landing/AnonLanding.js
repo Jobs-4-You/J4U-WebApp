@@ -30,10 +30,10 @@ function AnonLanding() {
           Bienvenue sur notre page web !
         </Typography>
         <Typography paragraph={true}>
-          Les universités de Lausanne et de Genève mènent actuellement une étude sur l'amélioration de la recherche d'emploi, financée par le Fonds National Suisse de la recherche scientifique.
+          Les universités de Lausanne et de Genève mènent actuellement une étude sur l'amélioration de la recherche d'emploi.
         </Typography>
         <Typography paragraph={true}>
-          Dans le cadre de cette étude, des scientifiques ont développé un outil de recherche d’emploi personnalisé « Job For You » (J4U). Cet outil novateur vise à élargir le champ de votre recherche d’emploi en cohérence avec <strong><i>vos compétences</i></strong> : qu’est-ce que <strong><i>vos compétences</i></strong> vous permet réellement de faire ?
+          Dans le cadre de cette étude, des scientifiques ont développé un outil de recherche d’emploi innovant qui est mis à disposition des participants à l'étude. L'objectif de cet outil est d'aider les participants à retrouver un emploi rapidement ou à un retrouver un emploi qui correspondrait mieux à leurs compétences
         </Typography>
         <Typography paragraph={false}>
           Veuillez cliquer <Link to="/about" style={aboutLink}>ici</Link> pour en savoir plus sur nous.

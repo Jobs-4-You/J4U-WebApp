@@ -160,7 +160,7 @@ function UpdateInfos({ classes, history }) {
                 fullWidth
               >
                 <InputLabel htmlFor="emailConf">
-                  Confirmation de l'émail
+                  Confirmation de l'email
                 </InputLabel>
                 <Input
                   id="emailConf"
