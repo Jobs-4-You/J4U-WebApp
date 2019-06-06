@@ -12,6 +12,7 @@ class AppContainer extends Container {
   state = localStorage.getItem("appState")
     ? JSON.parse(localStorage.getItem("appState"))
     : {
+        civilite: null,
         firstName: null,
         lastName: null,
         birthDate: null,
@@ -85,7 +86,6 @@ class AppContainer extends Container {
       localStorage.setItem("sessionTime", 0);
       setInterval(function() {
         const currentSessionTime = parseFloat(localStorage.getItem("sessionTime"));
-        console.log(currentSessionTime)
         localStorage.setItem("sessionTime", currentSessionTime + freq);
       }, freq);
 

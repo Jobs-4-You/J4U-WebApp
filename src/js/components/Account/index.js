@@ -113,6 +113,18 @@ function Account() {
                 <FaceIcon />
               </Avatar>
               <ListItemText
+                primary="Civilité"
+                secondary={appContainer.state.civilite}
+              />
+            </ListItem>
+            <li>
+              <Divider variant="inset" />
+            </li>
+            <ListItem>
+              <Avatar>
+                <FaceIcon />
+              </Avatar>
+              <ListItemText
                 primary="Prénom"
                 secondary={appContainer.state.firstName}
               />

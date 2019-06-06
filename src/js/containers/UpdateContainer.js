@@ -5,6 +5,10 @@ import { updateQuery } from "js/data";
 class UpContainer extends Container {
   state = {
     dialogOpen: false,
+    civilite: {
+      value: "",
+      valid: false
+    },
     firstName: {
       value: "",
       valid: false
@@ -37,6 +41,10 @@ class UpContainer extends Container {
 
   init = appContainer => {
     this.setState({
+      civilite: {
+        value: appContainer.state.firstName,
+        valid: true
+      },
       firstName: {
         value: appContainer.state.firstName,
         valid: true
@@ -75,6 +83,13 @@ class UpContainer extends Container {
       .map(x => this.state[x].valid)
       .reduce((acc, curr) => acc && curr);
   }
+
+  handleCiviliteChange = e => {
+    const newValue = e.target.value;
+    this.setState({
+      civilite: { value: newValue, valid: true }
+    });
+  };
 
   handleFNameChange = e => {
     const newValue = e.target.value;
@@ -167,6 +182,7 @@ class UpContainer extends Container {
     try {
       e.preventDefault();
       const x = await updateQuery(
+        this.state.civilite.value,
         this.state.firstName.value,
         this.state.lastName.value,
         this.state.email.value,

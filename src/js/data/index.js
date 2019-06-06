@@ -46,6 +46,7 @@ export function signinQuery(email, pwd) {
 }
 
 export function signupQuery(
+  civilite,
   firstName,
   lastName,
   email,
@@ -56,6 +57,7 @@ export function signupQuery(
   group
 ) {
   const data = {
+    civilite,
     firstName,
     lastName,
     phone,
@@ -65,7 +67,6 @@ export function signupQuery(
     birthDate,
     group
   };
-  console.log(data);
   return client({
     method: "post",
     url: "signup",
@@ -74,6 +75,7 @@ export function signupQuery(
 }
 
 export function updateQuery(
+  civilite,
   firstName,
   lastName,
   email,
@@ -82,6 +84,7 @@ export function updateQuery(
   birthDate,
 ) {
   const data = {
+    civilite,
     firstName,
     lastName,
     phone,
@@ -89,7 +92,6 @@ export function updateQuery(
     plastaId,
     birthDate,
   };
-  console.log(data);
   return client({
     method: "post",
     url: "update",

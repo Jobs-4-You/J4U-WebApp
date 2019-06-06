@@ -4,6 +4,10 @@ import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import TextField from "@material-ui/core/TextField";
@@ -49,6 +53,11 @@ const styles = theme => ({
   },
   textField: {
     width: "100%"
+  },
+  group: {
+    marginLeft: `${theme.spacing.unit}px`,
+    marginBottom: `-${theme.spacing.unit * 2}px`,
+    flexDirection: "row"
   }
 });
 
@@ -65,6 +74,28 @@ function UpdateInfos({ classes, history }) {
               Modifier les informations du compte
             </Typography>
             <form className={classes.form}>
+            <FormControl
+                margin="normal"
+                required
+                error={!upContainer.state.civilite.valid}
+                fullWidth
+              >
+                <FormLabel component="legend">Civilité</FormLabel>
+                <RadioGroup
+                  aria-label="Civilité"
+                  name="civilite"
+                  id="civilite"
+                  className={classes.group}
+                  value={upContainer.state.civilite}
+                  onChange={upContainer.handleCiviliteChange}
+                  className={classes.group}
+                >
+                  <FormControlLabel value="Mme" control={<Radio color="primary"  />} label="Mme." />
+                  <FormControlLabel value="Mlle" control={<Radio color="primary" />} label="Mlle." />
+                  <FormControlLabel value="M" control={<Radio color="primary" />} label="M." />
+                </RadioGroup>
+              </FormControl>
+
               <FormControl
                 margin="normal"
                 required

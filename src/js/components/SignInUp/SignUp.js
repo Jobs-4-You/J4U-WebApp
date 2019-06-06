@@ -7,6 +7,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from "@material-ui/core/TextField";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
@@ -52,6 +56,11 @@ const styles = theme => ({
   },
   textField: {
     width: '100%',
+  },
+  group: {
+    marginLeft: `${theme.spacing.unit}px`,
+    marginBottom: `-${theme.spacing.unit * 2}px`,
+    flexDirection: "row"
   }
 });
 
@@ -70,7 +79,30 @@ function SignUp({ classes, history }) {
             <Typography component="h1" variant="h5">
               S'inscrire
             </Typography>
-            <form className={classes.form} accept-charset="utf-8">
+            <form className={classes.form}>
+
+              <FormControl
+                margin="normal"
+                required
+                error={!upContainer.state.civilite.valid}
+                fullWidth
+              >
+                <FormLabel component="legend">Civilité</FormLabel>
+                <RadioGroup
+                  aria-label="Civilité"
+                  name="civilite"
+                  id="civilite"
+                  className={classes.group}
+                  value={upContainer.state.civilite.value}
+                  onChange={upContainer.handleCiviliteChange}
+                  className={classes.group}
+                >
+                  <FormControlLabel value="Mme" control={<Radio color="primary" />} label="Mme." />
+                  <FormControlLabel value="Mlle" control={<Radio color="primary" />} label="Mlle." />
+                  <FormControlLabel value="M" control={<Radio color="primary" />} label="M." />
+                </RadioGroup>
+              </FormControl>
+
               <FormControl
                 margin="normal"
                 required
@@ -112,7 +144,7 @@ function SignUp({ classes, history }) {
               >
                 <TextField
                   id="birthdate"
-                  label="Date de naissance"
+                  label="Date de naissance *"
                   type="date"
                   className={classes.textField}
                   InputLabelProps={{
@@ -229,7 +261,7 @@ function SignUp({ classes, history }) {
                 fullWidth
                 error={!upContainer.state.group.valid}
               >
-                <InputLabel htmlFor="group">Group</InputLabel>
+                <InputLabel htmlFor="group">Group *</InputLabel>
                 <Input
                   id="group"
                   name="group"
