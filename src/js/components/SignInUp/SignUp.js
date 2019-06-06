@@ -70,7 +70,7 @@ function SignUp({ classes, history }) {
             <Typography component="h1" variant="h5">
               S'inscrire
             </Typography>
-            <form className={classes.form}>
+            <form className={classes.form} accept-charset="utf-8">
               <FormControl
                 margin="normal"
                 required
@@ -227,11 +227,13 @@ function SignUp({ classes, history }) {
               <FormControl
                 margin="normal"
                 fullWidth
+                error={!upContainer.state.group.valid}
               >
                 <InputLabel htmlFor="group">Group</InputLabel>
                 <Input
                   id="group"
                   name="group"
+                  required
                   value={upContainer.state.group.value}
                   onChange={upContainer.handleGroupChange}
                 />

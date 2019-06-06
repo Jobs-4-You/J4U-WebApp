@@ -44,7 +44,7 @@ class UpContainer extends Container {
     },
     group: {
       value: window.location.hash.match(/group=([^&#]*)/) ? window.location.hash.match(/group=([^&#]*)/)[1] : "",
-      valid: true
+      valid: false
     }
   };
 
@@ -183,11 +183,16 @@ class UpContainer extends Container {
     });
   };
 
+  validateGroup = x => {
+    return !validator.isEmpty(x);
+  };
+
   handleGroupChange = e => {
+    const newValue = e.target.value;
     this.setState({
       group: {
         value: e.target.value,
-        valid: true
+        valid: this.validateGroup(newValue) 
       }
     });
   }
