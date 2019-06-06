@@ -86,7 +86,7 @@ function UpdateInfos({ classes, history }) {
                   name="civilite"
                   id="civilite"
                   className={classes.group}
-                  value={upContainer.state.civilite}
+                  value={upContainer.state.civilite.value}
                   onChange={upContainer.handleCiviliteChange}
                   className={classes.group}
                 >
