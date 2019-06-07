@@ -41,28 +41,28 @@ function ButtonAppBar({ sign, from }) {
                 onKeyDown={appContainer.closeDrawer}
               >
                 <div>
-                  <List>
+                  <List onClick={() => history.push('/contact')}>
                     <ListItem button>
                       <ListItemIcon>
                         <Chat />
                       </ListItemIcon>
-                      <ListItemText primary="Contact" onClick={() => history.push('/contact')}/>
+                      <ListItemText primary="Contact" />
                     </ListItem>
                   </List>
-                  <List>
+                  <List onClick={() => history.push('/about')}>
                     <ListItem button>
                       <ListItemIcon>
                         <Info />
                       </ListItemIcon>
-                      <ListItemText primary="À propos" onClick={() => history.push('/about')}/>
+                      <ListItemText primary="À propos" />
                     </ListItem>
                   </List>
-                  <List>
+                  <List onClick={() => history.push('/legal')}>
                     <ListItem button>
                       <ListItemIcon>
                         <VerifiedUser />
                       </ListItemIcon>
-                      <ListItemText primary="Informations légales " onClick={() => history.push('/legal')}/>
+                      <ListItemText primary="Informations légales " />
                     </ListItem>
                   </List>
                 </div>
