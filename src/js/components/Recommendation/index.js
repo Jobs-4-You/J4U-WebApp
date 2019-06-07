@@ -140,6 +140,7 @@ function Recommendation() {
             <RecomResults
               recomContainer={recomContainer}
               errorContainer={errorContainer}
+              appContainer={appContainer}
             />
           </div>
         );
