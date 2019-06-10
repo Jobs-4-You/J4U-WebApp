@@ -7,7 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import RecomContainer from "js/containers/RecomContainer";
 import AppContainer from "js/containers/appContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
-import { Modal, FormContainer, StyledSlider, Submit } from "./StyledParts";
+import { FormContainer, StyledSlider, Submit } from "./StyledParts";
 import RecomResults from "./RecomResults";
 
 const selectStyles = {
