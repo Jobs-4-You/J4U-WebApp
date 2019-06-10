@@ -30,7 +30,8 @@ class AppContainer extends Container {
         drawerIsOpen: false,
         blocked: null,
         fixedOldJobValue: null,
-        fixedAlphaBeta: null
+        fixedAlphaBeta: null,
+        loading: false
       };
 
   cacheState = () => {
@@ -102,6 +103,7 @@ class AppContainer extends Container {
 
   link = async displayError => {
     try {
+      this.setState({ loading: true });
       const res = await linkQuery();
       this.cacheState();
       if (res.data.success === true) {
@@ -112,6 +114,7 @@ class AppContainer extends Container {
           "Malheureusement, nous n'avons pas pu associer votre compte. Veuillez compléter le formulaire jusqu'au bout puis réessayez."
         );
       }
+      this.setState({ loading: true });
     } catch (err) {
       console.log(err);
       displayError(err.response.data.msg);

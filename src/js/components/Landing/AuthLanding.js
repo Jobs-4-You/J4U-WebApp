@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import CheckBox from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlank from '@material-ui/icons/CheckBoxOutlineBlank';
+import Loading from "js/components/Divers/Loading";
 
 const Container = styled("div")`
   margin: auto;
@@ -81,8 +82,8 @@ function AuthLanding({ appContainer }) {
             >
               IMPORTATION DE MES DONNEES
             </Button>
+            <Loading loading={appContainer.state.loading} />
             </Typography>
-            <br />
             <br />
             <br />
             <Divider />
