@@ -26,6 +26,11 @@ function D({ open, closeDialog, value, valueChange, reset, displayError}) {
 
   return (
     <Dialog open={open} TransitionComponent={Transition} keepMounted onClose={handleClose}>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Fermer
+        </Button>
+      </DialogActions>
       <DialogTitle>Réinitialisation du mot de passe</DialogTitle>
       <DialogContent>
         <DialogContentText>
