@@ -114,7 +114,7 @@ class AppContainer extends Container {
           "Malheureusement, nous n'avons pas pu associer votre compte. Veuillez compléter le formulaire jusqu'au bout puis réessayez."
         );
       }
-      this.setState({ loading: true });
+      this.setState({ loading: false });
     } catch (err) {
       console.log(err);
       displayError(err.response.data.msg);
