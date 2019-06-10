@@ -88,7 +88,7 @@ class UpdateDialog extends React.Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Un mail a été envoyé pour ré-initialiser cotre mot de passe
+              Un mail a été envoyé pour réinitialiser votre mot de passe
             </DialogContentText>
           </DialogContent>
           <DialogActions>
