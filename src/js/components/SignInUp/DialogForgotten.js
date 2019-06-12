@@ -17,13 +17,20 @@ function Transition(props) {
 
 function D({ open, closeDialog, value, valueChange, reset, displayError}) {
   const handleClose = async () => {
-    await reset(value, displayError);
+    if (value) {
+      await reset(value, displayError);
+    }
     closeDialog();
     history.push("/signin");
   };
 
   return (
-    <Dialog open={open} TransitionComponent={Transition} keepMounted>
+    <Dialog open={open} TransitionComponent={Transition} keepMounted onClose={handleClose}>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Fermer
+        </Button>
+      </DialogActions>
       <DialogTitle>Réinitialisation du mot de passe</DialogTitle>
       <DialogContent>
         <DialogContentText>

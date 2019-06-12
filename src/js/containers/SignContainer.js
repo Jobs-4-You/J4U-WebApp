@@ -32,6 +32,7 @@ class SignContainer extends Container {
     try {
       const res = await resetPasswordMailQuery(email);
       this.openDialog()
+      displayError("Un email avec un lien permettant la réinitialisation de votre mot de passe vous a été envoyé. Veuillez y accéder, cliquer sur le lien et suivre les instructions");
     } catch (err) {
       console.log(err);
       displayError(err.response.data.msg);
