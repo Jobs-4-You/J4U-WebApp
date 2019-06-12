@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardContent, Dialog, DialogActions, DialogContent, Grid, Grow, Typography } from "@material-ui/core";
+import { Box, Button, Card, CardContent, Dialog, DialogActions, DialogContent, Grid, Grow, Typography } from "@material-ui/core";
 import Attestation from "js/components/Attestation";
 import { JobBit, Pre } from "./StyledParts";
 import Languages from "./Languages";
@@ -10,13 +10,18 @@ function JobDetail({ recomContainer, appContainer }) {
     const handleClose = () => {
       recomContainer.setState({
         selectedJob: null,
-        applied: false
+        applied: false,
+        certificatePreview: false
       });
     };
   
     const postulation = {
       marginTop: "1rem"
     };
+
+    const buttonCertificate = {
+      display: appContainer.state.group.indexOf("C0") !== -1 ? "none" : "block"
+    }
   
     try {
       if (selectedJob != null) {
@@ -134,7 +139,7 @@ function JobDetail({ recomContainer, appContainer }) {
                     </Typography>
                   ))}
   
-                  <Attestation appContainer={appContainer} jobContent={jobContent}></Attestation>
+                  <Attestation appContainer={appContainer} jobContent={jobContent} recomContainer={recomContainer}></Attestation>
   
                 </Grid>
   
@@ -292,12 +297,17 @@ function JobDetail({ recomContainer, appContainer }) {
                         </Typography>
                         <Typography paragraph={true}>
                           {
-                          <Button
-                            color="secondary"
-                            size="medium"
-                            variant="contained">
-                              Générer certificat
-                          </Button>
+                              <Button
+                                color="secondary"
+                                size="medium"
+                                variant="contained"
+                                style={buttonCertificate}
+                                disabled={recomContainer.state.certificatePreview}
+                                onClick={() => {
+                                  recomContainer.setState({ certificatePreview: true });
+                                }}>
+                                  Générer certificat
+                              </Button>
                           }
                         </Typography>
                       </CardContent>

@@ -1,10 +1,13 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
+import styled from 'styled-components';
 
-
-function Attestation({ appContainer, jobContent}) {
-  return (
-    <div className="certificatePreview">
+function Attestation({ appContainer, jobContent, recomContainer}) {
+    const CertificatePreview = styled.div`
+        display: ${recomContainer.state.certificatePreview ? "block" : "none"} 
+    `;
+    return (
+    <CertificatePreview>
 
         <Typography variant="h3" align="center">
             <strong>Attestation</strong>
@@ -26,8 +29,8 @@ function Attestation({ appContainer, jobContent}) {
             J4U@unil.ch
         </Typography>
         
-    </div>
-  );
+    </CertificatePreview>
+    );
 }
 
 export default Attestation;
