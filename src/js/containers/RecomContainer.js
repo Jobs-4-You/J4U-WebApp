@@ -35,7 +35,8 @@ class RecomContainer extends Container {
     currentPage: currentPage,
     locationValue: "NE",
     totalCounts: totalCounts,
-    applied: false
+    applied: false,
+    certificatePreview: false
   };
 
   handleSearch = debounce(async (value, displayError) => {
