@@ -1,6 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
-
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,10 +8,16 @@
             if (confirm("Confirm the update for group " + 
                         document.getElementById("group").value + 
                         "?")) {
+                
+                if (document.getElementById("valueInput").classList.contains("hidden")) {
+                    userValue = document.getElementById("valueSelect").value
+                } else {
+                    userValue = document.getElementById("valueInput").value.trim()
+                }
 
                 var data = {
                         "field": document.getElementById("field").value,
-                        "value": document.getElementById("value").value,
+                        "value": userValue,
                         "group": document.getElementById("group").value,
                         "password": document.getElementById("password").value
                     };
@@ -142,7 +145,22 @@
             }
         }
 
+        function handleFieldChange() {
+            valueInput = document.getElementById("valueInput");
+            valueSelect = document.getElementById("valueSelect");
+            if (valueInput.classList.contains("hidden")){
+                valueInput.classList.remove("hidden");
+                valueSelect.classList.add("hidden");
+            } else {
+                valueSelect.classList.remove("hidden");
+                valueInput.classList.add("hidden");
+            }
+        }
+
     </script>
+    <style type="text/css">
+        .hidden {display: none;}
+    </style>
 </head>
 <body>
 
@@ -170,18 +188,20 @@
             <legend>Update form</legend>
             <p>
                 <label>Field</label>
-                <select id="field">
-                    <option value="blocked">blocked</option>
+                <select id="field" onchange="handleFieldChange()">
+                    <option value="blocked">blocked (pre-session)</option>
                     <option value="fixedOldJobValue">fixedOldJobValue</option>
                     <option value="fixedAlphaBeta">fixedAlphaBeta</option>
+                    <option value="group">group</option>
                 </select>
             </p>
             <p>
                 <label>Value</label>
-                <select id="value">
+                <select id="valueSelect">
                     <option value="1">true</option>
                     <option value="0">false</option>
                 </select>
+                <input type="text" id="valueInput" class="hidden" />
             </p>
             <p>
                 <label>Group code</label>
