@@ -4,9 +4,20 @@ import Attestation from "js/components/Attestation";
 import { JobBit, Pre } from "./StyledParts";
 import Languages from "./Languages";
 
-function JobDetail({ recomContainer, appContainer }) {
+class JobDetail extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+
+render(){
+  const { recomContainer, appContainer } = this.props;
+
     const { selectedJob } = recomContainer.state;
-  
+
+    const scrollToRef = (ref) => { document.body.scrollTo(0, ref.current.offsetTop); } 
+    
     const handleClose = () => {
       recomContainer.setState({
         selectedJob: null,
@@ -40,6 +51,7 @@ function JobDetail({ recomContainer, appContainer }) {
             open={selectedJob !== null}
             onClose={handleClose}
             maxWidth={false}
+            scroll="body" 
           >
             <DialogActions>
               <Button onClick={handleClose} color="primary">
@@ -139,6 +151,8 @@ function JobDetail({ recomContainer, appContainer }) {
                     </Typography>
                   ))}
   
+                  <div ref={this.myRef} />
+
                   <Attestation appContainer={appContainer} jobContent={jobContent} recomContainer={recomContainer}></Attestation>
   
                 </Grid>
@@ -305,6 +319,7 @@ function JobDetail({ recomContainer, appContainer }) {
                                 disabled={recomContainer.state.certificatePreview}
                                 onClick={() => {
                                   recomContainer.setState({ certificatePreview: true });
+                                  scrollToRef(this.myRef);
                                 }}>
                                   Générer certificat
                               </Button>
@@ -327,4 +342,7 @@ function JobDetail({ recomContainer, appContainer }) {
     }
   }
 
-  export default JobDetail;
+}
+//function JobDetail({ recomContainer, appContainer }) {
+
+export default JobDetail;
