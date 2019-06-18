@@ -3,6 +3,7 @@ import { Chip, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Lis
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LoadingSeco from "./LoadingSeco";
 import OpenPosition from "./OpenPosition";
+import JobResultList from "./JobResultList";
 import Pagination from "rc-pagination";
 
 const pagStyle = {
@@ -65,35 +66,7 @@ function JobResult({
                     <LoadingSeco recomContainer={recomContainer} jobIndex={jobIndex} />
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <List component="nav" className={classes.root}>
-                        <div style={Center}>
-                            <Typography>
-                                {recomContainer.state.totalCounts[jobIndex]} résultats trouvés
-                            </Typography>
-                            <Pagination
-                                onChange={onPaginationChange}
-                                current={recomContainer.state.currentPage[jobIndex]}
-                                total={recomContainer.state.totalCounts[jobIndex]}
-                                style={pagStyle}
-                            />
-                        </div>
-
-                        <OpenPosition recomContainer={recomContainer} i={jobIndex} />
-
-                        <div style={Center}>
-                            <Pagination
-                                onChange={onPaginationChange}
-                                current={recomContainer.state.currentPage[jobIndex]}
-                                total={recomContainer.state.totalCounts[jobIndex]}
-                                style={pagStyle}
-                            />
-                        </div>
-                        <div style={noResults}>
-                            <Typography>
-                                Aucun résultat trouvé pour ce poste spécifique.
-                            </Typography>
-                        </div>
-                    </List>
+                    <JobResultList recomContainer={recomContainer} rank={rank} avam={avam} classes={classes} />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         );
