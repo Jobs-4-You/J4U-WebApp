@@ -9,6 +9,8 @@ import AppContainer from "js/containers/appContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
 import { FormContainer, StyledSlider, Submit } from "./StyledParts";
 import RecomResults from "./RecomResults";
+import JobResultList from "./JobResultList";
+import PropTypes from "prop-types";
 
 const selectStyles = {
   container: (base, state) => ({
@@ -130,8 +132,8 @@ function Recommendation() {
                   :
                     recomContainer.secoSearch(
                       recomContainer,
-                      avam,
-                      jobIndex,
+                      [appContainer.state.oldJobValue],
+                      0,
                       errorContainer.displayError
                     )
                 }
@@ -149,11 +151,24 @@ function Recommendation() {
               <Divider />
               <br />
             </FormContainer>
-            <RecomResults
-              recomContainer={recomContainer}
-              errorContainer={errorContainer}
-              appContainer={appContainer}
-            />
+            
+            {
+              controlGroup ?
+                <JobResultList
+                  recomContainer={recomContainer}
+                  rank={0}
+                  avam={[appContainer.state.oldJobValue]}
+                  classes={PropTypes.object.isRequired}
+                />
+              :
+                <RecomResults
+                  recomContainer={recomContainer}
+                  errorContainer={errorContainer}
+                  appContainer={appContainer}
+                />
+            }
+            
+            
           </div>
         );
       }}

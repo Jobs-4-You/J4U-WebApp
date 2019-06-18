@@ -35,7 +35,7 @@ function JobResultList({
 
         const Center = {
             textAlign: 'center',
-            display: recomContainer.state.totalCounts[jobIndex] ? 'block' : 'none'
+            display: recomContainer.state.totalCounts[jobIndex] && recomContainer.state.openPositions[jobIndex] ? 'block' : 'none'
         };
 
         const noResults = {
@@ -43,45 +43,48 @@ function JobResultList({
             textAlign: "center"
         };
 
-        return (
-            <List component="nav" className={classes.root}>
-                <div style={Center}>
-                    <Typography>
-                        {recomContainer.state.totalCounts[jobIndex]} résultats trouvés
-                    </Typography>
-                    <Pagination
-                        onChange={onPaginationChange}
-                        current={recomContainer.state.currentPage[jobIndex]}
-                        total={recomContainer.state.totalCounts[jobIndex]}
-                        style={pagStyle}
-                    />
-                    {
-                        /*  Only showing the loader when this component is not wrapped
-                            by am expansion panel that contains a loader 
-                        */
-                        rank == 0 ? 
-                            <LoadingSeco recomContainer={recomContainer} jobIndex={jobIndex} />
-                        : ""
-                    }
-                </div>
-
-                <OpenPosition recomContainer={recomContainer} i={jobIndex} />
-
-                <div style={Center}>
-                    <Pagination
-                        onChange={onPaginationChange}
-                        current={recomContainer.state.currentPage[jobIndex]}
-                        total={recomContainer.state.totalCounts[jobIndex]}
-                        style={pagStyle}
-                    />
-                </div>
-                <div style={noResults}>
-                    <Typography>
-                        Aucun résultat trouvé pour ce poste spécifique.
-                    </Typography>
-                </div>
-            </List>
-        );
+        if (recomContainer.state.openPositions) {
+            return (
+                <List component="nav" className={classes.root}>
+                    <div style={Center}>
+                        <Typography>
+                            {recomContainer.state.totalCounts[jobIndex]} résultats trouvés
+                        </Typography>
+                        <Pagination
+                            onChange={onPaginationChange}
+                            current={recomContainer.state.currentPage[jobIndex]}
+                            total={recomContainer.state.totalCounts[jobIndex]}
+                            style={pagStyle}
+                        />
+                        {
+                            /*  Only showing the loader when this component is not wrapped
+                                by am expansion panel that contains a loader 
+                            */
+                            rank == 0 ? 
+                                <LoadingSeco recomContainer={recomContainer} jobIndex={jobIndex} />
+                            : ""
+                        }
+                    </div>
+    
+                    <OpenPosition recomContainer={recomContainer} i={jobIndex} />
+    
+                    <div style={Center}>
+                        <Pagination
+                            onChange={onPaginationChange}
+                            current={recomContainer.state.currentPage[jobIndex]}
+                            total={recomContainer.state.totalCounts[jobIndex]}
+                            style={pagStyle}
+                        />
+                    </div>
+                    <div style={noResults}>
+                        <Typography>
+                            Aucun résultat trouvé pour ce poste spécifique.
+                        </Typography>
+                    </div>
+                </List>
+            );
+        } else { return null }
+        
     } catch (error) {
         console.log(error);
         return null;
