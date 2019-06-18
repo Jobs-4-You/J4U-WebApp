@@ -17,13 +17,15 @@ const styles = theme => ({
   }
 });
 
-function RecomRsults({ recomContainer, errorContainer, appContainer }) {
+function RecomResults({ recomContainer, errorContainer, appContainer }) {
   const { jobs, importance, vars, loading, avam, bfs } = recomContainer.state;
 
   if (loading) {
     return (
       <ResContainer>
-        <FullTypo variant="title">Vos recommandations</FullTypo>
+        <FullTypo variant="title"  align="center">
+          Vos recommandations
+        </FullTypo>
         <Loader size={100} />
       </ResContainer>
     );
@@ -61,4 +63,4 @@ function RecomRsults({ recomContainer, errorContainer, appContainer }) {
   }
 }
 
-export default RecomRsults;
+export default RecomResults;

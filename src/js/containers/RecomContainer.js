@@ -39,13 +39,13 @@ class RecomContainer extends Container {
     certificatePreview: false
   };
 
-  handleSearch = debounce(async (value, displayError) => {
+  handleSearch = debounce(async (value, displayError, controlGroup) => {
     try {
       const res = await searchQuery(value);
       const options = res.data.map(v => {
         return {
           label: v.Title,
-          value: v.ISCO08
+          value: controlGroup ? v.AVAM : v.ISCO08
         };
       });
       return options;

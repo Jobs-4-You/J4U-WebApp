@@ -91,7 +91,7 @@ function JobResult({
                         <div style={noResults}>
                             <Typography>
                                 Aucun résultat trouvé pour ce poste spécifique.
-            </Typography>
+                            </Typography>
                         </div>
                     </List>
                 </ExpansionPanelDetails>

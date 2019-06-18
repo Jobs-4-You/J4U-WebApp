@@ -37,6 +37,7 @@ function Recommendation() {
   return (
     <Subscribe to={[AppContainer, RecomContainer, ErrorContainer]}>
       {(appContainer, recomContainer, errorContainer) => {
+        let controlGroup = appContainer.state.group.indexOf("J4U") === -1 ? true : false;
         return (
           <div>
             <FormContainer>
@@ -58,7 +59,7 @@ function Recommendation() {
                   styles={selectStyles}
                   defaultInputValue={appContainer.state.oldJobLabel}
                   loadOptions={v =>
-                    recomContainer.handleSearch(v, errorContainer.displayError)
+                    recomContainer.handleSearch(v, errorContainer.displayError, controlGroup)
                   }
                   defaultOptions
                   onChange={appContainer.setOldJobValue}
@@ -67,7 +68,10 @@ function Recommendation() {
                 <br />
               </div>
               <div style={{
-                  display: appContainer.state.fixedAlphaBeta ? "block" : "none",
+                  display: 
+                    appContainer.state.fixedAlphaBeta && !controlGroup 
+                    ? "block" 
+                    : "none",
                   margin: "1rem"
                 }}>
                   <Typography>
@@ -79,7 +83,7 @@ function Recommendation() {
               </div>
 
               <div style={{
-                  display: !appContainer.state.fixedAlphaBeta ? "block" : "none"
+                  display: !appContainer.state.fixedAlphaBeta && !controlGroup ? "block" : "none"
                 }}>
 
                 <Typography id="label">
@@ -118,10 +122,18 @@ function Recommendation() {
               />
               <Submit
                 onClick={_ =>
-                  recomContainer.recommend(
-                    appContainer,
-                    errorContainer.displayError
-                  )
+                  !controlGroup ? 
+                    recomContainer.recommend(
+                      appContainer,
+                      errorContainer.displayError
+                    )
+                  :
+                    recomContainer.secoSearch(
+                      recomContainer,
+                      avam,
+                      jobIndex,
+                      errorContainer.displayError
+                    )
                 }
                 fullWidth
                 disabled={!appContainer.state.oldJobValue}
