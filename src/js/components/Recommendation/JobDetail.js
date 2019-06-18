@@ -12,7 +12,7 @@ class JobDetail extends React.Component {
   }
 
 render(){
-  const { recomContainer, appContainer } = this.props;
+    const { recomContainer, appContainer } = this.props;
 
     const { selectedJob } = recomContainer.state;
 

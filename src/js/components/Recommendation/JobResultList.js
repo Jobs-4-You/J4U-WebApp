@@ -1,5 +1,5 @@
 import React from "react";
-import { Chip, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, List, Typography } from "@material-ui/core";
+import { List, Typography } from "@material-ui/core";
 import LoadingSeco from "./LoadingSeco";
 import OpenPosition from "./OpenPosition";
 import Pagination from "rc-pagination";

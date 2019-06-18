@@ -10,6 +10,7 @@ import ErrorContainer from "js/containers/ErrorContainer";
 import { FormContainer, StyledSlider, Submit } from "./StyledParts";
 import RecomResults from "./RecomResults";
 import JobResultList from "./JobResultList";
+import JobDetail from "./JobDetail";
 import PropTypes from "prop-types";
 
 const selectStyles = {
@@ -154,12 +155,15 @@ function Recommendation() {
             
             {
               controlGroup ?
+                <>
                 <JobResultList
                   recomContainer={recomContainer}
                   rank={0}
                   avam={[appContainer.state.oldJobValue]}
                   classes={PropTypes.object.isRequired}
                 />
+                <JobDetail recomContainer={recomContainer} appContainer={appContainer} />
+                </>
               :
                 <RecomResults
                   recomContainer={recomContainer}

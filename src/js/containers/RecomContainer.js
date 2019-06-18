@@ -103,7 +103,6 @@ class RecomContainer extends Container {
     // Updating the loader status for only one job title
     const { loadingSeco } = this.state;
     loadingSeco[i] = true;
-
     this.setState({ loadingSeco: loadingSeco });
     let professionCodes = [];
     // Preparing the list of profession codes as SECO's API expects
