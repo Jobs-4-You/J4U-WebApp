@@ -39,7 +39,6 @@ function RecomResults({ recomContainer, errorContainer, appContainer }) {
             Vos recommandations
           </FullTypo>
           <br />
-          <JobDetail recomContainer={recomContainer} appContainer={appContainer} />
           {jobs.map((job, i) => (
             <JobResult
               errorContainer={errorContainer}

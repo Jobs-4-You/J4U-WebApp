@@ -45,7 +45,7 @@ function Recommendation() {
           <div>
             <FormContainer>
               <Typography variant="title">
-                Taper votre profession antérieure
+                {controlGroup ? "Recherche d'emploi" : "Taper votre profession antérieure"}
               </Typography>
               <br />
               <div style={{
@@ -143,7 +143,7 @@ function Recommendation() {
                 variant="contained"
                 color="secondary"
               >
-                Recommander
+                {controlGroup ? "Chercher" : "Recommander"}
               </Submit>
               <br />
               <br />
@@ -155,15 +155,12 @@ function Recommendation() {
             
             {
               controlGroup ?
-                <>
                 <JobResultList
                   recomContainer={recomContainer}
                   rank={0}
                   avam={[appContainer.state.oldJobValue]}
                   classes={PropTypes.object.isRequired}
                 />
-                <JobDetail recomContainer={recomContainer} appContainer={appContainer} />
-                </>
               :
                 <RecomResults
                   recomContainer={recomContainer}
@@ -172,6 +169,7 @@ function Recommendation() {
                 />
             }
             
+            <JobDetail recomContainer={recomContainer} appContainer={appContainer} />
             
           </div>
         );
