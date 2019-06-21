@@ -4,7 +4,8 @@ import {
   searchQuery,
   secoQuery,
   trackQuery,
-  locationsQuery
+  locationsQuery,
+  certificateQuery
 } from "js/data";
 import debounce from "debounce-promise";
 
@@ -162,6 +163,15 @@ class RecomContainer extends Container {
   handleJobApplication = async data => {
     try {
       const rest = await trackQuery(data);
+    } catch (err) {
+      this.setState({ loading: false });
+      console.log(err);
+    }
+  };
+  
+  handleCertificate = async data => {
+    try {
+      return await certificateQuery(data);
     } catch (err) {
       this.setState({ loading: false });
       console.log(err);

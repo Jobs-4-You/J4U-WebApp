@@ -141,6 +141,19 @@ export function trackQuery(data) {
   });
 }
 
+export function certificateQuery(data) {
+  return client({
+    method: "post",
+    url: "certificate",
+    responseType: 'arraybuffer',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/pdf'
+    },
+    data
+  });
+}
+
 export function searchQuery(job) {
   return client({
     method: "get",

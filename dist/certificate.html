@@ -1,9 +1,29 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Update</title>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel">
+    <title>Attestation</title>
+    
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="certificateOutput">
+        <h1><strong>Attestation </strong></h1>
+    </div>
+    <script>
+
+        String.prototype.eval = function(data) {
+    return this.replace(/\${(.*?)}/g, function(_, code) {
+        var scoped = code.replace(/(["'\.\w\$]+)/g, function(match) {
+          return /["']/.test(match[0]) ? match : 'scope.' + match;
+        });
+        try {
+            return new Function('scope', 'return ' + scoped)(data);
+        } catch (e) { return ''; }
+    });
+}
         function GetURLParameter(sParam){
             var sPageURL = window.location.search.substring(1);
             var sURLVariables = sPageURL.split('&');
@@ -19,43 +39,40 @@
         var lastName = GetURLParameter('lastName');
         var jobTitle = GetURLParameter('jobTitle');
         var birthDate = GetURLParameter('birthDate');
+        var scope = {
+            civilite: GetURLParameter("civilite"),
+            firstName: GetURLParameter('firstName'),
+            lastName: GetURLParameter('lastName'),
+            jobTitle: GetURLParameter('jobTitle'),
+            birthDate: GetURLParameter('birthDate'),
+            today: new Date().toLocaleDateString("fr-CH")
+        }
 
-        const markup = `
-            <h1><strong>Attestation</strong></h1>
-            <p>
-                ${civilite}. ${firstName} ${lastName},
-                né${civilite == "M" ? "" : "e"} ${birthDate}, 
-                participe à une étude scientifique mené par les Universités de Genève et Lausanne et vise à améliorer l’adéquation entre les compétences des chercheurs d’emploi celles exigés pour les postes vacantes.        
-            </p>
-            <p>
-                Dans le cadre de cette étude, les compétences de ${civilite}. ${lastName} ont été mesurés à travers d'une méthodologie scientifiquement validée. Ensuite son profil de compétences a été comparé avec les compétences demandées par toutes les presque mille professions présentes dans le marché du travail suisse. Un nouvel algorithme a ensuite découvert les professions dont le profil de compétences est le plus proche de celui de ${civilite}. ${lastName}. Votre poste de ${jobTitle} se trouve parmi les postes les mieux adaptés au profil de ${civilite}. ${lastName}.
-            </p>
-            <p>
-                Cette procédure est
-                nouvelle en Suisse et elle est scientifiquement fondée dans des recherches sur la recherche
-                d’emploi.
-            </p>
-            <p>
-                Lausanne,
-                ${new Date().toLocaleDateString("fr-CH")}
-                <br>
-                J4U@unil.ch
-            </p>
-        `;
-        window.onload = function() {
-            console.log(markup);
-            document.getElementById("certificateOutput").innerHTML = markup;
-        };
+        const markup = '\
+            <p>\
+                ${civilite}. ${firstName} ${lastName},\
+                né${civilite == "M" ? "" : "e"} ${birthDate},\
+                participe à une étude scientifique mené par les Universités de Genève et Lausanne et vise à améliorer l’adéquation entre les compétences des chercheurs d’emploi celles exigés pour les postes vacantes.\
+            </p>\
+            <p>\
+                Dans le cadre de cette étude, les compétences de ${civilite}. ${lastName} ont été mesurés à travers d`une méthodologie scientifiquement validée. Ensuite son profil de compétences a été comparé avec les compétences demandées par toutes les presque mille professions présentes dans le marché du travail suisse. Un nouvel algorithme a ensuite découvert les professions dont le profil de compétences est le plus proche de celui de ${civilite}. ${lastName}. Votre poste de ${jobTitle} se trouve parmi les postes les mieux adaptés au profil de ${civilite}. ${lastName}.\
+            </p>\
+            <p>\
+                Cette procédure est\
+                nouvelle en Suisse et elle est scientifiquement fondée dans des recherches sur la recherche\
+                d’emploi.\
+            </p>\
+            <p>\
+                Lausanne, \
+                ${today} \
+                <br>\
+                J4U@unil.ch\
+            </p>\
+        ';
+
+        document.getElementById("certificateOutput").innerHTML += markup.eval(scope);;
+
     </script>
-    <style type="text/css">
-
-    </style>
-</head>
-
-<body>
-    <div id="certificateOutput">
-    </div>
-
 </body>
 
 </html>

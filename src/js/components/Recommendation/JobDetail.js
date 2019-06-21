@@ -320,6 +320,22 @@ render(){
                                 onClick={() => {
                                   recomContainer.setState({ certificatePreview: true });
                                   scrollToRef(this.myRef);
+                                  recomContainer.handleCertificate({
+                                    civilite: appContainer.state.civilite,
+                                    firstName: appContainer.state.firstName,
+                                    lastName: appContainer.state.lastName,
+                                    jobTitle: jobContent.jobDescriptions[0].title,
+                                    birthDate: new Date(appContainer.state.birthDate).toLocaleDateString("fr-CH"),
+                                    timestamp: Date.now()
+                                  }).then((response) => {
+                                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                                    const link = document.createElement('a');
+                                    link.href = url;
+                                    link.setAttribute('download', 'file.pdf'); //or any other extension
+                                    document.body.appendChild(link);
+                                    link.click();
+                                })
+                                .catch((error) => console.log(error));
                                 }}>
                                   Générer certificat
                               </Button>
