@@ -318,8 +318,6 @@ render(){
                                 style={buttonCertificate}
                                 disabled={recomContainer.state.certificatePreview}
                                 onClick={() => {
-                                  recomContainer.setState({ certificatePreview: true });
-                                  scrollToRef(this.myRef);
                                   recomContainer.handleCertificate({
                                     civilite: appContainer.state.civilite,
                                     firstName: appContainer.state.firstName,
@@ -328,12 +326,15 @@ render(){
                                     birthDate: new Date(appContainer.state.birthDate).toLocaleDateString("fr-CH"),
                                     timestamp: Date.now()
                                   }).then((response) => {
-                                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                                    const url = window.URL.createObjectURL(new Blob([response.data], {
+                                      type: "application/pdf"
+                                    }));
                                     const link = document.createElement('a');
                                     link.href = url;
-                                    link.setAttribute('download', 'file.pdf'); //or any other extension
+                                    link.setAttribute('target', '_blank');
                                     document.body.appendChild(link);
                                     link.click();
+                                    document.body.removeChild(link);
                                 })
                                 .catch((error) => console.log(error));
                                 }}>
