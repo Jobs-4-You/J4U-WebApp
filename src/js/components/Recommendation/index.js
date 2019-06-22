@@ -73,7 +73,6 @@ function Recommendation() {
                   cache={false}
                   isClearable={true}
                   styles={selectStyles}
-                  defaultInputValue={appContainer.state.oldJobLabel}
                   inputValue={recomContainer.state.search}
                   blurInputOnSelect={true}
                   loadOptions={v =>

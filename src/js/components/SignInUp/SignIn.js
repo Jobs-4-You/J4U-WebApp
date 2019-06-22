@@ -15,6 +15,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppContainer from "js/containers/appContainer";
 import SignContainer from "js/containers/SignContainer";
 import UpdateContainer from "js/containers/UpdateContainer";
+import RecomContainer from "js/containers/RecomContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
 import DialogForgotten from "./DialogForgotten";
 
@@ -68,8 +69,8 @@ const linkCompte = {
 
 function SignIn({ classes, history, from }) {
   return (
-    <Subscribe to={[AppContainer, SignContainer, ErrorContainer, UpdateContainer]}>
-      {(appContainer, signContainer, errorContainer, updateContainer) => (
+    <Subscribe to={[AppContainer, SignContainer, ErrorContainer, UpdateContainer, RecomContainer]}>
+      {(appContainer, signContainer, errorContainer, updateContainer, recomContainer) => (
         <main className={classes.main}>
           <DialogForgotten
             open={signContainer.state.dialogOpen}
@@ -120,7 +121,7 @@ function SignIn({ classes, history, from }) {
                   onChange={signContainer.handlePasswordChange}
                 />
               </FormControl>
-              
+
               <Button
                 disabled={!signContainer.valid}
                 onClick={e =>
@@ -130,7 +131,8 @@ function SignIn({ classes, history, from }) {
                     history,
                     from,
                     errorContainer.displayError,
-                    updateContainer
+                    updateContainer,
+                    recomContainer
                   )
                 }
                 fullWidth
@@ -161,7 +163,7 @@ function SignIn({ classes, history, from }) {
                   Créer un compte
               </Link>
               */}
-              
+
             </form>
           </Paper>
         </main>

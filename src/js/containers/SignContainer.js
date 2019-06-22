@@ -72,7 +72,7 @@ class SignContainer extends Container {
     });
   };
 
-  handleSubmit = (e, appContainer, history, from, displayError, updateContainer) => {
+  handleSubmit = (e, appContainer, history, from, displayError, updateContainer, recomContainer) => {
     e.preventDefault();
     appContainer.signin(
       this.state.email.value,
@@ -80,7 +80,8 @@ class SignContainer extends Container {
       history,
       from,
       displayError,
-      updateContainer
+      updateContainer,
+      recomContainer
     );
   };
 }
