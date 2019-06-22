@@ -93,6 +93,7 @@ function Recommendation() {
                     recomContainer.setSearch("");
                   }}
                   disabled={appContainer.state.fixedOldJobValue}
+                  placeholder="Saisissez votre poste précédent"
                 />
                 <br />
               </div>
