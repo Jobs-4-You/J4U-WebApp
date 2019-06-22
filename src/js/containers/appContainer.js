@@ -86,7 +86,9 @@ class AppContainer extends Container {
       const freq = 1000;
       localStorage.setItem("sessionTime", 0);
       setInterval(function() {
-        const currentSessionTime = parseFloat(localStorage.getItem("sessionTime"));
+        const currentSessionTime = parseFloat(
+          localStorage.getItem("sessionTime")
+        );
         localStorage.setItem("sessionTime", currentSessionTime + freq);
       }, freq);
 
@@ -135,7 +137,7 @@ class AppContainer extends Container {
     this.setState({
       oldJobValue: job.value,
       oldJobLabel: job.label
-    });
+    }).then(_ => console.log(this.state.oldJobValue));
   };
 
   setAlpha = (_, value) => {

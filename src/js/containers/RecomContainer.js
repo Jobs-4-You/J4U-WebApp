@@ -23,6 +23,7 @@ let loadingSeco = Array.from(new Array(recomCount), () => false);
 class RecomContainer extends Container {
   state = {
     search: "",
+    value: "",
     jobs: null,
     isco08: null,
     avam: null,
@@ -59,6 +60,19 @@ class RecomContainer extends Container {
   setLocation = location => {
     this.setState({
       locationValue: location.value
+    });
+  };
+
+  setSearch = value => {
+    this.setState({
+      search: value
+    });
+  };
+
+  setValue = value => {
+    console.log("value: ", value);
+    this.setState({
+      value: value
     });
   };
 
@@ -168,7 +182,7 @@ class RecomContainer extends Container {
       console.log(err);
     }
   };
-  
+
   handleCertificate = async data => {
     try {
       return await certificateQuery(data);

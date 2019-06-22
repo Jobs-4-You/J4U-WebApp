@@ -33,62 +33,97 @@ const locationStyles = {
   })
 };
 
-
 const defaultLocation = [{ label: "Neuchâtel (NE)", value: "NE" }];
 
 function Recommendation() {
   return (
     <Subscribe to={[AppContainer, RecomContainer, ErrorContainer]}>
       {(appContainer, recomContainer, errorContainer) => {
-        let controlGroup = appContainer.state.group.indexOf("J4U") === -1 ? true : false;
+        let controlGroup =
+          appContainer.state.group.indexOf("J4U") === -1 ? true : false;
         return (
           <div>
             <FormContainer>
               <Typography variant="title">
-                {controlGroup ? "Recherche d'emploi" : "Taper votre profession antérieure"}
+                {controlGroup
+                  ? "Recherche d'emploi"
+                  : "Taper votre profession antérieure"}
               </Typography>
               <br />
-              <div style={{
-                display: appContainer.state.fixedOldJobValue ? "block" : "none",
-                margin: "1rem"
-              }}>
-                <Typography>Poste antérieur : {appContainer.state.oldJobLabel}</Typography>
+              <div
+                style={{
+                  display: appContainer.state.fixedOldJobValue
+                    ? "block"
+                    : "none",
+                  margin: "1rem"
+                }}
+              >
+                <Typography>
+                  Poste antérieur : {appContainer.state.oldJobLabel}
+                </Typography>
               </div>
-              <div style={{
-                  display: !appContainer.state.fixedOldJobValue ? "block" : "none"
-                }}>
+              <div
+                style={{
+                  display: !appContainer.state.fixedOldJobValue
+                    ? "block"
+                    : "none"
+                }}
+              >
                 <AsyncSelect
-                  cacheOptionscd
+                  cache={false}
+                  isClearable={true}
                   styles={selectStyles}
                   defaultInputValue={appContainer.state.oldJobLabel}
+                  inputValue={recomContainer.state.search}
+                  blurInputOnSelect={true}
                   loadOptions={v =>
-                    recomContainer.handleSearch(v, errorContainer.displayError, controlGroup)
+                    recomContainer.handleSearch(
+                      v,
+                      errorContainer.displayError,
+                      controlGroup
+                    )
                   }
-                  defaultOptions
-                  onChange={appContainer.setOldJobValue}
+                  value={recomContainer.state.value}
+                  onChange={value => {
+                    recomContainer.setValue(value);
+                    appContainer.setOldJobValue(value);
+                  }}
+                  onInputChange={recomContainer.setSearch}
+                  onFocus={() => {
+                    recomContainer.setValue(null);
+                    recomContainer.setSearch("");
+                  }}
                   disabled={appContainer.state.fixedOldJobValue}
                 />
                 <br />
               </div>
-              <div style={{
-                  display: 
-                    appContainer.state.fixedAlphaBeta && !controlGroup 
-                    ? "block" 
-                    : "none",
+              <div
+                style={{
+                  display:
+                    appContainer.state.fixedAlphaBeta && !controlGroup
+                      ? "block"
+                      : "none",
                   margin: "1rem"
-                }}>
-                  <Typography>
-                    Importance de mon profil personnel : {Math.round(appContainer.state.alpha)}
-                  </Typography>
-                  <Typography>
-                    Importance de ma profession antérieure : {Math.round(appContainer.state.beta)}
-                  </Typography>
+                }}
+              >
+                <Typography>
+                  Importance de mon profil personnel :{" "}
+                  {Math.round(appContainer.state.alpha)}
+                </Typography>
+                <Typography>
+                  Importance de ma profession antérieure :{" "}
+                  {Math.round(appContainer.state.beta)}
+                </Typography>
               </div>
 
-              <div style={{
-                  display: !appContainer.state.fixedAlphaBeta && !controlGroup ? "block" : "none"
-                }}>
-
+              <div
+                style={{
+                  display:
+                    !appContainer.state.fixedAlphaBeta && !controlGroup
+                      ? "block"
+                      : "none"
+                }}
+              >
                 <Typography id="label">
                   Importance de mon profil personnel :{" "}
                   {(appContainer.state.alpha / 100).toFixed(2)}{" "}
@@ -109,7 +144,6 @@ function Recommendation() {
                   onChange={appContainer.setBeta}
                   disabled={appContainer.state.fixedAlphaBeta}
                 />
-
               </div>
               <AsyncSelect
                 cacheOptions
@@ -125,18 +159,17 @@ function Recommendation() {
               />
               <Submit
                 onClick={_ =>
-                  !controlGroup ? 
-                    recomContainer.recommend(
-                      appContainer,
-                      errorContainer.displayError
-                    )
-                  :
-                    recomContainer.secoSearch(
-                      recomContainer,
-                      [appContainer.state.oldJobValue],
-                      0,
-                      errorContainer.displayError
-                    )
+                  !controlGroup
+                    ? recomContainer.recommend(
+                        appContainer,
+                        errorContainer.displayError
+                      )
+                    : recomContainer.secoSearch(
+                        recomContainer,
+                        [appContainer.state.oldJobValue],
+                        0,
+                        errorContainer.displayError
+                      )
                 }
                 fullWidth
                 disabled={!appContainer.state.oldJobValue}
@@ -152,25 +185,26 @@ function Recommendation() {
               <Divider />
               <br />
             </FormContainer>
-            
-            {
-              controlGroup ?
-                <JobResultList
-                  recomContainer={recomContainer}
-                  rank={0}
-                  avam={[appContainer.state.oldJobValue]}
-                  classes={PropTypes.object.isRequired}
-                />
-              :
-                <RecomResults
-                  recomContainer={recomContainer}
-                  errorContainer={errorContainer}
-                  appContainer={appContainer}
-                />
-            }
-            
-            <JobDetail recomContainer={recomContainer} appContainer={appContainer} />
-            
+
+            {controlGroup ? (
+              <JobResultList
+                recomContainer={recomContainer}
+                rank={0}
+                avam={[appContainer.state.oldJobValue]}
+                classes={PropTypes.object.isRequired}
+              />
+            ) : (
+              <RecomResults
+                recomContainer={recomContainer}
+                errorContainer={errorContainer}
+                appContainer={appContainer}
+              />
+            )}
+
+            <JobDetail
+              recomContainer={recomContainer}
+              appContainer={appContainer}
+            />
           </div>
         );
       }}
