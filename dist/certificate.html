@@ -15,14 +15,14 @@
     <script>
 
         String.prototype.eval = function(data) {
-    return this.replace(/\${(.*?)}/g, function(_, code) {
-        var scoped = code.replace(/(["'\.\w\$]+)/g, function(match) {
-          return /["']/.test(match[0]) ? match : 'scope.' + match;
+            return this.replace(/\${(.*?)}/g, function(_, code) {
+                var scoped = code.replace(/(["'\.\w\$]+)/g, function(match) {
+                return /["']/.test(match[0]) ? match : 'scope.' + match;
+                });
+                try {
+                    return new Function('scope', 'return ' + scoped)(data);
+                } catch (e) { return ''; }
         });
-        try {
-            return new Function('scope', 'return ' + scoped)(data);
-        } catch (e) { return ''; }
-    });
 }
         function GetURLParameter(sParam){
             var sPageURL = window.location.search.substring(1);
@@ -34,11 +34,7 @@
                 }
             }
         }
-        var civilite = GetURLParameter("civilite");
-        var firstName = GetURLParameter('firstName');
-        var lastName = GetURLParameter('lastName');
-        var jobTitle = GetURLParameter('jobTitle');
-        var birthDate = GetURLParameter('birthDate');
+        
         var scope = {
             civilite: GetURLParameter("civilite"),
             firstName: GetURLParameter('firstName'),
