@@ -69,7 +69,8 @@ class AppContainer extends Container {
     history,
     from,
     displayError,
-    updateContainer
+    updateContainer,
+    recomContainer
   ) => {
     try {
       const x = await signinQuery(user, password);
@@ -80,6 +81,10 @@ class AppContainer extends Container {
       updateContainer.init(this);
       this.cacheState();
       localStorage.setItem("accessToken", x.data.accessToken);
+      recomContainer.setValue({
+        label: this.state.oldJobLabel,
+        value: this.state.oldJobValue
+      });
 
       console.log(`CURRENT SESSION TIME`, localStorage.getItem("sessionTime"));
       await logSessionTime();
