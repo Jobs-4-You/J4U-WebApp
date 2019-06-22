@@ -3,6 +3,7 @@ import { Box, Button, Card, CardContent, Dialog, DialogActions, DialogContent, G
 import Attestation from "js/components/Attestation";
 import { JobBit, Pre } from "./StyledParts";
 import Languages from "./Languages";
+import Loading from "js/components/Divers/Loading";
 
 class JobDetail extends React.Component {
 
@@ -311,35 +312,40 @@ render(){
                         </Typography>
                         <Typography paragraph={true}>
                           {
-                              <Button
-                                color="secondary"
-                                size="medium"
-                                variant="contained"
-                                style={buttonCertificate}
-                                disabled={recomContainer.state.certificatePreview}
-                                onClick={() => {
-                                  recomContainer.handleCertificate({
-                                    civilite: appContainer.state.civilite,
-                                    firstName: appContainer.state.firstName,
-                                    lastName: appContainer.state.lastName,
-                                    jobTitle: jobContent.jobDescriptions[0].title,
-                                    birthDate: new Date(appContainer.state.birthDate).toLocaleDateString("fr-CH"),
-                                    timestamp: Date.now()
-                                  }).then((response) => {
-                                    const url = window.URL.createObjectURL(new Blob([response.data], {
-                                      type: "application/pdf"
-                                    }));
-                                    const link = document.createElement('a');
-                                    link.href = url;
-                                    link.setAttribute('target', '_blank');
-                                    document.body.appendChild(link);
-                                    link.click();
-                                    document.body.removeChild(link);
-                                })
-                                .catch((error) => console.log(error));
-                                }}>
-                                  Générer certificat
-                              </Button>
+                              <>
+                                <Button
+                                  color="secondary"
+                                  size="medium"
+                                  variant="contained"
+                                  style={buttonCertificate}
+                                  disabled={recomContainer.state.certificatePreview}
+                                  onClick={() => {
+                                    appContainer.setState({loading:true});
+                                    recomContainer.handleCertificate({
+                                      civilite: appContainer.state.civilite,
+                                      firstName: appContainer.state.firstName,
+                                      lastName: appContainer.state.lastName,
+                                      jobTitle: jobContent.jobDescriptions[0].title,
+                                      birthDate: new Date(appContainer.state.birthDate).toLocaleDateString("fr-CH"),
+                                      timestamp: Date.now()
+                                    }).then((response) => {
+                                      const url = window.URL.createObjectURL(new Blob([response.data], {
+                                        type: "application/pdf"
+                                      }));
+                                      const link = document.createElement('a');
+                                      link.href = url;
+                                      link.setAttribute('target', '_blank');
+                                      document.body.appendChild(link);
+                                      link.click();
+                                      document.body.removeChild(link);
+                                      appContainer.setState({loading:false});
+                                  })
+                                  .catch((error) => console.log(error));
+                                  }}>
+                                    Générer certificat
+                                </Button>
+                                <Loading loading={appContainer.state.loading} />
+                              </>
                           }
                         </Typography>
                       </CardContent>
@@ -360,6 +366,5 @@ render(){
   }
 
 }
-//function JobDetail({ recomContainer, appContainer }) {
 
 export default JobDetail;
