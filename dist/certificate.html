@@ -4,14 +4,19 @@
     <title>Attestation</title>
     
     <style type="text/css">
-
+        #preview {
+            width: 939px;
+            height: 1680px;
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script> 
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    
 </head>
 
 <body>
-    <div id="certificateOutput">
-        <h1><strong>Attestation</strong></h1>
-    </div>
+    <div id="certificateOutput"></div>
     <script>
 
         String.prototype.eval = function(data) {
@@ -35,40 +40,61 @@
             }
         }
 
+        function print() {
+            filename  = 'ThisIsYourPDFFilename.pdf';
+
+            html2canvas(document.getElementById("preview"), {scale: 2}).then(function(canvas){
+                pdf = new jsPDF();
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
+                pdf.save(filename);
+            });
+        }
+
         var scope = {
             civilite: GetURLParameter("civilite"),
             firstName: GetURLParameter('firstName'),
-            lastName: GetURLParameter('lastName'),
+            lastName: GetURLParameter('lastName').toUpperCase(),
             jobTitle: GetURLParameter('jobTitle'),
             birthDate: GetURLParameter('birthDate'),
             today: new Date().toLocaleDateString("fr-CH")
         }
 
         const markup = '\
+            <div id="preview">\
+            <h1><strong>Attestation</strong></h1>\
             <p>\
                 ${civilite}. ${firstName} ${lastName},\
                 né${civilite == "M" ? "" : "e"} ${birthDate},\
-                participe à une étude scientifique mené par les Universités de Genève et Lausanne et vise à améliorer l’adéquation entre les compétences des chercheurs d’emploi celles exigés pour les postes vacantes.\
+                est candidate au poste intitulé « ${jobTitle} ». \
+                Votre offre d’emploi pour ce poste a été sélectionnée par un nouvel algorithme, comme étant en adéquation avec les compétences de ${civilite}. ${firstName} ${lastName}.\
             </p>\
             <p>\
-                Dans le cadre de cette étude, les compétences de ${civilite}. ${lastName} ont été mesurés à travers d`une méthodologie scientifiquement validée. Ensuite son profil de compétences a été comparé avec les compétences demandées par toutes les presque mille professions présentes dans le marché du travail suisse. Un nouvel algorithme a ensuite découvert les professions dont le profil de compétences est le plus proche de celui de ${civilite}. ${lastName}. Votre poste de ${jobTitle} se trouve parmi les postes les mieux adaptés au profil de ${civilite}. ${lastName}.\
+                    Dans le cadre d’une étude menée par les Universités de Genève et de Lausanne intitulée « Job For You » (J4U), nous avons mesuré le profil de compétences de ${civilite}. ${lastName}.\
+                    Ce profil a été comparé avec les compétences requises par plus de mille professions en Suisse.\
+                    Votre poste « ${jobTitle} » a été sélectionné comme étant l’un des mieux adaptés au profil de ${civilite}. ${lastName}.\
             </p>\
             <p>\
-                Cette procédure est\
-                nouvelle en Suisse et elle est scientifiquement fondée dans des recherches sur la recherche\
-                d’emploi.\
+                    Cette procédure est nouvelle en Suisse et est scientifiquement fondée, elle se base sur les compétences des candidats et non plus exclusivement sur leur passé professionnel. Les postulations menées suite aux recommandations de l’algorithme sont sérieuses.\
+                    Les Universités de Genève et de Lausanne vous encouragent donc à considérer la candidature de ${civilite}. ${lastName}.\
             </p>\
             <p>\
                 Lausanne, \
                 ${today} \
+            </p>\
+            <p>\
+                L’équipe « Job For You » (J4U)\
                 <br>\
                 J4U@unil.ch\
             </p>\
+            </div>\
         ';
 
-        document.getElementById("certificateOutput").innerHTML += markup.eval(scope);;
+        document.getElementById("certificateOutput").innerHTML += markup.eval(scope);
+
+        print();
 
     </script>
+
 </body>
 
 </html>
