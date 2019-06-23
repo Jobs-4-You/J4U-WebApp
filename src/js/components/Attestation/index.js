@@ -37,7 +37,7 @@ function Attestation({ appContainer, jobContent, recomContainer}) {
     
     const Logos = styled.div`
         text-align: center;
-        padding-bottom: 3rem;
+        padding: 3rem;
     `;
     
     const LogoImg = styled.img`
@@ -46,7 +46,7 @@ function Attestation({ appContainer, jobContent, recomContainer}) {
     
     const InnerContainer = styled.div`
         width: 90%;
-        margin 0 auto;
+        margin 0 5%;
     `;
 
 
@@ -68,7 +68,7 @@ function Attestation({ appContainer, jobContent, recomContainer}) {
                     html2canvas(input).then((canvas) => {
                         const imgData = canvas.toDataURL('image/png');
                         const pdf = new jsPDF();
-                        pdf.addImage(imgData, 'JPEG', 0, 0);
+                        pdf.addImage(imgData, 'JPEG', 10, 10);
                         pdf.save("Attestation", appContainer.setState({loading:false}));
                     });
                     recomContainer.handleJobApplication({

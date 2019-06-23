@@ -307,28 +307,30 @@ class JobDetail extends React.Component {
                             <div>
                               {jobContent.externalUrl ||
                               jobContent.applyChannel.formUrl ? (
-                                <Button
-                                  onClick={() => {
-                                    recomContainer.handleJobApplication({
-                                      TYPE: "EXTERNAL_APPLICATION",
-                                      JOBID: selectedJob.jobAdvertisement.id,
-                                      OCCUPATIONS: jobContent.occupations,
-                                      EXTERNALURL:
+                                <Typography paragraph={true}>
+                                  <Button
+                                    onClick={() => {
+                                      recomContainer.handleJobApplication({
+                                        TYPE: "EXTERNAL_APPLICATION",
+                                        JOBID: selectedJob.jobAdvertisement.id,
+                                        OCCUPATIONS: jobContent.occupations,
+                                        EXTERNALURL:
+                                          jobContent.externalUrl ||
+                                          jobContent.applyChannel.formUrl
+                                      });
+                                      window.open(
                                         jobContent.externalUrl ||
-                                        jobContent.applyChannel.formUrl
-                                    });
-                                    window.open(
-                                      jobContent.externalUrl ||
-                                        jobContent.applyChannel.formUrl,
-                                      "_blank"
-                                    );
-                                  }}
-                                  color="secondary"
-                                  size="medium"
-                                  variant="contained"
-                                >
-                                  Site externe
-                                </Button>
+                                          jobContent.applyChannel.formUrl,
+                                        "_blank"
+                                      );
+                                    }}
+                                    color="secondary"
+                                    size="medium"
+                                    variant="contained"
+                                  >
+                                    Site externe
+                                  </Button>
+                                </Typography>
                               ) : (
                                 ""
                               )}
