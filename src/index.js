@@ -1,7 +1,7 @@
-import HMR from 'unstated-hmr'; // Just load the library before initializing the containers
-if (module.hot) module.hot.accept()
+import HMR from "unstated-hmr"; // Just load the library before initializing the containers
+if (module.hot) module.hot.accept();
 const env = process.env.NODE_ENV;
-HMR.isEnabled = env === 'development';
+HMR.isEnabled = env === "development";
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -107,7 +107,7 @@ const ResetView = ({ location }) => {
         <title>J4U-Reset-Password</title>
       </Helmet>
       <Header />
-      <Reset token={location.search.slice(7, location.search.length)}/>
+      <Reset token={location.search.slice(7, location.search.length)} />
     </div>
   );
 };
@@ -267,7 +267,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <Provider>
-    <HashRouter history={history}>
+    <HashRouter>
       <MuiThemeProvider theme={theme}>
         <App />
       </MuiThemeProvider>

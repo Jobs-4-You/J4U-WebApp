@@ -23,7 +23,7 @@ let loadingSeco = Array.from(new Array(recomCount), () => false);
 class RecomContainer extends Container {
   state = {
     search: "",
-    value: "",
+    value: null,
     jobs: null,
     isco08: null,
     avam: null,

@@ -147,7 +147,6 @@ function SignIn({ classes, history, from }) {
                 onClick={signContainer.openDialog}
                 variant="text"
                 align="center"
-                textAlign="center"
                 style={linkCompte}
                 fullWidth
               >

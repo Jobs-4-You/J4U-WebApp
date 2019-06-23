@@ -81,10 +81,12 @@ class AppContainer extends Container {
       updateContainer.init(this);
       this.cacheState();
       localStorage.setItem("accessToken", x.data.accessToken);
-      recomContainer.setValue({
-        label: this.state.oldJobLabel,
-        value: this.state.oldJobValue
-      });
+      if (this.state.oldJobLabel && this.state.oldJobValue) {
+        recomContainer.setValue({
+          label: this.state.oldJobLabel,
+          value: this.state.oldJobValue
+        });
+      }
 
       console.log(`CURRENT SESSION TIME`, localStorage.getItem("sessionTime"));
       await logSessionTime();

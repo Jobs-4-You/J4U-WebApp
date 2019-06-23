@@ -27,7 +27,7 @@ function AuthLanding({ appContainer }) {
             <br />
             <Divider />
             <br />
-            <Typography variant="title" paragraph={true}>
+            <Typography variant="subtitle1" paragraph={true}>
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
@@ -52,7 +52,7 @@ function AuthLanding({ appContainer }) {
             <br />
             <Divider />
             <br />
-            <Typography variant="title" paragraph={true}>
+            <Typography variant="subtitle1" paragraph={true}>
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
@@ -92,7 +92,7 @@ function AuthLanding({ appContainer }) {
         );
         const allRight = (
           <div>
-             <Typography variant="title" paragraph={true}>
+             <Typography variant="subtitle1" paragraph={true}>
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>

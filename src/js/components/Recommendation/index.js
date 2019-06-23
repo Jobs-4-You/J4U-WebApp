@@ -44,7 +44,7 @@ function Recommendation() {
         return (
           <div>
             <FormContainer>
-              <Typography variant="title">
+              <Typography variant="subtitle1">
                 {controlGroup
                   ? "Recherche d'emploi"
                   : "Taper votre profession antérieure"}

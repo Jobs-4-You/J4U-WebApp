@@ -23,7 +23,7 @@ function RecomResults({ recomContainer, errorContainer, appContainer }) {
   if (loading) {
     return (
       <ResContainer>
-        <FullTypo variant="title"  align="center">
+        <FullTypo variant="subtitle1"  align="center">
           Vos recommandations
         </FullTypo>
         <Loader size={100} />
@@ -35,7 +35,7 @@ function RecomResults({ recomContainer, errorContainer, appContainer }) {
     if (jobs) {
       return (
         <ResContainer>
-          <FullTypo variant="title" align="center">
+          <FullTypo variant="subtitle1" align="center">
             Vos recommandations
           </FullTypo>
           <br />

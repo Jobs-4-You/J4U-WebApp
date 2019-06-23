@@ -1,24 +1,36 @@
 import React from "react";
-import { Box, Button, Card, CardContent, Dialog, DialogActions, DialogContent, Grid, Grow, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Grid,
+  Grow,
+  Typography
+} from "@material-ui/core";
 import Attestation from "js/components/Attestation";
 import { JobBit, Pre } from "./StyledParts";
 import Languages from "./Languages";
 import Loading from "js/components/Divers/Loading";
 
 class JobDetail extends React.Component {
-
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
   }
 
-render(){
+  render() {
     const { recomContainer, appContainer } = this.props;
 
     const { selectedJob } = recomContainer.state;
 
-    const scrollToRef = (ref) => { document.body.scrollTo(0, ref.current.offsetTop); } 
-    
+    const scrollToRef = ref => {
+      document.body.scrollTo(0, ref.current.offsetTop);
+    };
+
     const handleClose = () => {
       recomContainer.setState({
         selectedJob: null,
@@ -26,20 +38,20 @@ render(){
         certificatePreview: false
       });
     };
-  
+
     const postulation = {
       marginTop: "1rem"
     };
 
     const buttonCertificate = {
       display: appContainer.state.group.indexOf("C0") !== -1 ? "none" : "block"
-    }
-  
+    };
+
     try {
       if (selectedJob != null) {
         const jobContent = selectedJob.jobAdvertisement.jobContent;
         const applyChannel = jobContent.applyChannel;
-  
+
         const postulerLink = {
           textDecoration: "none",
           color: "white"
@@ -52,7 +64,7 @@ render(){
             open={selectedJob !== null}
             onClose={handleClose}
             maxWidth={false}
-            scroll="body" 
+            scroll="body"
           >
             <DialogActions>
               <Button onClick={handleClose} color="primary">
@@ -62,7 +74,7 @@ render(){
             <DialogContent>
               <Grid container spacing={16}>
                 <Grid item xs={8}>
-                  <Typography variant="title" paragraph={true}>
+                  <Typography variant="subtitle1" paragraph={true}>
                     {jobContent.jobDescriptions[0].title}
                   </Typography>
                   <Typography>
@@ -75,7 +87,9 @@ render(){
                   </Typography>
                   <Typography paragraph={true}>
                     <JobBit>
-                      {(jobContent.location.postalCode || "")} {(jobContent.location.city || "")} {(jobContent.location.cantonCode || "")}
+                      {jobContent.location.postalCode || ""}{" "}
+                      {jobContent.location.city || ""}{" "}
+                      {jobContent.location.cantonCode || ""}
                     </JobBit>
                     <JobBit>
                       {jobContent.employment.workloadPercentageMin &&
@@ -98,15 +112,15 @@ render(){
                     </JobBit>
                   </Typography>
                   <Pre>{jobContent.jobDescriptions[0].description}</Pre>
-                  <Typography variant="subheading">
+                  <Typography variant="subtitle2">
                     Informations sur le poste
                   </Typography>
                   <Typography>
                     <strong>Lieu de travail</strong>
                   </Typography>
                   <Typography>
-                    {jobContent.location.postalCode} {jobContent.location.city} (
-                    {jobContent.location.cantonCode})
+                    {jobContent.location.postalCode} {jobContent.location.city}{" "}
+                    ({jobContent.location.cantonCode})
                   </Typography>
                   <Typography>
                     <strong>Entrée en fonction</strong>
@@ -136,28 +150,31 @@ render(){
                       ? "Indeterminé"
                       : "Durée limitée"}
                   </Typography>
-  
+
                   {jobContent.languageSkills !== undefined &&
                   jobContent.languageSkills.length !== 0 ? (
-                    <Typography variant="subheading">
+                    <Typography variant="subtitle2">
                       <strong>Connaissances linguistiques</strong>
                     </Typography>
                   ) : (
                     ""
                   )}
-  
+
                   {jobContent.languageSkills.map((language, z) => (
                     <Typography key={z}>
                       {Languages[language.languageIsoCode]}
                     </Typography>
                   ))}
-  
+
                   <div ref={this.myRef} />
 
-                  <Attestation appContainer={appContainer} jobContent={jobContent} recomContainer={recomContainer}></Attestation>
-  
+                  <Attestation
+                    appContainer={appContainer}
+                    jobContent={jobContent}
+                    recomContainer={recomContainer}
+                  />
                 </Grid>
-  
+
                 <Grid item xs={4}>
                   <Typography>
                     <strong>{jobContent.company.name}</strong>
@@ -185,10 +202,10 @@ render(){
                   <Grow in={recomContainer.state.applied}>
                     <Card style={postulation}>
                       <CardContent>
-                        <Typography variant="subheading" paragraph={true}>
+                        <Typography variant="subtitle2" paragraph={true}>
                           Formes possibles de postulation
                         </Typography>
-  
+
                         <Typography>
                           <strong>
                             {applyChannel
@@ -246,7 +263,8 @@ render(){
                             ? applyChannel.postAddress.postOfficeBoxNumber
                               ? applyChannel.postAddress.postOfficeBoxNumber +
                                 " " +
-                                applyChannel.postAddress.postOfficeBoxPostalCode +
+                                applyChannel.postAddress
+                                  .postOfficeBoxPostalCode +
                                 " " +
                                 applyChannel.postAddress.postOfficeBoxCity
                               : ""
@@ -280,8 +298,8 @@ render(){
                             ? jobContent.publicContact.email
                             : ""}
                         </Typography>
-                        
-                        <Typography paragraph={true}>
+
+                        <div>
                           {jobContent.externalUrl ||
                           jobContent.applyChannel.formUrl ? (
                             <Button
@@ -309,45 +327,55 @@ render(){
                           ) : (
                             ""
                           )}
-                        </Typography>
-                        <Typography paragraph={true}>
+                        </div>
+                        <div>
                           {
-                              <>
-                                <Button
-                                  color="secondary"
-                                  size="medium"
-                                  variant="contained"
-                                  style={buttonCertificate}
-                                  disabled={recomContainer.state.certificatePreview}
-                                  onClick={() => {
-                                    appContainer.setState({loading:true});
-                                    recomContainer.handleCertificate({
+                            <>
+                              <Button
+                                color="secondary"
+                                size="medium"
+                                variant="contained"
+                                style={buttonCertificate}
+                                disabled={
+                                  recomContainer.state.certificatePreview
+                                }
+                                onClick={() => {
+                                  appContainer.setState({ loading: true });
+                                  recomContainer
+                                    .handleCertificate({
                                       civilite: appContainer.state.civilite,
                                       firstName: appContainer.state.firstName,
                                       lastName: appContainer.state.lastName,
-                                      jobTitle: jobContent.jobDescriptions[0].title,
-                                      birthDate: new Date(appContainer.state.birthDate).toLocaleDateString("fr-CH"),
+                                      jobTitle:
+                                        jobContent.jobDescriptions[0].title,
+                                      birthDate: new Date(
+                                        appContainer.state.birthDate
+                                      ).toLocaleDateString("fr-CH"),
                                       timestamp: Date.now()
-                                    }).then((response) => {
-                                      const url = window.URL.createObjectURL(new Blob([response.data], {
-                                        type: "application/pdf"
-                                      }));
-                                      const link = document.createElement('a');
+                                    })
+                                    .then(response => {
+                                      const url = window.URL.createObjectURL(
+                                        new Blob([response.data], {
+                                          type: "application/pdf"
+                                        })
+                                      );
+                                      const link = document.createElement("a");
                                       link.href = url;
-                                      link.setAttribute('target', '_blank');
+                                      link.setAttribute("download", "file.pdf");
                                       document.body.appendChild(link);
                                       link.click();
                                       document.body.removeChild(link);
-                                      appContainer.setState({loading:false});
-                                  })
-                                  .catch((error) => console.log(error));
-                                  }}>
-                                    Générer certificat
-                                </Button>
-                                <Loading loading={appContainer.state.loading} />
-                              </>
+                                      appContainer.setState({ loading: false });
+                                    })
+                                    .catch(error => console.log(error));
+                                }}
+                              >
+                                Générer certificat
+                              </Button>
+                              <Loading loading={appContainer.state.loading} />
+                            </>
                           }
-                        </Typography>
+                        </div>
                       </CardContent>
                     </Card>
                   </Grow>
@@ -364,7 +392,6 @@ render(){
       return null;
     }
   }
-
 }
 
 export default JobDetail;
