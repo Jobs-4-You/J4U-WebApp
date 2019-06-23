@@ -361,7 +361,11 @@ class JobDetail extends React.Component {
                                       );
                                       const link = document.createElement("a");
                                       link.href = url;
+<<<<<<< HEAD
                                       link.setAttribute("download", "file.pdf");
+=======
+                                      link.setAttribute('download', 'Attestation.pdf');
+>>>>>>> d1c496d9052f21abbf0b162b76b2556e11a36940
                                       document.body.appendChild(link);
                                       link.click();
                                       document.body.removeChild(link);
