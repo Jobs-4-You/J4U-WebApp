@@ -45,7 +45,7 @@
 
             html2canvas(document.getElementById("preview"), {scale: 2}).then(function(canvas){
                 pdf = new jsPDF();
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 20, 20, 211, 298);
                 pdf.save(filename);
             });
         }
