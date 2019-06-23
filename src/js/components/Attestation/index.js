@@ -1,6 +1,11 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import styled from 'styled-components';
+import SignatureLalive from 'img/signature-lalive.png'
+import SignatureKliegel from 'img/signature-kliegel.png'
+import SignaturePellizzari from 'img/signature-pellizzari.png'
+import SignatureCherubini from 'img/signature-cherubini.png'
+
 
 function Attestation({ appContainer, jobContent, recomContainer}) {
     const CertificatePreview = styled.div`

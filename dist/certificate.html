@@ -2,11 +2,24 @@
 <head>
     <meta charset="utf-8">
     <title>Attestation</title>
-    
     <style type="text/css">
         #preview {
             width: 939px;
             height: 1680px;
+            apadding: 5%;
+        }
+        #logos {
+            text-align: center;
+            padding: 3rem;
+        }
+        #logos img {
+            margin: 1rem;
+        }
+        h1 {
+            text-align: center;
+        }
+        p {
+            font-family: Arial, Helvetica, sans-serif;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script> 
@@ -41,11 +54,10 @@
         }
 
         function print() {
-            filename  = 'ThisIsYourPDFFilename.pdf';
-
+            filename  = 'Attestation.pdf';
             html2canvas(document.getElementById("preview"), {scale: 2}).then(function(canvas){
                 pdf = new jsPDF();
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 20, 20, 211, 298);
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
                 pdf.save(filename);
             });
         }
@@ -61,37 +73,62 @@
 
         const markup = '\
             <div id="preview">\
-            <h1><strong>Attestation</strong></h1>\
-            <p>\
-                ${civilite}. ${firstName} ${lastName},\
-                né${civilite == "M" ? "" : "e"} ${birthDate},\
-                est candidate au poste intitulé « ${jobTitle} ». \
-                Votre offre d’emploi pour ce poste a été sélectionnée par un nouvel algorithme, comme étant en adéquation avec les compétences de ${civilite}. ${firstName} ${lastName}.\
-            </p>\
-            <p>\
-                    Dans le cadre d’une étude menée par les Universités de Genève et de Lausanne intitulée « Job For You » (J4U), nous avons mesuré le profil de compétences de ${civilite}. ${lastName}.\
-                    Ce profil a été comparé avec les compétences requises par plus de mille professions en Suisse.\
-                    Votre poste « ${jobTitle} » a été sélectionné comme étant l’un des mieux adaptés au profil de ${civilite}. ${lastName}.\
-            </p>\
-            <p>\
-                    Cette procédure est nouvelle en Suisse et est scientifiquement fondée, elle se base sur les compétences des candidats et non plus exclusivement sur leur passé professionnel. Les postulations menées suite aux recommandations de l’algorithme sont sérieuses.\
-                    Les Universités de Genève et de Lausanne vous encouragent donc à considérer la candidature de ${civilite}. ${lastName}.\
-            </p>\
-            <p>\
-                Lausanne, \
-                ${today} \
-            </p>\
-            <p>\
-                L’équipe « Job For You » (J4U)\
-                <br>\
-                J4U@unil.ch\
-            </p>\
+                <div id="logos"><p><img src="/logo-unil.png" /><img src="/logo-unige.png" /></p></div>\
+                <div><h1><strong>Attestation</strong></h1></div>\
+                <div>\
+                    <p>\
+                        ${civilite} ${firstName} ${lastName},\
+                        né${civilite == "M" ? "" : "e"} ${birthDate},\
+                        est candidate au poste intitulé « ${jobTitle} ». \
+                        Votre offre d’emploi pour ce poste a été sélectionnée par un nouvel algorithme, comme étant en adéquation avec les compétences de ${civilite} ${firstName} ${lastName}.\
+                    </p>\
+                    <p>\
+                            Dans le cadre d’une étude menée par les Universités de Genève et de Lausanne intitulée « Job For You » (J4U), nous avons mesuré le profil de compétences de ${civilite} ${lastName}.\
+                            Ce profil a été comparé avec les compétences requises par plus de mille professions en Suisse.\
+                            Votre poste « ${jobTitle} » a été sélectionné comme étant l’un des mieux adaptés au profil de ${civilite} ${lastName}.\
+                    </p>\
+                    <p>\
+                            Cette procédure est nouvelle en Suisse et est scientifiquement fondée, elle se base sur les compétences des candidats et non plus exclusivement sur leur passé professionnel. Les postulations menées suite aux recommandations de l’algorithme sont sérieuses.\
+                            Les Universités de Genève et de Lausanne vous encouragent donc à considérer la candidature de ${civilite} ${lastName}.\
+                    </p>\
+                    <p>\
+                        <br>\
+                        Lausanne, \
+                        ${today}, \
+                    </p>\
+                    <p>\
+                        <br>\
+                        L’équipe « Job For You » (J4U)\
+                        <br>\
+                        J4U@unil.ch\
+                    </p>\
+                    <div class="signature">\
+                        <img src="/signature-cherubini.png" />\
+                        <br>\
+                        Pr. Mauro Cherubini\
+                    </div>\
+                    <div class="signature">\
+                        <img src="/signature-kliegel.png" />\
+                        <br>\
+                        Pr. Matthias Kliegel\
+                    </div>\
+                    <div class="signature">\
+                        <img src="/signature-lalive.png" />\
+                        <br>\
+                        Pr. Rafael Lalive\
+                    </div>\
+                    <div class="signature">\
+                        <img src="/signature-pellizzari.png" />\
+                        <br>\
+                        Pr. Michele Pellizzari\
+                    </div>\
+                </div>\
             </div>\
         ';
 
         document.getElementById("certificateOutput").innerHTML += markup.eval(scope);
 
-        print();
+        //print();
 
     </script>
 
