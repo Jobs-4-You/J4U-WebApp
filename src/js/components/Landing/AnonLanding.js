@@ -3,6 +3,8 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import { Link } from "js/components/Divers/Link";
 import Warning from '@material-ui/icons/Warning';
+import LogoUnil from 'img/logo-unil.png'
+import LogoUnige from 'img/logo-unige.png'
 
 const Container = styled("div")`
   margin: auto;
@@ -39,9 +41,9 @@ function AnonLanding() {
           Veuillez cliquer <Link to="/about" style={aboutLink}>ici</Link> pour en savoir plus sur nous.
         </Typography>
         <Center>
-          <img src="https://applicationspub.unil.ch/interpub/noauth/php/Ec/css/images/logo_unil_hi.png" />
+          <img src={LogoUnil}/>
           &nbsp;&nbsp;&nbsp;
-          <img src="https://www.unige.ch/communication/files/1614/8890/7268/logo.jpg" />
+          <img src={LogoUnige}/>
         </Center>
       </div>
     </Container>
