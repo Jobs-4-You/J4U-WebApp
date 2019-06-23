@@ -13,7 +13,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 
-function Attestation({ appContainer, jobContent, recomContainer}) {
+function Attestation({ appContainer, jobContent, recomContainer, selectedJob}) {
     const CertificatePreview = styled.div`
         display: ${recomContainer.state.certificatePreview ? "table" : "none"} ;
         backgroundColor: #f5f5f5;
