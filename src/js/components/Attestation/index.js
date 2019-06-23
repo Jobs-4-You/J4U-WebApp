@@ -10,17 +10,20 @@ import LogoUnil from 'img/logo-unil.png'
 import LogoUnige from 'img/logo-unige.png'
 import { renderToStaticMarkup } from "react-dom/server";
 import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 
 function Attestation({ appContainer, jobContent, recomContainer}) {
     const CertificatePreview = styled.div`
-        display: ${recomContainer.state.certificatePreview ? "block" : "none"} ;
-        width: 58.58%;
-        height: 100%;
+        display: ${recomContainer.state.certificatePreview ? "table" : "none"} ;
+        backgroundColor: #f5f5f5;
+        width: 210mm;
+        min-height: 297mm;
+        overflow-y: visible;
         margin: 0 auto;
     `;
-    const Signature = styled.div`
-        padding-top: 4rem;
+    const Signature = styled.span`
+        padding-top: 2rem;
         text-align: center;
         width: 25%;
         height: 4rem;
@@ -34,17 +37,24 @@ function Attestation({ appContainer, jobContent, recomContainer}) {
     
     const Logos = styled.div`
         text-align: center;
-        padding: 3rem;
+        padding-bottom: 3rem;
     `;
     
     const LogoImg = styled.img`
-        margin: 1rem;
+        margin: 0 1rem;
+    `;
+    
+    const InnerContainer = styled.div`
+        width: 90%;
+        margin 0 auto;
     `;
 
 
     return (
     <>
+        
         <Typography align="center" gutterBottom={true}>
+            
             <Button
                 color="secondary"
                 size="medium"
@@ -54,18 +64,27 @@ function Attestation({ appContainer, jobContent, recomContainer}) {
                 }
                 onClick={() => {
                     appContainer.setState({loading:true});
-                    const string = renderToStaticMarkup(<CertificatePreview />);
-                    const pdf = new jsPDF("p", "mm", "a4");
-                    pdf.fromHTML(string);
-                    pdf.save("Attestation", appContainer.setState({loading:false}));
-                    
+                    const input = document.getElementById('CertificatePreview');
+                    html2canvas(input).then((canvas) => {
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdf = new jsPDF();
+                        pdf.addImage(imgData, 'JPEG', 0, 0);
+                        pdf.save("Attestation", appContainer.setState({loading:false}));
+                    });
+                    recomContainer.handleJobApplication({
+                        TYPE: "CERTIFICATE_DOWNLOAD",
+                        JOBID: selectedJob.jobAdvertisement.id,
+                        OCCUPATIONS: jobContent.occupations
+                    });
                 }}
                 >
                 Télécharger Attestation
             </Button>
+            <Loading loading={appContainer.state.loading} />
         </Typography>
-        <Loading loading={appContainer.state.loading} />
-        <CertificatePreview>
+
+        <CertificatePreview id="CertificatePreview">
+            <InnerContainer>
             <Logos>
                 <LogoImg src={LogoUnil} />
                 <LogoImg src={LogoUnige} />
@@ -118,8 +137,10 @@ function Attestation({ appContainer, jobContent, recomContainer}) {
                 <br />
                 <SignatureImg src={SignaturePellizzari} />
             </Signature>
-            
+            </InnerContainer>
         </CertificatePreview>
+
+        
     </>
     );
 }

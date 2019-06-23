@@ -32,11 +32,14 @@ class JobDetail extends React.Component {
     };
 
     const handleClose = () => {
-      recomContainer.setState({
-        selectedJob: null,
-        applied: false,
-        certificatePreview: false
-      });
+      recomContainer.state.certificatePreview ?
+        recomContainer.setState({certificatePreview:false})
+      :
+        recomContainer.setState({
+          selectedJob: null,
+          applied: false,
+          certificatePreview: false
+        });
     };
 
     const postulation = {
@@ -63,7 +66,7 @@ class JobDetail extends React.Component {
             aria-describedby={selectedJob.jobAdvertisement.title}
             open={selectedJob !== null}
             onClose={handleClose}
-            maxWidth='lg'
+            maxWidth='xl'
             fullWidth={true}
             scroll="body"
           >
@@ -79,6 +82,7 @@ class JobDetail extends React.Component {
                     appContainer={appContainer}
                     jobContent={jobContent}
                     recomContainer={recomContainer}
+                    selectedJob={selectedJob}
                   />
                 :
                   <Grid container spacing={16}>
@@ -342,6 +346,11 @@ class JobDetail extends React.Component {
                                     }
                                     onClick={() => {
                                       recomContainer.setState({ certificatePreview: true });
+                                      recomContainer.handleJobApplication({
+                                          TYPE: "GENERATE_CERTIFICATE",
+                                          JOBID: selectedJob.jobAdvertisement.id,
+                                          OCCUPATIONS: jobContent.occupations
+                                      });
                                     }}
                                   >
                                     Générer certificat
