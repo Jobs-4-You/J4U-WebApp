@@ -15,6 +15,8 @@ import Attestation from "js/components/Attestation";
 import { JobBit, Pre } from "./StyledParts";
 import Languages from "./Languages";
 import Loading from "js/components/Divers/Loading";
+import ErrorBoundary from 'react-error-boundary';
+
 
 class JobDetail extends React.Component {
   constructor(props) {
@@ -66,7 +68,7 @@ class JobDetail extends React.Component {
             aria-describedby={selectedJob.jobAdvertisement.title}
             open={selectedJob !== null}
             onClose={handleClose}
-            maxWidth='xl'
+            maxWidth='lg'
             fullWidth={true}
             scroll="body"
           >
@@ -77,13 +79,16 @@ class JobDetail extends React.Component {
             </DialogActions>
             <DialogContent>
               {
-                recomContainer.state.certificatePreview ? 
+                recomContainer.state.certificatePreview ?
+                <ErrorBoundary FallbackComponent={() => <div/>}
+                onError={() => handleClose()}>
                   <Attestation
                     appContainer={appContainer}
                     jobContent={jobContent}
                     recomContainer={recomContainer}
                     selectedJob={selectedJob}
                   />
+                </ErrorBoundary>
                 :
                   <Grid container spacing={16}>
                     <Grid item xs={8}>
@@ -365,7 +370,7 @@ class JobDetail extends React.Component {
                         </Card>
                       </Grow>
                     </Grid>
-                  </Grid>  
+                  </Grid>
               }
             </DialogContent>
           </Dialog>
