@@ -41,7 +41,7 @@ function Attestation({
 
     const Logos = styled.div`
         text-align: center;
-        padding-bottom: 3rem;
+        padding: 3rem;
     `;
 
     const LogoImg = styled.img`
@@ -74,7 +74,7 @@ function Attestation({
                 const pdf = new jsPDF("p", "mm", "a4");
                 const width = pdf.internal.pageSize.getWidth();
                 const height = pdf.internal.pageSize.getHeight();
-                pdf.addImage(imgData, "JPEG", 0, 20, width, height);
+                pdf.addImage(imgData, "JPEG", 0, 10, width, height);
                 pdf.save(
                   "Attestation",
                   appContainer.setState({ loading: false })
