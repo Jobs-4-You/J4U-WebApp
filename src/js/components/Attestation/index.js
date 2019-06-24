@@ -74,7 +74,7 @@ function Attestation({
                 const pdf = new jsPDF("p", "mm", "a4");
                 const width = pdf.internal.pageSize.getWidth();
                 const height = pdf.internal.pageSize.getHeight();
-                pdf.addImage(imgData, "JPEG", 0, 10, width, height);
+                pdf.addImage(imgData, "JPEG", 0, 0, width, height);
                 pdf.save(
                   "Attestation",
                   appContainer.setState({ loading: false })
