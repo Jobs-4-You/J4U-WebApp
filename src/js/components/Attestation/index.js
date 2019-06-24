@@ -11,6 +11,7 @@ import LogoUnige from "img/logo-unige.png";
 import { renderToStaticMarkup } from "react-dom/server";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Attestation({
   appContainer,
@@ -55,6 +56,13 @@ function Attestation({
 
     const DownloadCertificate = styled.div`
         text-align: center;
+        padding-left: 40px;
+    `;
+
+    const InlineLoader = styled.div`
+        margin-left: 1rem; 
+        visibility: ${appContainer.state.loading ? "visible" : "hidden"};
+        display: inline;
     `;
 
   return (
@@ -90,7 +98,9 @@ function Attestation({
         >
           Télécharger Attestation
         </Button>
-        <Loading loading={appContainer.state.loading} />
+        <InlineLoader>
+            <CircularProgress size={20} />
+        </InlineLoader>
       </DownloadCertificate>
 
       <CertificatePreview id="CertificatePreview">
