@@ -18,43 +18,48 @@ function Attestation({
   recomContainer,
   selectedJob
 }) {
-  const CertificatePreview = styled.div`
-    backgroundcolor: #f5f5f5;
-    width: 210mm;
-    min-height: 297mm;
-    overflow-y: visible;
-    margin: 0 auto;
-  `;
-  const Signature = styled.span`
-    padding-top: 2rem;
-    text-align: center;
-    width: 25%;
-    height: 4rem;
-    float: left;
-    font-family: Arial, Helvetica, sans-serif;
-  `;
 
-  const SignatureImg = styled.img`
-    margin-top: 1rem;
-  `;
+    const CertificatePreview = styled.div`
+        backgroundcolor: #f5f5f5;
+        width: 210mm;
+        min-height: 297mm;
+        overflow-y: visible;
+        margin: 0 auto;
+    `;
+    const Signature = styled.span`
+        padding-top: 2rem;
+        text-align: center;
+        width: 25%;
+        height: 4rem;
+        float: left;
+        font-family: Arial, Helvetica, sans-serif;
+    `;
 
-  const Logos = styled.div`
-    text-align: center;
-    padding: 3rem;
-  `;
+    const SignatureImg = styled.img`
+        margin-top: 1rem;
+    `;
 
-  const LogoImg = styled.img`
-    margin: 0 1rem;
-  `;
+    const Logos = styled.div`
+        text-align: center;
+        padding-bottom: 3rem;
+    `;
 
-  const InnerContainer = styled.div`
+    const LogoImg = styled.img`
+        margin: 0 1rem;
+    `;
+
+    const InnerContainer = styled.div`
         width: 90%;
         margin 0 5%;
     `;
 
+    const DownloadCertificate = styled.div`
+        text-align: center;
+    `;
+
   return (
     <>
-      <div>
+      <DownloadCertificate>
         <Button
           color="secondary"
           size="medium"
@@ -63,18 +68,17 @@ function Attestation({
           onClick={() => {
             appContainer.setState({ loading: true });
             const input = document.getElementById("CertificatePreview");
-            document.getElementsByTagName("BODY")[0].append(input);
-
             html2canvas(input)
               .then(canvas => {
                 const imgData = canvas.toDataURL("image/png");
-                const pdf = new jsPDF();
-                pdf.addImage(imgData, "JPEG", 10, 10);
+                const pdf = new jsPDF("p", "mm", "a4");
+                const width = pdf.internal.pageSize.getWidth();
+                const height = pdf.internal.pageSize.getHeight();
+                pdf.addImage(imgData, "JPEG", 0, -50, width, height);
                 pdf.save(
                   "Attestation",
                   appContainer.setState({ loading: false })
                 );
-                document.getElementsByTagName("BODY")[0].lastChild.remove();
               })
               .catch(err => console.log(err, err.stack));
             recomContainer.handleJobApplication({
@@ -87,7 +91,7 @@ function Attestation({
           Télécharger Attestation
         </Button>
         <Loading loading={appContainer.state.loading} />
-      </div>
+      </DownloadCertificate>
 
       <CertificatePreview id="CertificatePreview">
         <InnerContainer>
