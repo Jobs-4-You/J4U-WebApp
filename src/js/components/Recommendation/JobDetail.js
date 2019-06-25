@@ -50,7 +50,7 @@ class JobDetail extends React.Component {
 
     const buttonCertificate = {
       // Checking whether user is in a control group or cohort 0 as those should not see certificates
-      display: appContainer.state.group.indexOf("C0") !== -1 && appContainer.state.group.indexOf("J4U") == -1 ? "none" : "block"
+      display: appContainer.state.group.indexOf("C0") !== -1 || appContainer.state.group.indexOf("J4U") == -1 ? "none" : "block"
     };
 
     try {
