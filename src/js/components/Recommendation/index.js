@@ -168,7 +168,8 @@ function Recommendation() {
                         recomContainer,
                         [appContainer.state.oldJobValue],
                         0,
-                        errorContainer.displayError
+                        errorContainer.displayError,
+                        appContainer.state.oldJobLabel
                       )
                 }
                 fullWidth

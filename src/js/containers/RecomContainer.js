@@ -114,7 +114,7 @@ class RecomContainer extends Container {
     }
   };
 
-  secoSearch = async (recomContainer, avamList, i, displayError) => {
+  secoSearch = async (recomContainer, avamList, i, displayError, control) => {
     // Updating the loader status for only one job title
     const { loadingSeco } = this.state;
     loadingSeco[i] = true;
@@ -131,7 +131,8 @@ class RecomContainer extends Container {
       const res = await secoQuery(
         professionCodes,
         recomContainer.state.currentPage[i],
-        recomContainer.state.locationValue
+        recomContainer.state.locationValue,
+        control
       );
       const rest = await trackQuery({
         TYPE: "JOB_GROUP_NAVIGATION",

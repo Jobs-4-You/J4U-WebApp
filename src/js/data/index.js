@@ -105,7 +105,7 @@ const seco = axios.create({
 });
 
 // professionCodes: array of strings (AVAM codes), currentPage: integer (SECO pagination), locationValue: string (canton filter)
-export function secoQuery(professionCodes, currentPage, locationValue) {
+export function secoQuery(professionCodes, currentPage, locationValue, oldJobLabel) {
   var data = JSON.stringify({
     permanent: null,
     workloadPercentageMin: 0,
@@ -121,7 +121,7 @@ export function secoQuery(professionCodes, currentPage, locationValue) {
   return client({
     method: "post",
     url: "positions",
-    data: { codes: professionCodes, currentPage: currentPage, cantonCodes: [locationValue] }
+    data: { codes: professionCodes, currentPage: currentPage, cantonCodes: [locationValue], oldJobLabel }
   });
 }
 

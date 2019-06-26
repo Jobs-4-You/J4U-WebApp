@@ -63,7 +63,8 @@ function JobResult({
                 recomContainer,
                 avam,
                 jobIndex,
-                errorContainer.displayError
+                errorContainer.displayError,
+                false
               )
             : null;
         }}
