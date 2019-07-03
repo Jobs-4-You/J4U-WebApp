@@ -10,21 +10,22 @@ export function logPageView(path) {
 }
 
 export async function logSessionTime() {
-  const sessionTime = localStorage.getItem("sessionTime");
 
-  console.log(`SESSION TIME ${sessionTime}`);
-
-  if (!sessionTime) {
-    console.log("NO PREVIOUS TIME");
-    return;
+  try {
+    const sessionTime = localStorage.getItem("sessionTime");
+    console.log(`SESSION TIME ${sessionTime}`);
+    if (!sessionTime) {
+      console.log("NO PREVIOUS TIME");
+      return;
+    }
+    console.log("PREVIOUS TIME LOGGING");
+    const data = {
+      TYPE: "SESSION_TIME",
+      SESSION_TIME: sessionTime
+    };
+    await trackQuery(data);  
+  } catch (err) {
+    console.log(err);
   }
-
-  console.log("PREVIOUS TIME LOGGING");
-
-  const data = {
-    TYPE: "SESSION_TIME",
-    SESSION_TIME: sessionTime
-  };
-
-  await trackQuery(data);
+  
 }
