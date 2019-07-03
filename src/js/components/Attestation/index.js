@@ -75,27 +75,32 @@ function Attestation({
           disabled={appContainer.state.loading}
           onClick={() => {
             appContainer.setState({ loading: true });
-            const input = document.getElementById("CertificatePreview");
-            html2canvas(input)
-              .then(canvas => {
-                const imgData = canvas.toDataURL("image/png");
-                const pdf = new jsPDF("p", "mm", "a4");
-                const width = pdf.internal.pageSize.getWidth();
-                const height = pdf.internal.pageSize.getHeight();
-                pdf.addImage(imgData, "JPEG", 0, 0, width, height);
-                pdf.save(
-                  "Attestation",
-                  appContainer.setState({ loading: false })
-                );
-              })
-              .catch(err => console.log(err, err.stack));
-            recomContainer.handleJobApplication({
-              TYPE: "CERTIFICATE_DOWNLOAD",
-              JOBID: selectedJob.jobAdvertisement.id,
-              OCCUPATIONS: jobContent.occupations
-            });
-          }}
-        >
+            recomContainer.handleCertificate({
+              civilite: appContainer.state.civilite,
+              firstName: appContainer.state.firstName,
+              lastName: appContainer.state.lastName,
+              jobTitle: jobContent.jobDescriptions[0].title,
+              birthDate: new Date(appContainer.state.birthDate).toLocaleDateString("fr-CH"),
+              timestamp: Date.now(),
+              today: new Date().toLocaleDateString("fr-CH"),
+              server: window.location.origin
+            }).then((response) => {
+              const url = window.URL.createObjectURL(new Blob([response.data]));
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', 'Attestation.pdf');
+              document.body.appendChild(link);
+              link.click();
+              appContainer.setState({ loading: false })
+          })
+          .catch((error) => console.log(error));
+              recomContainer.handleJobApplication({
+                TYPE: "CERTIFICATE_DOWNLOAD",
+                JOBID: selectedJob.jobAdvertisement.id,
+                OCCUPATIONS: jobContent.occupations
+              });
+            }}
+          >
           Télécharger Attestation
         </Button>
         <InlineLoader>

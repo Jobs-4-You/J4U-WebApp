@@ -6,7 +6,7 @@
         #preview {
             width: 939px;
             height: 1680px;
-            apadding: 5%;
+            padding: 5%;
         }
         #logos {
             text-align: center;
@@ -41,7 +41,11 @@
 
 <body>
     <div id="certificateOutput"></div>
+    test
     <script>
+
+        try {
+       
 
         String.prototype.eval = function(data) {
             return this.replace(/\${(.*?)}/g, function(_, code) {
@@ -138,6 +142,10 @@
         ';
 
         document.getElementById("certificateOutput").innerHTML += markup.eval(scope);
+
+        } catch (error) {
+            document.write(error)
+        }
 
         //print();
 
