@@ -3,17 +3,15 @@
     <meta charset="utf-8">
     <title>Attestation</title>
     <style type="text/css">
-        #preview {
-            width: 939px;
-            height: 1680px;
-            padding: 5%;
+        .signatures {
+
         }
         #logos {
             text-align: center;
-            padding: 3rem;
+            padding: 0 3rem 1.5rem 3rem;
         }
         #logos img {
-            margin: 1rem;
+            margin: 0 1rem;
         }
         h1 {
             text-align: center;
@@ -22,15 +20,11 @@
             font-family: Arial, Helvetica, sans-serif;
         }
         .signature {
-            padding-top: 4rem;
             text-align: center;
-            width: 25%;
-            height: 4rem;
+            width: 50%;
+            height: 9.5rem;
             float: left;
             font-family: Arial, Helvetica, sans-serif;
-        }
-        .signature img {
-            margin-top: 1rem;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script> 
@@ -41,7 +35,6 @@
 
 <body>
     <div id="certificateOutput"></div>
-    test
     <script>
 
         try {
@@ -117,6 +110,7 @@
                         <br><br>\
                         J4U@unil.ch\
                     </p>\
+                    <div class="signatures">\
                     <div class="signature">\
                         Pr. Mauro Cherubini\
                         <br>\
@@ -136,6 +130,7 @@
                         Pr. Michele Pellizzari\
                         <br>\
                         <img src="/signature-pellizzari.png" />\
+                    </div>\
                     </div>\
                 </div>\
             </div>\

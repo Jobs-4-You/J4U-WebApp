@@ -148,7 +148,7 @@
         function handleFieldChange() {
             valueInput = document.getElementById("valueInput");
             valueSelect = document.getElementById("valueSelect");
-            if (valueInput.classList.contains("hidden")){
+            if (document.getElementById("field").value == "group"){
                 valueInput.classList.remove("hidden");
                 valueSelect.classList.add("hidden");
             } else {
