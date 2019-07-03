@@ -14,6 +14,7 @@ const client = axios.create({
 function errorResponseHandler(error) {
   console.log(error)
   if (error.response.status === 401) {
+    localStorage.clear();
     history.push("/logout");
   } else {
     return Promise.reject(error);
