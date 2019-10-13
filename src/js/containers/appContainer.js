@@ -3,7 +3,9 @@ import {
   signinQuery,
   linkQuery,
   userInfosQuery,
-  sendVerificationQuery
+  sendVerificationQuery,
+  updateCompletionQuery,
+  checkCompletionQuery
 } from "js/data";
 import { logSessionTime } from "js/tracking";
 import history from "js/router";
@@ -31,7 +33,8 @@ class AppContainer extends Container {
         blocked: null,
         fixedOldJobValue: null,
         fixedAlphaBeta: null,
-        loading: false
+        loading: false,
+        verifData: []
       };
 
   cacheState = () => {
@@ -124,6 +127,38 @@ class AppContainer extends Container {
         );
       }
       this.setState({ loading: false });
+    } catch (err) {
+      console.log(err);
+      displayError(err.response.data.msg);
+    }
+  };
+
+  updateCompletion = async displayError => {
+    try {
+      this.setState({ loading: true });
+      const res = await updateCompletionQuery();
+      this.cacheState();
+      if (res.data.success === true) {
+        await this.setState({ formDone: true });
+        await this.checkCompletion();
+        this.cacheState();
+      } else {
+        alert(
+          "Malheureusement, nous n'avons pas pu associer votre compte. Veuillez compléter le formulaire jusqu'au bout puis réessayez."
+        );
+      }
+      this.setState({ loading: false });
+    } catch (err) {
+      console.log(err);
+      displayError(err.response.data.msg);
+    }
+  };
+
+  checkCompletion = async displayError => {
+    try {
+      const res = await checkCompletionQuery();
+      this.cacheState();
+      this.setState({ verifData: res.data });
     } catch (err) {
       console.log(err);
       displayError(err.response.data.msg);

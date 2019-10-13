@@ -8,11 +8,11 @@ const baseURL =
 
 const client = axios.create({
   baseURL: baseURL,
-  timeout: 20000,
+  timeout: 40000,
 });
 
 function errorResponseHandler(error) {
-  console.log(error)
+  console.log(error);
   if (error.response.status === 401) {
     localStorage.clear();
     history.push("/logout");
@@ -23,8 +23,8 @@ function errorResponseHandler(error) {
 
 client.interceptors.request.use(
   reqConfig => {
-    const a = localStorage.getItem('accessToken');
-    const accessToken = a ? a : '';
+    const a = localStorage.getItem("accessToken");
+    const accessToken = a ? a : "";
     reqConfig.headers.Authorization = `Bearer ${accessToken}`;
     return reqConfig;
   },
@@ -82,7 +82,7 @@ export function updateQuery(
   email,
   phone,
   plastaId,
-  birthDate,
+  birthDate
 ) {
   const data = {
     civilite,
@@ -91,7 +91,7 @@ export function updateQuery(
     phone,
     email,
     plastaId,
-    birthDate,
+    birthDate
   };
   return client({
     method: "post",
@@ -101,12 +101,20 @@ export function updateQuery(
 }
 
 const seco = axios.create({
-  baseURL: env == "development" ? "http://localhost:8000/https://www.job-room.ch/" : "https://j4u.unil.ch:8000/https://www.job-room.ch/",
+  baseURL:
+    env == "development"
+      ? "http://localhost:8000/https://www.job-room.ch/"
+      : "https://j4u.unil.ch:8000/https://www.job-room.ch/",
   timeout: 5000
 });
 
 // professionCodes: array of strings (AVAM codes), currentPage: integer (SECO pagination), locationValue: string (canton filter)
-export function secoQuery(professionCodes, currentPage, locationValue, oldJobLabel) {
+export function secoQuery(
+  professionCodes,
+  currentPage,
+  locationValue,
+  oldJobLabel
+) {
   var data = JSON.stringify({
     permanent: null,
     workloadPercentageMin: 0,
@@ -122,7 +130,12 @@ export function secoQuery(professionCodes, currentPage, locationValue, oldJobLab
   return client({
     method: "post",
     url: "positions",
-    data: { codes: professionCodes, currentPage: currentPage, cantonCodes: [locationValue], oldJobLabel }
+    data: {
+      codes: professionCodes,
+      currentPage: currentPage,
+      cantonCodes: [locationValue],
+      oldJobLabel
+    }
   });
 }
 
@@ -146,10 +159,10 @@ export function certificateQuery(data) {
   return client({
     method: "post",
     url: "certificate",
-    responseType: 'arraybuffer',
+    responseType: "arraybuffer",
     headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/pdf'
+      "Content-Type": "application/json",
+      Accept: "application/pdf"
     },
     data
   });
@@ -207,10 +220,24 @@ export function resetPasswordMailQuery(email) {
 }
 
 export function resetPasswordQuery(data) {
-  console.log(data)
+  console.log(data);
   return client({
     method: "post",
     url: "resetpassword",
     data
+  });
+}
+
+export function checkCompletionQuery(email) {
+  return client({
+    method: "get",
+    url: "check-completion"
+  });
+}
+
+export function updateCompletionQuery(job) {
+  return client({
+    method: "get",
+    url: "update-completion"
   });
 }

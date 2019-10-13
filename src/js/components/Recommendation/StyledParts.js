@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
-import Slider from '@material-ui/lab/Slider';
+import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CircularProgress from '@material-ui/core/CircularProgress';
