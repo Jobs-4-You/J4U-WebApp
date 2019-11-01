@@ -7,10 +7,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
@@ -55,7 +55,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3
   },
   textField: {
-    width: '100%',
+    width: "100%"
   },
   group: {
     marginLeft: `${theme.spacing.unit}px`,
@@ -64,13 +64,19 @@ const styles = theme => ({
   }
 });
 
-function SignUp({ classes, history }) {
-  
+function SignUp({ classes, history, ...props }) {
+  let validityToken = props.location.search.split("token")[1];
+  validityToken = validityToken.slice(1, validityToken.length);
+  console.log(validityToken);
+
   return (
     <Subscribe to={[AppContainer, UpContainer, ErrorContainer]}>
       {(appContainer, upContainer, errorContainer) => (
         <main className={classes.main}>
-          <Dialog open={upContainer.state.dialogOpen} closeDialog={upContainer.closeDialog}/>
+          <Dialog
+            open={upContainer.state.dialogOpen}
+            closeDialog={upContainer.closeDialog}
+          />
           <CssBaseline />
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -80,7 +86,6 @@ function SignUp({ classes, history }) {
               S'inscrire
             </Typography>
             <form className={classes.form}>
-
               <FormControl
                 margin="normal"
                 required
@@ -97,9 +102,21 @@ function SignUp({ classes, history }) {
                   onChange={upContainer.handleCiviliteChange}
                   className={classes.group}
                 >
-                  <FormControlLabel value="Mme" control={<Radio color="primary" />} label="Mme." />
-                  <FormControlLabel value="Mlle" control={<Radio color="primary" />} label="Mlle." />
-                  <FormControlLabel value="M" control={<Radio color="primary" />} label="M." />
+                  <FormControlLabel
+                    value="Mme"
+                    control={<Radio color="primary" />}
+                    label="Mme."
+                  />
+                  <FormControlLabel
+                    value="Mlle"
+                    control={<Radio color="primary" />}
+                    label="Mlle."
+                  />
+                  <FormControlLabel
+                    value="M"
+                    control={<Radio color="primary" />}
+                    label="M."
+                  />
                 </RadioGroup>
               </FormControl>
 
@@ -148,7 +165,7 @@ function SignUp({ classes, history }) {
                   type="date"
                   className={classes.textField}
                   InputLabelProps={{
-                    shrink: true,
+                    shrink: true
                   }}
                   fullWidth
                   error={!upContainer.state.birthdate.valid}
@@ -162,7 +179,9 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.phone.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="phone">Numéro de téléphone portable</InputLabel>
+                <InputLabel htmlFor="phone">
+                  Numéro de téléphone portable
+                </InputLabel>
                 <Input
                   id="phone"
                   name="phone"
@@ -194,7 +213,9 @@ function SignUp({ classes, history }) {
                 error={!upContainer.state.emailConf.valid}
                 fullWidth
               >
-                <InputLabel htmlFor="emailConf">Confirmation de l'émail</InputLabel>
+                <InputLabel htmlFor="emailConf">
+                  Confirmation de l'émail
+                </InputLabel>
                 <Input
                   id="emailConf"
                   name="emailConf"
@@ -256,21 +277,6 @@ function SignUp({ classes, history }) {
                 />
               </FormControl>
 
-              <FormControl
-                margin="normal"
-                fullWidth
-                error={!upContainer.state.group.valid}
-              >
-                <InputLabel htmlFor="group">Group *</InputLabel>
-                <Input
-                  id="group"
-                  name="group"
-                  required
-                  value={upContainer.state.group.value}
-                  onChange={upContainer.handleGroupChange}
-                />
-              </FormControl>
-
               <Button
                 disabled={!upContainer.valid}
                 onClick={e =>
@@ -278,7 +284,8 @@ function SignUp({ classes, history }) {
                     e,
                     appContainer,
                     history,
-                    errorContainer.displayError
+                    errorContainer.displayError,
+                    validityToken
                   )
                 }
                 type="submit"

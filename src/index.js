@@ -13,6 +13,8 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
 import { Helmet } from "react-helmet";
 import { Subscribe } from "unstated";
+import BrowserDetection from "react-browser-detection";
+import { isMobile } from "react-device-detect";
 import AppContainer from "js/containers/appContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
 import Header from "js/components/Header";
@@ -265,13 +267,30 @@ const theme = createMuiTheme({
   }
 });
 
-ReactDOM.render(
-  <Provider>
-    <HashRouter>
-      <MuiThemeProvider theme={theme}>
-        <App />
-      </MuiThemeProvider>
-    </HashRouter>
-  </Provider>,
-  document.getElementById("app")
-);
+const browserHandler = {
+  chrome: () => <App />,
+  default: () => <div> Le site ne supporte que le navigateur Chrome </div>
+};
+
+function AppWrap() {
+  if (isMobile) {
+    return (
+      <div>
+        Le site ne supporte pas les appareils mobiles. Veuillez utiliser un
+        navigateur.
+      </div>
+    );
+  }
+
+  return (
+    <Provider>
+      <HashRouter>
+        <MuiThemeProvider theme={theme}>
+          <BrowserDetection>{browserHandler}</BrowserDetection>
+        </MuiThemeProvider>
+      </HashRouter>
+    </Provider>
+  );
+}
+
+ReactDOM.render(<AppWrap />, document.getElementById("app"));

@@ -11,12 +11,12 @@ import {
   Grow,
   Typography
 } from "@material-ui/core";
+import Info from "@material-ui/icons/Info";
 import Attestation from "js/components/Attestation";
 import { JobBit, Pre } from "./StyledParts";
 import Languages from "./Languages";
 import Loading from "js/components/Divers/Loading";
-import ErrorBoundary from 'react-error-boundary';
-
+import ErrorBoundary from "react-error-boundary";
 
 class JobDetail extends React.Component {
   constructor(props) {
@@ -34,14 +34,13 @@ class JobDetail extends React.Component {
     };
 
     const handleClose = () => {
-      recomContainer.state.certificatePreview ?
-        recomContainer.setState({certificatePreview:false})
-      :
-        recomContainer.setState({
-          selectedJob: null,
-          applied: false,
-          certificatePreview: false
-        });
+      recomContainer.state.certificatePreview
+        ? recomContainer.setState({ certificatePreview: false })
+        : recomContainer.setState({
+            selectedJob: null,
+            applied: false,
+            certificatePreview: false
+          });
     };
 
     const postulation = {
@@ -50,7 +49,11 @@ class JobDetail extends React.Component {
 
     const buttonCertificate = {
       // Checking whether user is in a control group or cohort 0 as those should not see certificates
-      display: appContainer.state.group.indexOf("C0") !== -1 || appContainer.state.group.indexOf("J4U") == -1 ? "none" : "block"
+      display:
+        appContainer.state.group.indexOf("C0") !== -1 ||
+        appContainer.state.group.indexOf("J4U") == -1
+          ? "none"
+          : "block"
     };
 
     try {
@@ -69,7 +72,7 @@ class JobDetail extends React.Component {
             aria-describedby={selectedJob.jobAdvertisement.title}
             open={selectedJob !== null}
             onClose={handleClose}
-            maxWidth='lg'
+            maxWidth="lg"
             fullWidth={true}
             scroll="body"
           >
@@ -79,10 +82,11 @@ class JobDetail extends React.Component {
               </Button>
             </DialogActions>
             <DialogContent>
-              {
-                recomContainer.state.certificatePreview ?
-                <ErrorBoundary FallbackComponent={() => <div/>}
-                onError={() => handleClose()}>
+              {recomContainer.state.certificatePreview ? (
+                <ErrorBoundary
+                  FallbackComponent={() => <div />}
+                  onError={() => handleClose()}
+                >
                   <Attestation
                     appContainer={appContainer}
                     jobContent={jobContent}
@@ -90,110 +94,118 @@ class JobDetail extends React.Component {
                     selectedJob={selectedJob}
                   />
                 </ErrorBoundary>
-                :
-                  <Grid container spacing={16}>
-                    <Grid item xs={8}>
-                      <Typography variant="subtitle1" paragraph={true}>
-                        {jobContent.jobDescriptions[0].title}
-                      </Typography>
-                      <Typography>
-                        <strong>{jobContent.company.name}</strong> | Libre depuis :{" "}
-                        {selectedJob.jobAdvertisement.createdTime
-                          ? new Date(
-                              selectedJob.jobAdvertisement.createdTime
-                            ).toLocaleDateString("fr-CH")
-                          : ""}
-                      </Typography>
-                      <Typography paragraph={true}>
-                        <JobBit>
-                          {jobContent.location.postalCode || ""}{" "}
-                          {jobContent.location.city || ""}{" "}
-                          {jobContent.location.cantonCode || ""}
-                        </JobBit>
-                        <JobBit>
-                          {jobContent.employment.workloadPercentageMin &&
-                          jobContent.employment.workloadPercentageMin !== "100"
-                            ? jobContent.employment.workloadPercentageMin + "% - "
-                            : ""}
-                          {jobContent.employment.workloadPercentageMax + "%"}
-                        </JobBit>
-                        <JobBit>
-                          {jobContent.employment.immediately == true
-                            ? "Tout de suite"
-                            : jobContent.employment.startDate
-                            ? jobContent.employment.startDate
-                            : "À convenir"}
-                        </JobBit>
-                        <JobBit>
-                          {jobContent.employment.permanent == true
-                            ? "Indeterminé"
-                            : "Durée limitée"}
-                        </JobBit>
-                      </Typography>
-                      <Pre>{jobContent.jobDescriptions[0].description}</Pre>
-                      <Typography variant="subtitle2">
-                        Informations sur le poste
-                      </Typography>
-                      <Typography>
-                        <strong>Lieu de travail</strong>
-                      </Typography>
-                      <Typography>
-                        {jobContent.location.postalCode} {jobContent.location.city}{" "}
-                        ({jobContent.location.cantonCode})
-                      </Typography>
-                      <Typography>
-                        <strong>Entrée en fonction</strong>
-                      </Typography>
-                      <Typography>
-                        {jobContent.employment.immediately == true
-                          ? "Tout de suite"
-                          : jobContent.employment.startDate
-                          ? jobContent.employment.startDate
-                          : "À convenir"}
-                      </Typography>
-                      <Typography>
-                        <strong>Taux d'occupation</strong>
-                      </Typography>
-                      <Typography>
+              ) : (
+                <Grid container spacing={16}>
+                  <Grid item xs={8}>
+                    <Typography variant="subtitle1" paragraph={true}>
+                      {jobContent.jobDescriptions[0].title}
+                    </Typography>
+                    <Typography>
+                      <strong>{jobContent.company.name}</strong> | Libre depuis
+                      :{" "}
+                      {selectedJob.jobAdvertisement.createdTime
+                        ? new Date(
+                            selectedJob.jobAdvertisement.createdTime
+                          ).toLocaleDateString("fr-CH")
+                        : ""}
+                    </Typography>
+                    <Typography paragraph={true}>
+                      <JobBit>
+                        {jobContent.location.postalCode || ""}{" "}
+                        {jobContent.location.city || ""}{" "}
+                        {jobContent.location.cantonCode || ""}
+                      </JobBit>
+                      <JobBit>
                         {jobContent.employment.workloadPercentageMin &&
                         jobContent.employment.workloadPercentageMin !== "100"
                           ? jobContent.employment.workloadPercentageMin + "% - "
                           : ""}
                         {jobContent.employment.workloadPercentageMax + "%"}
-                      </Typography>
-                      <Typography>
-                        <strong>Durée de l'engagement</strong>
-                      </Typography>
-                      <Typography>
+                      </JobBit>
+                      <JobBit>
+                        {jobContent.employment.immediately == true
+                          ? "Tout de suite"
+                          : jobContent.employment.startDate
+                          ? jobContent.employment.startDate
+                          : "À convenir"}
+                      </JobBit>
+                      <JobBit>
                         {jobContent.employment.permanent == true
                           ? "Indeterminé"
                           : "Durée limitée"}
-                      </Typography>
+                      </JobBit>
+                    </Typography>
+                    <Pre>{jobContent.jobDescriptions[0].description}</Pre>
+                    <Typography variant="subtitle2">
+                      Informations sur le poste
+                    </Typography>
+                    <Typography>
+                      <strong>Lieu de travail</strong>
+                    </Typography>
+                    <Typography>
+                      {jobContent.location.postalCode}{" "}
+                      {jobContent.location.city} (
+                      {jobContent.location.cantonCode})
+                    </Typography>
+                    <Typography>
+                      <strong>Entrée en fonction</strong>
+                    </Typography>
+                    <Typography>
+                      {jobContent.employment.immediately == true
+                        ? "Tout de suite"
+                        : jobContent.employment.startDate
+                        ? jobContent.employment.startDate
+                        : "À convenir"}
+                    </Typography>
+                    <Typography>
+                      <strong>Taux d'occupation</strong>
+                    </Typography>
+                    <Typography>
+                      {jobContent.employment.workloadPercentageMin &&
+                      jobContent.employment.workloadPercentageMin !== "100"
+                        ? jobContent.employment.workloadPercentageMin + "% - "
+                        : ""}
+                      {jobContent.employment.workloadPercentageMax + "%"}
+                    </Typography>
+                    <Typography>
+                      <strong>Durée de l'engagement</strong>
+                    </Typography>
+                    <Typography>
+                      {jobContent.employment.permanent == true
+                        ? "Indeterminé"
+                        : "Durée limitée"}
+                    </Typography>
 
-                      {jobContent.languageSkills !== undefined &&
-                      jobContent.languageSkills.length !== 0 ? (
-                        <Typography variant="subtitle2">
-                          <strong>Connaissances linguistiques</strong>
-                        </Typography>
-                      ) : (
-                        ""
-                      )}
-
-                      {jobContent.languageSkills.map((language, z) => (
-                        <Typography key={z}>
-                          {Languages[language.languageIsoCode]}
-                        </Typography>
-                      ))}
-                    </Grid>
-
-                    <Grid item xs={4}>
-                      <Typography>
-                        <strong>{jobContent.company.name}</strong>
+                    {jobContent.languageSkills !== undefined &&
+                    jobContent.languageSkills.length !== 0 ? (
+                      <Typography variant="subtitle2">
+                        <strong>Connaissances linguistiques</strong>
                       </Typography>
-                      <Typography>{jobContent.company.street}</Typography>
-                      <Typography paragraph={true}>
-                        {jobContent.company.postalCode} {jobContent.company.city}
+                    ) : (
+                      ""
+                    )}
+
+                    {jobContent.languageSkills.map((language, z) => (
+                      <Typography key={z}>
+                        {Languages[language.languageIsoCode]}
                       </Typography>
+                    ))}
+                  </Grid>
+
+                  <Grid item xs={4}>
+                    <Typography>
+                      <strong>{jobContent.company.name}</strong>
+                    </Typography>
+                    <Typography>{jobContent.company.street}</Typography>
+                    <Typography paragraph={true}>
+                      {jobContent.company.postalCode} {jobContent.company.city}
+                    </Typography>
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
                       <Button
                         onClick={() => {
                           recomContainer.setState({ applied: true });
@@ -210,169 +222,189 @@ class JobDetail extends React.Component {
                       >
                         Postuler
                       </Button>
-                      <Grow in={recomContainer.state.applied}>
-                        <Card style={postulation}>
-                          <CardContent>
-                            <Typography variant="subtitle2" paragraph={true}>
-                              Formes possibles de postulation
-                            </Typography>
+                      <Info onClick={_ => this.props.setTutoVid("apply")} />
+                    </Box>
+                    <Grow in={recomContainer.state.applied}>
+                      <Card style={postulation}>
+                        <CardContent>
+                          <Typography variant="subtitle2" paragraph={true}>
+                            Formes possibles de postulation
+                          </Typography>
 
-                            <Typography>
-                              <strong>
-                                {applyChannel
-                                  ? applyChannel.emailAddress
-                                    ? "Par courriel"
-                                    : ""
-                                  : ""}
-                              </strong>
-                            </Typography>
-                            <Typography>
+                          <Typography>
+                            <strong>
                               {applyChannel
                                 ? applyChannel.emailAddress
-                                  ? applyChannel.emailAddress
+                                  ? "Par courriel"
                                   : ""
                                 : ""}
-                            </Typography>
-                            <Typography>
-                              <strong>
-                                {applyChannel
-                                  ? applyChannel.postAddress
-                                    ? "Par courrier"
-                                    : ""
-                                  : ""}
-                              </strong>
-                            </Typography>
-                            <Typography>
-                              {applyChannel && applyChannel.postAddress
+                            </strong>
+                          </Typography>
+                          <Typography>
+                            {applyChannel
+                              ? applyChannel.emailAddress
+                                ? applyChannel.emailAddress
+                                : ""
+                              : ""}
+                          </Typography>
+                          <Typography>
+                            <strong>
+                              {applyChannel
+                                ? applyChannel.postAddress
+                                  ? "Par courrier"
+                                  : ""
+                                : ""}
+                            </strong>
+                          </Typography>
+                          <Typography>
+                            {applyChannel && applyChannel.postAddress
+                              ? applyChannel.postAddress.name
                                 ? applyChannel.postAddress.name
-                                  ? applyChannel.postAddress.name
-                                  : ""
-                                : ""}
-                            </Typography>
-                            <Typography>
-                              {applyChannel && applyChannel.postAddress
-                                ? applyChannel.postAddress.street &&
+                                : ""
+                              : ""}
+                          </Typography>
+                          <Typography>
+                            {applyChannel && applyChannel.postAddress
+                              ? applyChannel.postAddress.street &&
+                                applyChannel.postAddress.houseNumber
+                                ? applyChannel.postAddress.street +
+                                  " " +
                                   applyChannel.postAddress.houseNumber
-                                  ? applyChannel.postAddress.street +
-                                    " " +
-                                    applyChannel.postAddress.houseNumber
-                                  : ""
-                                : ""}
-                            </Typography>
-                            <Typography>
-                              {applyChannel && applyChannel.postAddress
-                                ? applyChannel.postAddress.postalCode &&
+                                : ""
+                              : ""}
+                          </Typography>
+                          <Typography>
+                            {applyChannel && applyChannel.postAddress
+                              ? applyChannel.postAddress.postalCode &&
+                                applyChannel.postAddress.city
+                                ? applyChannel.postAddress.postalCode +
+                                  " " +
                                   applyChannel.postAddress.city
-                                  ? applyChannel.postAddress.postalCode +
-                                    " " +
-                                    applyChannel.postAddress.city
-                                  : ""
-                                : ""}
-                            </Typography>
-                            <Typography>
-                              {applyChannel && applyChannel.postAddress
-                                ? applyChannel.postAddress.postOfficeBoxNumber
-                                  ? applyChannel.postAddress.postOfficeBoxNumber +
-                                    " " +
-                                    applyChannel.postAddress
-                                      .postOfficeBoxPostalCode +
-                                    " " +
-                                    applyChannel.postAddress.postOfficeBoxCity
-                                  : ""
-                                : ""}
-                            </Typography>
-                            <Typography>
-                              <strong>
-                                {jobContent.publicContact
-                                  ? "Votre personne de contact"
-                                  : ""}
-                              </strong>
-                            </Typography>
-                            <Typography>
-                              {jobContent.publicContact
-                                ? (jobContent.publicContact.salutation == "MS"
-                                    ? "Madame"
-                                    : "Monsieur") +
+                                : ""
+                              : ""}
+                          </Typography>
+                          <Typography>
+                            {applyChannel && applyChannel.postAddress
+                              ? applyChannel.postAddress.postOfficeBoxNumber
+                                ? applyChannel.postAddress.postOfficeBoxNumber +
                                   " " +
-                                  jobContent.publicContact.firstName +
+                                  applyChannel.postAddress
+                                    .postOfficeBoxPostalCode +
                                   " " +
-                                  jobContent.publicContact.lastName
-                                : ""}
-                            </Typography>
-                            <Typography>
+                                  applyChannel.postAddress.postOfficeBoxCity
+                                : ""
+                              : ""}
+                          </Typography>
+                          <Typography>
+                            <strong>
                               {jobContent.publicContact
-                                ? jobContent.publicContact.phone
+                                ? "Votre personne de contact"
                                 : ""}
-                            </Typography>
-                            <Typography paragraph={true}>
-                              {jobContent.publicContact
-                                ? jobContent.publicContact.email
-                                : ""}
-                            </Typography>
+                            </strong>
+                          </Typography>
+                          <Typography>
+                            {jobContent.publicContact
+                              ? (jobContent.publicContact.salutation == "MS"
+                                  ? "Madame"
+                                  : "Monsieur") +
+                                " " +
+                                jobContent.publicContact.firstName +
+                                " " +
+                                jobContent.publicContact.lastName
+                              : ""}
+                          </Typography>
+                          <Typography>
+                            {jobContent.publicContact
+                              ? jobContent.publicContact.phone
+                              : ""}
+                          </Typography>
+                          <Typography paragraph={true}>
+                            {jobContent.publicContact
+                              ? jobContent.publicContact.email
+                              : ""}
+                          </Typography>
 
+                          <Box
+                            display="flex"
+                            flexDirection="row"
+                            justifyContent="center"
+                            alignItems="center"
+                          >
                             <div>
-                              {jobContent.externalUrl ||
-                              jobContent.applyChannel.formUrl ? (
-                                <Typography paragraph={true}>
-                                  <Button
-                                    onClick={() => {
-                                      recomContainer.handleJobApplication({
-                                        TYPE: "EXTERNAL_APPLICATION",
-                                        JOBID: selectedJob.jobAdvertisement.id,
-                                        OCCUPATIONS: jobContent.occupations,
-                                        EXTERNALURL:
+                              <div>
+                                {jobContent.externalUrl ||
+                                jobContent.applyChannel.formUrl ? (
+                                  <Typography paragraph={true}>
+                                    <Button
+                                      onClick={() => {
+                                        recomContainer.handleJobApplication({
+                                          TYPE: "EXTERNAL_APPLICATION",
+                                          JOBID:
+                                            selectedJob.jobAdvertisement.id,
+                                          OCCUPATIONS: jobContent.occupations,
+                                          EXTERNALURL:
+                                            jobContent.externalUrl ||
+                                            jobContent.applyChannel.formUrl
+                                        });
+                                        window.open(
                                           jobContent.externalUrl ||
-                                          jobContent.applyChannel.formUrl
-                                      });
-                                      window.open(
-                                        jobContent.externalUrl ||
-                                          jobContent.applyChannel.formUrl,
-                                        "_blank"
-                                      );
-                                    }}
-                                    color="secondary"
-                                    size="medium"
-                                    variant="contained"
-                                  >
-                                    Site externe
-                                  </Button>
-                                </Typography>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                            <div>
-                              {
-                                <>
-                                  <Button
-                                    color="secondary"
-                                    size="medium"
-                                    variant="contained"
-                                    style={buttonCertificate}
-                                    disabled={
-                                      recomContainer.state.certificatePreview
-                                    }
-                                    onClick={() => {
-                                      recomContainer.setState({ certificatePreview: true });
-                                      recomContainer.handleJobApplication({
+                                            jobContent.applyChannel.formUrl,
+                                          "_blank"
+                                        );
+                                      }}
+                                      color="secondary"
+                                      size="medium"
+                                      variant="contained"
+                                    >
+                                      Site externe
+                                    </Button>
+                                  </Typography>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
+                              <div>
+                                {
+                                  <>
+                                    <Button
+                                      color="secondary"
+                                      size="medium"
+                                      variant="contained"
+                                      style={buttonCertificate}
+                                      disabled={
+                                        recomContainer.state.certificatePreview
+                                      }
+                                      onClick={() => {
+                                        recomContainer.setState({
+                                          certificatePreview: true
+                                        });
+                                        recomContainer.handleJobApplication({
                                           TYPE: "GENERATE_CERTIFICATE",
-                                          JOBID: selectedJob.jobAdvertisement.id,
+                                          JOBID:
+                                            selectedJob.jobAdvertisement.id,
                                           OCCUPATIONS: jobContent.occupations
-                                      });
-                                    }}
-                                  >
-                                    Générer certificat
-                                  </Button>
-                                  <Loading loading={appContainer.state.loading} />
-                                </>
-                              }
+                                        });
+                                      }}
+                                    >
+                                      Générer certificat
+                                    </Button>
+                                    <Loading
+                                      loading={appContainer.state.loading}
+                                    />
+                                  </>
+                                }
+                              </div>
                             </div>
-                          </CardContent>
-                        </Card>
-                      </Grow>
-                    </Grid>
+                            <Info
+                              onClick={_ => this.props.setTutoVid("cert")}
+                            />
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Grow>
                   </Grid>
-              }
+                </Grid>
+              )}
             </DialogContent>
           </Dialog>
         );

@@ -5,7 +5,7 @@ import validator from "validator";
 class SignContainer extends Container {
   state = {
     dialogOpen: false,
-    emailForgottenPwd: '',
+    emailForgottenPwd: "",
     email: {
       value: "",
       valid: false
@@ -17,28 +17,29 @@ class SignContainer extends Container {
   };
 
   openDialog = () => {
-    this.setState({dialogOpen: true})
-  }
+    this.setState({ dialogOpen: true });
+  };
 
   closeDialog = () => {
-    this.setState({dialogOpen: false})
-  }
+    this.setState({ dialogOpen: false });
+  };
 
-  emailForgottenPwdChange = (e) => {
-    this.setState({emailForgottenPwd: e.target.value})
-  }
+  emailForgottenPwdChange = e => {
+    this.setState({ emailForgottenPwd: e.target.value });
+  };
 
   resetPassword = async (email, displayError) => {
     try {
       const res = await resetPasswordMailQuery(email);
-      this.openDialog()
-      displayError("Un email avec un lien permettant la réinitialisation de votre mot de passe vous a été envoyé. Veuillez y accéder, cliquer sur le lien et suivre les instructions");
+      this.openDialog();
+      displayError(
+        "Un email avec un lien permettant la réinitialisation de votre mot de passe vous a été envoyé. Veuillez y accéder, cliquer sur le lien et suivre les instructions"
+      );
     } catch (err) {
       console.log(err);
       displayError(err.response.data.msg);
     }
   };
-
 
   validateEmail = x => {
     return validator.isEmail(x);
@@ -49,8 +50,9 @@ class SignContainer extends Container {
   };
 
   get valid() {
-    const s = Object.keys(this.state)
-    return s.slice(2, s.length)
+    const s = Object.keys(this.state);
+    return s
+      .slice(2, s.length)
       .map(x => this.state[x].valid)
       .reduce((acc, curr) => acc && curr);
   }
@@ -72,7 +74,15 @@ class SignContainer extends Container {
     });
   };
 
-  handleSubmit = (e, appContainer, history, from, displayError, updateContainer, recomContainer) => {
+  handleSubmit = (
+    e,
+    appContainer,
+    history,
+    from,
+    displayError,
+    updateContainer,
+    recomContainer
+  ) => {
     e.preventDefault();
     appContainer.signin(
       this.state.email.value,

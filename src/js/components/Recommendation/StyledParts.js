@@ -1,11 +1,10 @@
-import styled from 'styled-components';
-import Paper from '@material-ui/core/Paper';
-import Slider from '@material-ui/lab/Slider';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-
+import styled from "styled-components";
+import Paper from "@material-ui/core/Paper";
+import Slider from "@material-ui/core/Slider";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Modal";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
 
 export const FullTypo = styled(Typography)`
   width: 100%;
@@ -21,6 +20,10 @@ export const FormContainer = styled.div`
   text-align: center;
 `;
 
+export const SlidersContainer = styled.div`
+  width: 90%;
+`;
+
 export const StyledSlider = styled(Slider)`
   padding-top: 10px;
   padding-bottom: 10px;
@@ -28,8 +31,7 @@ export const StyledSlider = styled(Slider)`
 
 export const Submit = styled(Button)`
   width: 150px !important;
-  margin: auto !important;
-  margin-top: 30px !important;
+  margin-right: 15px !important;
 `;
 
 export const ResContainer = styled.div`
@@ -46,7 +48,7 @@ export const Pre = styled.pre`
 
 export const JobBit = styled.span`
   display: inline-block;
-  padding: .25em .4em;
+  padding: 0.25em 0.4em;
   font-size: 85%;
   line-height: 1;
   text-align: center;
@@ -57,4 +59,15 @@ export const JobBit = styled.span`
   border: 1px solid #ccc;
   border-radius: 1px;
   margin-right: 0.5rem;
+`;
+
+export const VidContainer = styled(Paper)`
+  position: absolute;
+  width: 650px;
+  top: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
 `;

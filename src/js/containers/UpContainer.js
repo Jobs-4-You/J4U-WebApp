@@ -3,7 +3,6 @@ import validator from "validator";
 import { signupQuery } from "js/data";
 
 class UpContainer extends Container {
-  
   state = {
     dialogOpen: false,
     civilite: {
@@ -45,10 +44,6 @@ class UpContainer extends Container {
     birthdate: {
       value: "",
       valid: false
-    },
-    group: {
-      value: window.location.hash.match(/group=([^&#]*)/) ? window.location.hash.match(/group=([^&#]*)/)[1] : "",
-      valid: false
     }
   };
 
@@ -65,8 +60,9 @@ class UpContainer extends Container {
   };
 
   get valid() {
-    const s = Object.keys(this.state)
-    return s.slice(1, s.length)
+    const s = Object.keys(this.state);
+    return s
+      .slice(1, s.length)
       .map(x => this.state[x].valid)
       .reduce((acc, curr) => acc && curr);
   }
@@ -109,7 +105,7 @@ class UpContainer extends Container {
 
   validateBirthdate = x => {
     // Chosen date must be inferior or equal to (today - 18 years)
-    return new Date(x) <= (Date.now() - 567993600000)
+    return new Date(x) <= Date.now() - 567993600000;
   };
 
   handlePhoneChange = e => {
@@ -127,14 +123,20 @@ class UpContainer extends Container {
 
   handleEmailChange = e => {
     const newValue = e.target.value;
-    this.setState({
-      email: { value: newValue, valid: this.validateEmail(newValue) }
-    }, () => {
-      // Revalidating the e-mail confirmation field for cases when users change the email input's value
-      this.setState({
-        emailConf: { value: this.state.emailConf.value, valid: this.validateEmailConf(this.state.emailConf.value) }
-      });
-    });    
+    this.setState(
+      {
+        email: { value: newValue, valid: this.validateEmail(newValue) }
+      },
+      () => {
+        // Revalidating the e-mail confirmation field for cases when users change the email input's value
+        this.setState({
+          emailConf: {
+            value: this.state.emailConf.value,
+            valid: this.validateEmailConf(this.state.emailConf.value)
+          }
+        });
+      }
+    );
   };
 
   validateEmail = x => {
@@ -154,14 +156,23 @@ class UpContainer extends Container {
 
   handlePasswordChange = e => {
     const newValue = e.target.value;
-    this.setState({
-      password: {value: e.target.value,valid: this.validatePassword(newValue)}
-    }, () => {
-      // Revalidating the password confirmation field for cases when users change the password input's value
-      this.setState({
-        passwordConf: { value: this.state.passwordConf.value, valid: this.validatePasswordConf(this.state.passwordConf.value) }
-      });
-    });
+    this.setState(
+      {
+        password: {
+          value: e.target.value,
+          valid: this.validatePassword(newValue)
+        }
+      },
+      () => {
+        // Revalidating the password confirmation field for cases when users change the password input's value
+        this.setState({
+          passwordConf: {
+            value: this.state.passwordConf.value,
+            valid: this.validatePasswordConf(this.state.passwordConf.value)
+          }
+        });
+      }
+    );
   };
 
   validatePassword = x => {
@@ -204,17 +215,27 @@ class UpContainer extends Container {
     this.setState({
       group: {
         value: e.target.value,
-        valid: this.validateGroup(newValue) 
+        valid: this.validateGroup(newValue)
       }
     });
-  }
+  };
 
   validatePlastaId = x => {
     // Checking if the Plasta ID contains numbers, letters, and has a length of at least 7 characters
-    return (x.match(/[a-z]/g) || x.match(/[A-Z]/g)) && x.match(/[0-9]/g) && x.length >= 7;
+    return (
+      (x.match(/[a-z]/g) || x.match(/[A-Z]/g)) &&
+      x.match(/[0-9]/g) &&
+      x.length >= 7
+    );
   };
 
-  handleSubmit = async (e, appContainer, history, displayError) => {
+  handleSubmit = async (
+    e,
+    appContainer,
+    history,
+    displayError,
+    validityToken
+  ) => {
     try {
       e.preventDefault();
       const x = await signupQuery(
@@ -226,7 +247,7 @@ class UpContainer extends Container {
         this.state.password.value,
         this.state.plastaId.value,
         this.state.birthdate.value,
-        this.state.group.value,
+        validityToken,
         history
       );
       this.openDialog();
