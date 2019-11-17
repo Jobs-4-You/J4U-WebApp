@@ -25,6 +25,7 @@ import Verified from "js/components/Verified";
 import Logout from "js/components/Logout";
 import Contact from "js/components/Contact";
 import About from "js/components/About";
+import Tirage from "js/components/Tirage";
 import Legal from "js/components/Legal";
 import Reset from "js/components/Reset";
 import history from "js/router";
@@ -123,6 +124,18 @@ const ContactView = () => {
       </Helmet>
       <Header />
       <Contact />
+    </div>
+  );
+};
+const TirageView = () => {
+  return (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Legal</title>
+      </Helmet>
+      <Header />
+      <Tirage />
     </div>
   );
 };
@@ -235,6 +248,7 @@ const App = () => {
               <Route exact path="/verified" component={VerifiedView} />
               <Route exact path="/contact" component={ContactView} />
               <Route exact path="/about" component={AboutView} />
+              <Route exact path="/tirage" component={TirageView} />
               <Route exact path="/legal" component={LegalView} />
               <Route exact path="/reset" component={ResetView} />
               <PrivateRoute

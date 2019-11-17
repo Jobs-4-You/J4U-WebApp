@@ -6,12 +6,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import {Chat, VerifiedUser, Info} from "@material-ui/icons";
+import { Chat, VerifiedUser, Info } from "@material-ui/icons";
 import AppContainer from "js/containers/appContainer";
 import AnonHeader from "./AnonHeader";
 import AuthHeader from "./AuthHeader";
-import history from 'js/router';
-
+import history from "js/router";
 
 function ButtonAppBar({ sign, from }) {
   return (
@@ -41,7 +40,7 @@ function ButtonAppBar({ sign, from }) {
                 onKeyDown={appContainer.closeDrawer}
               >
                 <div>
-                  <List onClick={() => history.push('/contact')}>
+                  <List onClick={() => history.push("/contact")}>
                     <ListItem button>
                       <ListItemIcon>
                         <Chat />
@@ -49,7 +48,7 @@ function ButtonAppBar({ sign, from }) {
                       <ListItemText primary="Contact" />
                     </ListItem>
                   </List>
-                  <List onClick={() => history.push('/about')}>
+                  <List onClick={() => history.push("/about")}>
                     <ListItem button>
                       <ListItemIcon>
                         <Info />
@@ -57,7 +56,15 @@ function ButtonAppBar({ sign, from }) {
                       <ListItemText primary="À propos" />
                     </ListItem>
                   </List>
-                  <List onClick={() => history.push('/legal')}>
+                  <List onClick={() => history.push("/tirage")}>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <VerifiedUser />
+                      </ListItemIcon>
+                      <ListItemText primary="Tirage au sort" />
+                    </ListItem>
+                  </List>
+                  <List onClick={() => history.push("/legal")}>
                     <ListItem button>
                       <ListItemIcon>
                         <VerifiedUser />
