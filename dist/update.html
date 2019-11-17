@@ -1,230 +1,303 @@
 <html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Update</title>
     <script>
-        function send() {
-            
-            if (confirm("Confirm the update for group " + 
-                        document.getElementById("group").value + 
-                        "?")) {
-                
-                if (document.getElementById("valueInput").classList.contains("hidden")) {
-                    userValue = document.getElementById("valueSelect").value
-                } else {
-                    userValue = document.getElementById("valueInput").value.trim()
-                }
+      function send() {
+        if (
+          confirm(
+            "Confirm the update for group " +
+              document.getElementById("group").value +
+              "?"
+          )
+        ) {
+          if (
+            document.getElementById("valueInput").classList.contains("hidden")
+          ) {
+            userValue = document.getElementById("valueSelect").value;
+          } else {
+            userValue = document.getElementById("valueInput").value.trim();
+          }
 
-                var data = {
-                        "field": document.getElementById("field").value,
-                        "value": userValue,
-                        "group": document.getElementById("group").value,
-                        "password": document.getElementById("password").value
-                    };
+          var data = {
+            field: document.getElementById("field").value,
+            value: userValue,
+            group: document.getElementById("group").value,
+            password: document.getElementById("password").value
+          };
 
-                var xhr = new XMLHttpRequest();
-                xhr.withCredentials = false;
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = false;
 
-                xhr.addEventListener("readystatechange", function () {
-                    if (this.readyState === 4) {
-                        res = JSON.parse(this.responseText);
-                        res = res.response || res.msg;
-                        if (res.length > 0 && res[0].email !== undefined) {
-                            document.getElementById("affectedrows").innerHTML = "";
-                            document.getElementById("title").innerHTML = "Update Results - Users affected by query";
-                            document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
-                        } else if (res == "wrong password") {
-                            alert("Wrong password");
-                        } else {
-                            alert("No records found for this group value");
-                        }
-                    }
-                });
-
-                xhr.open("POST", window.location.protocol + "//" + window.location.hostname + ":5000/updategroup");
-                xhr.setRequestHeader("accept", "application/json, text/plain, */*");
-                xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-
-                xhr.send(JSON.stringify(data));
-
-                document.getElementById("group").value = "";
-
+          xhr.addEventListener("readystatechange", function() {
+            if (this.readyState === 4) {
+              res = JSON.parse(this.responseText);
+              res = res.response || res.msg;
+              if (res.length > 0 && res[0].email !== undefined) {
+                document.getElementById("affectedrows").innerHTML = "";
+                document.getElementById("title").innerHTML =
+                  "Update Results - Users affected by query";
+                document
+                  .getElementById("affectedrows")
+                  .appendChild(buildHtmlTable(res));
+              } else if (res == "wrong password") {
+                alert("Wrong password");
+              } else {
+                alert("No records found for this group value");
+              }
             }
+          });
 
+          xhr.open(
+            "POST",
+            window.location.protocol +
+              "//" +
+              window.location.hostname +
+              ":5000/updategroup"
+          );
+          xhr.setRequestHeader("accept", "application/json, text/plain, */*");
+          xhr.setRequestHeader(
+            "content-type",
+            "application/json;charset=UTF-8"
+          );
+
+          xhr.send(JSON.stringify(data));
+
+          document.getElementById("group").value = "";
         }
+      }
 
-        function listUsers() {
-            
-            var data = {
-                    "group": document.getElementById("groupQuery").value,
-                    "password": document.getElementById("passwordQuery").value
-                };
+      function listUsers() {
+        var data = {
+          group: document.getElementById("groupQuery").value,
+          password: document.getElementById("passwordQuery").value
+        };
 
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = false;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
 
-            xhr.addEventListener("readystatechange", function () {
-                if (this.readyState === 4) {
-                    res = JSON.parse(this.responseText);
-                    res = res.response || res.msg;
-                    if (res.length > 0 && res[0].email !== undefined) {
-                        document.getElementById("affectedrows").innerHTML = "";
-                        document.getElementById("title").innerHTML = "Search Results - Users matching query criteria";
-                        document.getElementById("affectedrows").appendChild(buildHtmlTable(res));
-                    } else if (res == "wrong password") {
-                        alert("Wrong password");
-                    } else {
-                        alert("No records found for this group value");
-                    }
-                }
-            });
-
-            xhr.open("POST", window.location.protocol + "//" + window.location.hostname + ":5000/listusers");
-            xhr.setRequestHeader("accept", "application/json, text/plain, */*");
-            xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-
-            xhr.send(JSON.stringify(data));
-
-            document.getElementById("group").value = "";
-
-        }
-
-        var _table_ = document.createElement('table'),
-        _tr_ = document.createElement('tr'),
-        _th_ = document.createElement('th'),
-        _td_ = document.createElement('td');
-
-        _table_.setAttribute('border', '1');
-
-        // Builds the HTML Table out of myList json data from Ivy restful service.
-        function buildHtmlTable(arr) {
-            var table = _table_.cloneNode(false),
-                columns = addAllColumnHeaders(arr, table);
-            for (var i=0, maxi=arr.length; i < maxi; ++i) {
-                var tr = _tr_.cloneNode(false);
-                for (var j=0, maxj=columns.length; j < maxj ; ++j) {
-                    var td = _td_.cloneNode(false);
-                        cellValue = arr[i][columns[j]];
-                    td.appendChild(document.createTextNode(arr[i][columns[j]] || '0/null'));
-                    tr.appendChild(td);
-                }
-                table.appendChild(tr);
-            }
-            return table;
-        }
-        
-        // Adds a header row to the table and returns the set of columns.
-        // Need to do union of keys from all records as some records may not contain
-        // all records
-        function addAllColumnHeaders(arr, table)
-        {
-            var columnSet = [],
-                tr = _tr_.cloneNode(false);
-            for (var i=0, l=arr.length; i < l; i++) {
-                for (var key in arr[i]) {
-                    if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
-                        columnSet.push(key);
-                        var th = _th_.cloneNode(false);
-                        th.appendChild(document.createTextNode(key));
-                        tr.appendChild(th);
-                    }
-                }
-            }
-            table.appendChild(tr);
-            return columnSet;
-        }
-
-        function togglePassword(button, id) {
-            var x = document.getElementById(id);
-            if (x.type === "password") {
-                x.type = "text";
-                button.innerHTML = "Hide password";
+        xhr.addEventListener("readystatechange", function() {
+          if (this.readyState === 4) {
+            res = JSON.parse(this.responseText);
+            res = res.response || res.msg;
+            if (res.length > 0 && res[0].email !== undefined) {
+              document.getElementById("affectedrows").innerHTML = "";
+              document.getElementById("title").innerHTML =
+                "Search Results - Users matching query criteria";
+              document
+                .getElementById("affectedrows")
+                .appendChild(buildHtmlTable(res));
+            } else if (res == "wrong password") {
+              alert("Wrong password");
             } else {
-                x.type = "password";
-                button.innerHTML = "Show password";
+              alert("No records found for this group value");
             }
-        }
+          }
+        });
 
-        function handleFieldChange() {
-            valueInput = document.getElementById("valueInput");
-            valueSelect = document.getElementById("valueSelect");
-            if (document.getElementById("field").value == "group"){
-                valueInput.classList.remove("hidden");
-                valueSelect.classList.add("hidden");
-            } else {
-                valueSelect.classList.remove("hidden");
-                valueInput.classList.add("hidden");
+        xhr.open(
+          "POST",
+          window.location.protocol +
+            "//" +
+            window.location.hostname +
+            ":5000/listusers"
+        );
+        xhr.setRequestHeader("accept", "application/json, text/plain, */*");
+        xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+
+        xhr.send(JSON.stringify(data));
+
+        document.getElementById("group").value = "";
+      }
+
+      var _table_ = document.createElement("table"),
+        _tr_ = document.createElement("tr"),
+        _th_ = document.createElement("th"),
+        _td_ = document.createElement("td");
+
+      _table_.setAttribute("border", "1");
+
+      // Builds the HTML Table out of myList json data from Ivy restful service.
+      function buildHtmlTable(arr) {
+        var table = _table_.cloneNode(false),
+          columns = addAllColumnHeaders(arr, table);
+        for (var i = 0, maxi = arr.length; i < maxi; ++i) {
+          var tr = _tr_.cloneNode(false);
+          for (var j = 0, maxj = columns.length; j < maxj; ++j) {
+            var td = _td_.cloneNode(false);
+            cellValue = arr[i][columns[j]];
+            td.appendChild(
+              document.createTextNode(arr[i][columns[j]] || "0/null")
+            );
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+        return table;
+      }
+
+      // Adds a header row to the table and returns the set of columns.
+      // Need to do union of keys from all records as some records may not contain
+      // all records
+      function addAllColumnHeaders(arr, table) {
+        var columnSet = [],
+          tr = _tr_.cloneNode(false);
+        for (var i = 0, l = arr.length; i < l; i++) {
+          for (var key in arr[i]) {
+            if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key) === -1) {
+              columnSet.push(key);
+              var th = _th_.cloneNode(false);
+              th.appendChild(document.createTextNode(key));
+              tr.apSingupendChild(th);
             }
+          }
         }
+        table.appendChild(tr);
+        return columnSet;
+      }
 
+      function togglePassword(button, id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+          x.type = "text";
+          button.innerHTML = "Hide password";
+        } else {
+          x.type = "password";
+          button.innerHTML = "Show password";
+        }
+      }
+
+      function handleFieldChange() {
+        valueInput = document.getElementById("valueInput");
+        valueSelect = document.getElementById("valueSelect");
+        if (document.getElementById("field").value == "group") {
+          valueInput.classList.remove("hidden");
+          valueSelect.classList.add("hidden");
+        } else {
+          valueSelect.classList.remove("hidden");
+          valueInput.classList.add("hidden");
+        }
+      }
+
+      function genSignupLink() {
+        var data = {
+          group: document.getElementById("groupSignup").value,
+          date: document.getElementById("dateSignup").value
+        };
+
+        // var url = `https://localhost:5000/signup-link?group=${data.group}&date=${data.date}`;
+        var url = `https://j4u.uni.ch:5000/signup-link?group=${data.group}&date=${data.date}`;
+
+        fetch(url)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data) {
+            console.log("Request successful", data);
+            document.getElementById("signup-link").textContent = data.url
+          })
+          .catch(function(error) {
+            console.log("Request failed", error);
+          });
+      }
     </script>
     <style type="text/css">
-        .hidden {display: none;}
+      .hidden {
+        display: none;
+      }
     </style>
-</head>
-<body>
-
-<div>
-    <form action="." method="post">
+  </head>
+  <body>
+    <div>
+      <form action="." method="post">
         <fieldset>
-            <legend>List users</legend>
-            <p>
-                <label>Group code (leave empty to list all users)</label>
-                <input type="text" id="groupQuery">
-            </p>
-            <p>
-                <label>Your password</label>
-                <input 
-                    type="password" id="passwordQuery"
-                    readonly onfocus="this.removeAttribute('readonly');">
-                <button type="button" onclick="togglePassword(this,'passwordQuery');">Show Password</button>
-            </p>
-            <p>
+          <legend>List users</legend>
+          <p>
+            <label>Group code (leave empty to list all users)</label>
+            <input type="text" id="groupQuery" />
+          </p>
+          <p>
+            <label>Your password</label>
+            <input
+              type="password"          <p>
+                  <button type="button" onclick="genSignupLink()">Submit</button>
+                </p>
+              id="passwordQuery"
+              readonly
+              onfocus="this.removeAttribute('readonly');"
+            />
+            <button
+              type="button"
+              onclick="togglePassword(this,'passwordQuery');"
+            >
+              Show Password
+            </button>
+          </p>
+          <p>
             <button type="button" onclick="listUsers()">Submit</button>
-            </p>
+          </p>
         </fieldset>
         <p></p>
         <fieldset>
-            <legend>Update form</legend>
-            <p>
-                <label>Field</label>
-                <select id="field" onchange="handleFieldChange()">
-                    <option value="blocked">blocked (pre-session)</option>
-                    <option value="fixedOldJobValue">fixedOldJobValue</option>
-                    <option value="fixedAlphaBeta">fixedAlphaBeta</option>
-                    <option value="group">group</option>
-                </select>
-            </p>
-            <p>
-                <label>Value</label>
-                <select id="valueSelect">
-                    <option value="1">true</option>
-                    <option value="0">false</option>
-                </select>
-                <input type="text" id="valueInput" class="hidden" />
-            </p>
-            <p>
-                <label>Target Group code</label>
-                <input type="text" id="group">
-            </p>
-            <p>
-                <label>Your password</label>
-                <input 
-                    type="password" id="password"
-                    readonly onfocus="this.removeAttribute('readonly');">
-                <button type="button" onclick="togglePassword(this,'password');">Show Password</button>
-            </p>
-            <p>
-                <button type="button" onclick="send()">Submit</button>
-            </p>
+          <legend>Update form</legend>
+          <p>
+            <label>Field</label>
+            <select id="field" onchange="handleFieldChange()">
+              <option value="blocked">blocked (pre-session)</option>
+              <option value="fixedOldJobValue">fixedOldJobValue</option>
+              <option value="fixedAlphaBeta">fixedAlphaBeta</option>
+              <option value="group">group</option>
+            </select>
+          </p>
+          <p>
+            <label>Value</label>
+            <select id="valueSelect">
+              <option value="1">true</option>
+              <option value="0">false</option>
+            </select>
+            <input type="text" id="valueInput" class="hidden" />
+          </p>
+          <p>
+            <label>Target Group code</label>
+            <input type="text" id="group" />
+          </p>
+          <p>
+            <label>Your password</label>
+            <input
+              type="password"
+              id="password"
+              readonly
+              onfocus="this.removeAttribute('readonly');"
+            />
+            <button type="button" onclick="togglePassword(this,'password');">
+              Show Password
+            </button>
+          </p>
+          <p>
+            <button type="button" onclick="send()">Submit</button>
+          </p>
         </fieldset>
-    </form>
-</div>
+        <fieldset>
+          <legend>List users</legend>
+          <p>
+            <label>Group code </label>
+            <input type="text" id="groupSignup" />
+          </p>
+          <p>
+            <label>Premption date</label>
+            <input type="date" id="dateSignup" />
+          </p>
+          <p><span> Signup Link: </span> <span id="signup-link"></span></p>
+          <p>
+            <button type="button" onclick="genSignupLink()">Submit</button>
+          </p>
+        </fieldset>
+      </form>
+    </div>
 
-<div>
-    <h1 id="title"></h1>
-</div>
-<div id="affectedrows"></div>
-
-</body>
+    <div>
+      <h1 id="title"></h1>
+    </div>
+    <div id="affectedrows"></div>
+  </body>
 </html>

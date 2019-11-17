@@ -115,6 +115,21 @@ function AuthLanding({ appContainer }) {
                   Enquête
                 </a>
               </Button>
+              Rappel des instructions données dans la vidéo précédente :
+              <ul>
+                <li>
+                  Répondez honnêtement. Il n’y a pas de réponse juste ou de
+                  réponse fausse, le but étant d’obtenir un outil personnalisé.
+                </li>
+                <li>
+                  Faites l’enquête dans un endroit calme sans être interrompu.
+                </li>
+                <li>
+                  Réalisez l’enquête depuis un ordinateur (enquête non
+                  compatible avec une tablette ou un smartphone).
+                </li>
+                <li>Lisez bien les instructions avant chaque exercice.</li>
+              </ul>
             </Typography>
             <br />
             <Divider />
