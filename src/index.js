@@ -18,6 +18,9 @@ import { isMobile } from "react-device-detect";
 import AppContainer from "js/containers/appContainer";
 import ErrorContainer from "js/containers/ErrorContainer";
 import Header from "js/components/Header";
+import EmptyHeader from "js/components/Header/EmptyHeader";
+import InvalidBrowser from "js/components/NotSupported/InvalidBrowser";
+import InvalidDevice from "js/components/NotSupported/InvalidDevice";
 import Recommendation from "js/components/Recommendation";
 import Landing from "js/components/Landing";
 import Account from "js/components/Account";
@@ -283,16 +286,33 @@ const theme = createMuiTheme({
 
 const browserHandler = {
   chrome: () => <App />,
-  default: () => <div> Le site ne supporte que le navigateur Chrome </div>
+  default: () => (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Infos</title>
+      </Helmet>
+      <EmptyHeader />
+      <InvalidBrowser />
+    </div>
+  )
 };
 
 function AppWrap() {
   if (isMobile) {
     return (
-      <div>
-        Le site ne supporte pas les appareils mobiles. Veuillez utiliser un
-        navigateur.
-      </div>
+      <HashRouter>
+        <MuiThemeProvider theme={theme}>
+          <div>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>J4U-Infos</title>
+            </Helmet>
+            <EmptyHeader />
+            <InvalidDevice />
+          </div>
+        </MuiThemeProvider>
+      </HashRouter>
     );
   }
 
