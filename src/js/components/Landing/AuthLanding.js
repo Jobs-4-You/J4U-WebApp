@@ -76,13 +76,29 @@ function AuthLanding({ appContainer }) {
             <Divider />
             <br />
             <Typography paragraph={true}>
-              Commencez par regarder cette video.
+              Commencez par regarder ces videos.
             </Typography>
 
-            <iframe
+            {/*             <iframe
               width="560"
               height="315"
               src="https://www.youtube.com/embed/dc6FMrhfdFw"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe> */}
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/d1PfyStt7YE"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/4NS2Flf2IxY"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen

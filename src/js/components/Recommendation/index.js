@@ -46,11 +46,9 @@ const defaultLocation = [{ label: "Neuchâtel (NE)", value: "NE" }];
 
 function TutoVid({ tutoVid, setTutoVid }) {
   const youtubeMap = {
-    job: "https://www.youtube.com/embed/dc6FMrhfdFw",
-    imp: "https://www.youtube.com/embed/dc6FMrhfdFw",
-    recom: "https://www.youtube.com/embed/dc6FMrhfdFw",
-    apply: "https://www.youtube.com/embed/dc6FMrhfdFw",
-    cert: "https://www.youtube.com/embed/dc6FMrhfdFw"
+    job: "https://www.youtube.com/embed/WDK0yR9OiUU",
+    imp: "https://www.youtube.com/embed/m34bOz9h1Ws",
+    recom: "https://www.youtube.com/embed/a2MHr5Gsq1A"
   };
   return (
     <Modal

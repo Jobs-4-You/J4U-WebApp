@@ -222,7 +222,7 @@ class JobDetail extends React.Component {
                       >
                         Postuler
                       </Button>
-                      <Info onClick={_ => this.props.setTutoVid("apply")} />
+                      {/*                       <Info onClick={_ => this.props.setTutoVid("apply")} /> */}
                     </Box>
                     <Grow in={recomContainer.state.applied}>
                       <Card style={postulation}>
@@ -395,9 +395,9 @@ class JobDetail extends React.Component {
                                 }
                               </div>
                             </div>
-                            <Info
+                            {/*                             <Info
                               onClick={_ => this.props.setTutoVid("cert")}
-                            />
+                            /> */}
                           </Box>
                         </CardContent>
                       </Card>
