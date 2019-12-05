@@ -68,14 +68,14 @@ function AuthLanding({ appContainer }) {
             <br />
             <Divider />
             <br />
-            <Typography variant="subtitle1" paragraph={true}>
+            <Typography variant="subtitle1" align="center" paragraph={true}>
               Liste de choses à faire
             </Typography>
 
             <br />
             <Divider />
             <br />
-            <Typography paragraph={true}>
+            <Typography paragraph={true} align="center">
               Commencez par regarder ces videos.
             </Typography>
 
@@ -90,15 +90,7 @@ function AuthLanding({ appContainer }) {
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/d1PfyStt7YE"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-            <iframe
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/4NS2Flf2IxY"
+              src="https://www.youtube.com/embed/tR3qonZy9mk"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -131,6 +123,7 @@ function AuthLanding({ appContainer }) {
                   Enquête
                 </a>
               </Button>
+              <br />
               Rappel des instructions données dans la vidéo précédente :
               <ul>
                 <li>
@@ -177,7 +170,7 @@ function AuthLanding({ appContainer }) {
         );
         const allRight = (
           <div>
-            <Typography variant="subtitle1" paragraph={true}>
+            <Typography variant="subtitle1" align="center" paragraph={true}>
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
