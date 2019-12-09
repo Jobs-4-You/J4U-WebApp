@@ -6,6 +6,8 @@ const env = process.env.NODE_ENV;
 const baseURL =
   env == "development" ? "http://localhost:5000" : "https://j4u.unil.ch:5000";
 
+export const formURL = `${baseURL}/formulaire`;
+
 const client = axios.create({
   baseURL: baseURL,
   timeout: 20000

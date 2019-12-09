@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import { formURL } from "../../data";
 
 const Container = styled("div")`
   margin: auto;
@@ -11,79 +12,74 @@ const Container = styled("div")`
 `;
 
 function Legal() {
-    return <Container>
-                <Typography paragraph={true}>
-                    <strong>Informations générales sur le projet et les données</strong>
-                    <br />
-                    Cette étude propose d’explorer plusieurs outils pour la recherche d’emploi.
-                </Typography>
-                <Typography paragraph={true}>
-                    L’étude récoltera des données sur vos recherches d’emploi qui seront complémentées par des données administratives déjà disponibles (par ex. PLASTA, AVS). Les données seront utilisées conformément à la réglementation en vigueur en matière de protection de la vie privée et tout résultat sera publié sous forme de statistiques globales ne permettant pas d'identification personnelle.
-                </Typography>
-                <Typography paragraph={true}>
-                    Nous effectuons cette étude dans le respect des prescriptions de la législation suisse. Nous suivons en outre l’ensemble des directives reconnues au niveau international. La commission cantonale d’éthique compétente a contrôlé et autorisé l’étude.
-                </Typography>
-                <Typography paragraph={true}>
-                    <strong>
-                    Déroulement pour les participants
-                    </strong>
-                    <br />
-                    Les participants assistent à une séance de démarrage à Neuchâtel littoral ou à la Chaux-de-fonds. Par ailleurs, ils recevront des emails et seront suivis via l’application « J4U » (Job for you) pour une période de 6 mois ou jusqu’à la reprise d’un emploi. 
-                </Typography>
-                <Typography paragraph={true}>
-                    <strong>
-                    Conditions de participation 
-                    </strong>
-                    <br />
-                    <ul>
-                        <li>L'étude se déroulera sur 6 mois, dès votre participation à la séance de démarrage.</li>
-                        <li>Vous fournissez des informations sur vos recherches d’emplois</li>
-                        <li>Vous souhaitez suivre les indications qui vous sont (et seront) fournies.</li>
-                    </ul>
-                    Nous n’avons pas d’information sur votre état de santé. Vous participez à cette étude en toute connaissance de cause de votre état de santé.    
-                </Typography>
-                <Typography paragraph={true}>
-                    <strong>
-                    Bénéfices pour les participants
-                    </strong>
-                    <br />
-                    Votre participation à cette étude pourra vous aider à trouver un emploi qui correspond mieux à vos compétences et à votre personnalité ou à trouver un emploi plus rapidement.
-                </Typography>
-                <Typography paragraph={true}>
-                    <strong>
-                    Droits des participants
-                    </strong>
-                    <br />
-                    Vous prenez part à cette étude uniquement de façon volontaire. Si vous choisissez de ne pas participer ou si vous choisissez de participer et revenez sur votre décision pendant le déroulement de l’étude, vous n’aurez pas à justifier votre refus. Vous pouvez à tout moment poser toutes les questions nécessaires au sujet de l’étude. Pour ce faire, veuillez-vous adresser au contact indiqué à la fin de la présente feuille d’information.
-                </Typography>
-                <Typography paragraph={true}>
-                    <strong>
-                    Financement de l'étude
-                    </strong>
-                    <br />
-                    Ce projet est financé par les Fonds National Suisse de la recherche Scientifique.    
-                </Typography>
-                <Typography paragraph={true}>
-                    <strong>
-                    Lien avec fiche de recherche d’emploi de l’ORP
-                    </strong>
-                    <br />
-                    Cette étude vous proposera de postuler à des offres d’emploi pouvant être plus éloignées de celles acceptées par l’ORP comme preuve de recherche. Nous vous encourageons néanmoins à tester ces propositions puisqu’elles peuvent être mieux adaptées à vos compétences et à votre personnalité.
-                </Typography>
-                <Typography paragraph={true}>
-                    <strong>
-                    Interlocuteur(s)
-                    </strong>
-                    <br />
-                    Vous pouvez à tout moment poser vos questions et demander des précisions complémentaires à l’adresse suivante : <a href="mailto:j4u@unil.ch">j4u@unil.ch</a>. Notre équipe se fera un plaisir de répondre.    
-                </Typography>
-                <Typography paragraph={true}>
-                    <Button href="#/" color="primary" variant="contained">
-                    Page d'accueil
-                    </Button>
-                </Typography>
-                
-            </Container>;
+  return (
+    <Container>
+      <Typography paragraph={true}>
+        Vous êtes invité à participer à une étude pilote qui vise à vous aider
+        dans votre recherche d’emploi. Nous vous remercions de votre
+        participation. Cette étude est réalisée et financée par les universités
+        de Genève et de Lausanne MENTIONNER FNS ? LIVES ?.
+      </Typography>
+      <Typography paragraph={true}>
+        Si vous acceptez de participer, nous vous demanderons d’utiliser l’outil
+        mis à votre disposition et de répondre à des questionnaires. Il y aura
+        entre un et deux questionnaires envoyés chaque semaine. Chaque
+        participation aux questionnaires rapporte des tickets de participation
+        au tirage au sort final. Plus vous participez, plus vous collecterez des
+        tickets, plus vos chances de gagner au tirage au sort seront grandes.
+        Voici la répartition des points :
+        <ul>
+          <li>
+            Inscription au projet J4U sur le site j4u.unil.ch (avant la date
+            butoir indiquée dans l’email) : 10 points
+          </li>
+          <li>
+            Participation à l’enquête sur le site j4u.unil.ch (avant la date
+            butoir indiquée dans l’email) : 10 points
+          </li>
+          <li>
+            Participation aux questionnaires reçus par email (avant la date
+            butoir indiquée dans l’email) : 5 points
+          </li>
+          <li>
+            Utilisation du site j4u.unil.ch (onglets « recommandations
+            professionnelles » ou « recherche d’emploi ») : 3 points/ jours
+          </li>
+        </ul>
+      </Typography>
+      <Typography paragraph={true}>
+        Chaque participant fera partie d'un tirage au sort dont le prix est de
+        CHF 2000 en espèces.
+      </Typography>
+      <Typography paragraph={true}>
+        Les gagnants de la loterie seront notifiés par email dans les quelques
+        jours qui suivent la fin du projet (DATE).
+      </Typography>
+      <Typography paragraph={true}>
+        Votre participation est complètement volontaire et vous êtes totalement
+        libre d'arrêter votre participation à n'importe quel moment, sans
+        préavis. En cas d’arrêt, seuls les tickets déjà récoltés compteront pour
+        le tirage au sort.
+      </Typography>
+      <Typography paragraph={true}>
+        Pour rappel, vos réponses seront collectées de façon confidentielle et
+        anonymisée. Dans le cas où les résultats de l’étude seraient publiés,
+        votre identité ne sera pas utilisée. La confidentialité des données est
+        entièrement garantie.
+      </Typography>
+      <Typography paragraph={true}>
+        Afin de confirmer votre participation au tirage au sort, nous vous
+        demandons de compléter ce questionnaire et de nous le renvoyer à
+        l’adresse indiquée au-dessus jusqu’au XXX.
+      </Typography>
+      <Typography paragraph={true}>
+        Afin de confirmer votre participation au tirage au sort, nous vous
+        demandons de <a href={formURL}>télécharger </a>et de compléter ce
+        formulaire et de nous le renvoyer à l’adresse indiquée au-dessus
+        jusqu’au XXX.
+      </Typography>
+    </Container>
+  );
 }
 
 export default Legal;
