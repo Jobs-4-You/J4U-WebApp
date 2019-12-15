@@ -22,9 +22,9 @@ const linkMap = {
   COG: "https://fpse.qualtrics.com/jfe/form/SV_emNJjF8ZCQPAyA5",
   CONT: "https://fpse.qualtrics.com/jfe/form/SV_9LWr3TrjbpNEdMh",
   J4U: "https://fpse.qualtrics.com/jfe/form/SV_eu2KVQoRYyVFsod",
-  J4U_COG: "https://fpse.qualtrics.com/jfe/form/SV_cVfzu7FqlpU53yl",
+  J4UCOG: "https://fpse.qualtrics.com/jfe/form/SV_cVfzu7FqlpU53yl",
   NJS: "https://fpse.qualtrics.com/jfe/form/SV_cVfzu7FqlpU53yl",
-  J4U_NJS: "https://fpse.qualtrics.com/jfe/form/SV_cVfzu7FqlpU53yl"
+  J4UNJS: "https://fpse.qualtrics.com/jfe/form/SV_cVfzu7FqlpU53yl"
 };
 
 function AuthLanding({ appContainer }) {
