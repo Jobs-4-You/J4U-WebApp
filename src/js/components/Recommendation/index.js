@@ -58,7 +58,6 @@ function TutoVid({ tutoVid, setTutoVid }) {
       onClose={_ => setTutoVid(null)}
     >
       <VidContainer>
-        <Typography variant="h3">{tutoVid}</Typography>
         <div>
           <iframe
             width="560"
