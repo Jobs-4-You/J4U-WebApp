@@ -284,23 +284,23 @@ const theme = createMuiTheme({
   }
 });
 
-// const browserHandler = {
-//   chrome: () => <App />,
-//   default: () => (
-//     <div>
-//       <Helmet>
-//         <meta charSet="utf-8" />
-//         <title>J4U-Infos</title>
-//       </Helmet>
-//       <EmptyHeader />
-//       <InvalidBrowser />
-//     </div>
-//   )
-// };
-
 const browserHandler = {
-  default: () => <App />
+  chrome: () => <App />,
+  default: () => (
+    <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>J4U-Infos</title>
+      </Helmet>
+      <EmptyHeader />
+      <InvalidBrowser />
+    </div>
+  )
 };
+
+// const browserHandler = {
+//   default: () => <App />
+// };
 
 function AppWrap() {
   if (isMobile) {

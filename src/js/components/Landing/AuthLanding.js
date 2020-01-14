@@ -101,10 +101,9 @@ function AuthLanding({ appContainer }) {
             <br />
 
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              <CheckBoxOutlineBlank
-                fontSize="large"
-                style={{ float: "left", clear: "none", marginRight: "0.5rem" }}
-              />{" "}
+              <Typography variant="h4" color="inherit" grow={1}>
+                Etape 1
+              </Typography>
               Veuillez remplir le questionnaire initial, qui prend généralement
               entre 45 minutes et une heure :
               <Button
@@ -134,8 +133,8 @@ function AuthLanding({ appContainer }) {
                   Faites l’enquête dans un endroit calme sans être interrompu.
                 </li>
                 <li>
-                  Réalisez l’enquête depuis un ordinateur (enquête non
-                  compatible avec une tablette ou un smartphone).
+                  Réalisez l’enquête depuis un ordinateur sur Google Chrome
+                  (enquête non compatible avec une tablette ou un smartphone).
                 </li>
                 <li>Lisez bien les instructions avant chaque exercice.</li>
               </ul>
@@ -145,12 +144,12 @@ function AuthLanding({ appContainer }) {
             <br />
 
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              <CheckBoxOutlineBlank
-                fontSize="large"
-                style={{ float: "left", clear: "none", marginRight: "0.5rem" }}
-              />
-              Une fois l'enquête complétée, cliquez sur le bouton suivant pour
-              importer vos résultats personnels dans l'outil J4U :
+              <Typography variant="h4" color="inherit" grow={1}>
+                Etape 2
+              </Typography>
+              Une fois l'enquête complétée, vous avez été redirigé sur cette
+              page. Maintenant, cliquez sur le bouton suivant pour importer vos
+              résultats personnels dans l'outil J4U :
               <Button
                 onClick={() => appContainer.link(errorContainer.displayError)}
                 color="primary"
@@ -174,10 +173,6 @@ function AuthLanding({ appContainer }) {
               Liste de choses à faire
             </Typography>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              <CheckBox
-                fontSize="large"
-                style={{ float: "left", clear: "none", marginRight: "0.5rem" }}
-              />{" "}
               Bienvenue, vous avez déjà rempli le questionnaire initial et votre
               compte a été vérifié. Vous pouvez accéder à vos recommandations
               professionnelles.
@@ -189,10 +184,6 @@ function AuthLanding({ appContainer }) {
         const blockedText = (
           <div>
             <Typography variant="subtitle1" color="inherit" grow={1}>
-              <CheckBox
-                fontSize="large"
-                style={{ float: "left", clear: "none", marginRight: "0.5rem" }}
-              />{" "}
               Bienvenue. Votre compte est prêt pour la session initiale.
             </Typography>
           </div>

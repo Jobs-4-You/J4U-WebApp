@@ -17,33 +17,34 @@ function Legal() {
       <Typography paragraph={true}>
         Vous êtes invité à participer à une étude pilote qui vise à vous aider
         dans votre recherche d’emploi. Nous vous remercions de votre
-        participation. Cette étude est réalisée et financée par les universités
-        de Genève et de Lausanne MENTIONNER FNS ? LIVES ?.
+        participation. Cette étude est réalisée par les universités de Genève et
+        de Lausanne.
       </Typography>
       <Typography paragraph={true}>
         Si vous acceptez de participer, nous vous demanderons d’utiliser l’outil
         mis à votre disposition et de répondre à des questionnaires. Il y aura
         entre un et deux questionnaires envoyés chaque semaine. Chaque
-        participation aux questionnaires rapporte des tickets de participation
-        au tirage au sort final. Plus vous participez, plus vous collecterez des
-        tickets, plus vos chances de gagner au tirage au sort seront grandes.
-        Voici la répartition des points :
+        participation aux questionnaires rapporte des billets de loterie. Plus
+        vous participez, plus vous collecterez des billets, plus vos chances de
+        gagner au tirage au sort final seront grandes. Voici la répartition des
+        points :
         <ul>
           <li>
             Inscription au projet J4U sur le site j4u.unil.ch (avant la date
-            butoir indiquée dans l’email) : 10 points
+            butoir indiquée dans l’email) : 10 billets de loterie
           </li>
           <li>
             Participation à l’enquête sur le site j4u.unil.ch (avant la date
-            butoir indiquée dans l’email) : 10 points
+            butoir indiquée dans l’email) : 10 billets de loterie
           </li>
           <li>
             Participation aux questionnaires reçus par email (avant la date
-            butoir indiquée dans l’email) : 5 points
+            butoir indiquée dans l’email) : 5 billets de loterie
           </li>
           <li>
             Utilisation du site j4u.unil.ch (onglets « recommandations
-            professionnelles » ou « recherche d’emploi ») : 3 points/ jours
+            professionnelles » ou « recherche d’emploi ») : 3 billets de loterie
+            / jours
           </li>
         </ul>
       </Typography>
@@ -74,9 +75,8 @@ function Legal() {
       </Typography>
       <Typography paragraph={true}>
         Afin de confirmer votre participation au tirage au sort, nous vous
-        demandons de <a href={formURL}>télécharger </a>et de compléter ce
-        formulaire et de nous le renvoyer à l’adresse indiquée au-dessus
-        jusqu’au XXX.
+        demandons de <a href={formURL}>télécharger</a> et de compléter ce
+        formulaire et de nous le renvoyer à l’adresse indiquée au-dessus.
       </Typography>
     </Container>
   );

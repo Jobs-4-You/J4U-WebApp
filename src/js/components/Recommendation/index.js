@@ -180,16 +180,6 @@ function Recommendation() {
                     }}
                   >
                     <Typography id="label">
-                      Importance de mon profil personnel :{" "}
-                      {(appContainer.state.alpha / 100).toFixed(2)}{" "}
-                    </Typography>
-                    <StyledSlider
-                      value={Math.round(appContainer.state.alpha)}
-                      aria-labelledby="label"
-                      onChange={appContainer.setAlpha}
-                      disabled={appContainer.state.fixedAlphaBeta}
-                    />
-                    <Typography id="label">
                       Importance de mon poste antérieur :{" "}
                       {(appContainer.state.beta / 100).toFixed(2)}
                     </Typography>
@@ -197,6 +187,16 @@ function Recommendation() {
                       value={Math.round(appContainer.state.beta)}
                       aria-labelledby="label"
                       onChange={appContainer.setBeta}
+                      disabled={appContainer.state.fixedAlphaBeta}
+                    />
+                    <Typography id="label">
+                      Importance de mon profil personnel :{" "}
+                      {(appContainer.state.alpha / 100).toFixed(2)}{" "}
+                    </Typography>
+                    <StyledSlider
+                      value={Math.round(appContainer.state.alpha)}
+                      aria-labelledby="label"
+                      onChange={appContainer.setAlpha}
                       disabled={appContainer.state.fixedAlphaBeta}
                     />
                   </div>
