@@ -90,7 +90,7 @@ function AuthLanding({ appContainer }) {
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/tR3qonZy9mk"
+              src="https://www.youtube.com/embed/LFuaxI0npMQ"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
