@@ -56,14 +56,6 @@ function ButtonAppBar({ sign, from }) {
                       <ListItemText primary="À propos" />
                     </ListItem>
                   </List>
-                  <List onClick={() => history.push("/tirage")}>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <VerifiedUser />
-                      </ListItemIcon>
-                      <ListItemText primary="Tirage au sort" />
-                    </ListItem>
-                  </List>
                   <List onClick={() => history.push("/legal")}>
                     <ListItem button>
                       <ListItemIcon>
