@@ -21,6 +21,12 @@ function Legal() {
         de Lausanne.
       </Typography>
       <Typography paragraph={true}>
+        Vous êtes invité à participer à une étude pilote qui vise à vous aider
+        dans votre recherche d’emploi. Nous vous remercions de votre
+        participation. Cette étude est réalisée par les universités de Genève et
+        de Lausanne.
+      </Typography>
+      <Typography paragraph={true}>
         Si vous acceptez de participer, nous vous demanderons d’utiliser l’outil
         mis à votre disposition et de répondre à des questionnaires. Il y aura
         entre un et deux questionnaires envoyés chaque semaine. Chaque
