@@ -54,7 +54,7 @@ function Legal() {
       </Typography>
       <Typography paragraph={true}>
         Les gagnants de la loterie seront notifiés par email dans les quelques
-        jours qui suivent la fin du projet (DATE).
+        jours qui suivent la fin du projet.
       </Typography>
       <Typography paragraph={true}>
         Votre participation est complètement volontaire et vous êtes totalement
