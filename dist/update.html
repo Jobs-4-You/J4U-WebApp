@@ -185,8 +185,8 @@
           date: document.getElementById("dateSignup").value
         };
 
-        var url = `http://localhost:5000/signup-link?group=${data.group}&date=${data.date}`;
-        // var url = `https://j4u.unil.ch:5000/signup-link?group=${data.group}&date=${data.date}`;
+        // var url = `http://localhost:5000/signup-link?group=${data.group}&date=${data.date}`;
+        var url = `https://j4u.unil.ch:5000/signup-link?group=${data.group}&date=${data.date}`;
 
         fetch(url)
           .then(function(response) {
