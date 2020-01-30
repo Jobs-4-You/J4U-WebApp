@@ -148,7 +148,7 @@
               columnSet.push(key);
               var th = _th_.cloneNode(false);
               th.appendChild(document.createTextNode(key));
-              tr.apSingupendChild(th);
+              tr.appendChild(th);
             }
           }
         }
@@ -185,8 +185,8 @@
           date: document.getElementById("dateSignup").value
         };
 
-        // var url = `https://localhost:5000/signup-link?group=${data.group}&date=${data.date}`;
-        var url = `https://j4u.unil.ch:5000/signup-link?group=${data.group}&date=${data.date}`;
+        var url = `http://localhost:5000/signup-link?group=${data.group}&date=${data.date}`;
+        // var url = `https://j4u.unil.ch:5000/signup-link?group=${data.group}&date=${data.date}`;
 
         fetch(url)
           .then(function(response) {
@@ -194,7 +194,7 @@
           })
           .then(function(data) {
             console.log("Request successful", data);
-            document.getElementById("signup-link").textContent = data.url
+            document.getElementById("signup-link").textContent = data.url;
           })
           .catch(function(error) {
             console.log("Request failed", error);
@@ -219,9 +219,7 @@
           <p>
             <label>Your password</label>
             <input
-              type="password"          <p>
-                  <button type="button" onclick="genSignupLink()">Submit</button>
-                </p>
+              type="password"
               id="passwordQuery"
               readonly
               onfocus="this.removeAttribute('readonly');"

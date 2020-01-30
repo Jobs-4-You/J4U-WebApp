@@ -16,13 +16,18 @@ function Legal() {
       <Typography paragraph={true}>
         <strong>1. Objectifs de l’étude</strong>
         <br />
-        Par la présente, nous vous proposons de participer à une étude qui vise
-        à élaborer des outils pour vous soutenir dans votre recherche d’emploi.
-        Ces outils mis à disposition ont trois objectifs. Ils visent à améliorer
-        (i) l’information sur vos compétences, (ii) votre stratégie de recherche
-        d’emploi, (iii) vos capacités cognitives, telles que votre capacité de
-        raisonnement, votre mémoire, etc. Les outils sont attribués de façon
-        aléatoire aux participants
+        Objectifs de l’étude Par la présente, nous vous proposons de participer
+        à une étude qui vise à élaborer des outils pour vous soutenir dans votre
+        recherche d’emploi. Ces outils mis à disposition ont trois objectifs.
+        Ils visent à améliorer (i) l’information sur vos compétences, (ii) votre
+        stratégie de recherche d’emploi, (iii) vos capacités cognitives, telles
+        que votre capacité de raisonnement, votre mémoire, etc. Les outils sont
+        attribués de façon aléatoire aux participants.
+      </Typography>
+      <Typography paragraph={true}>
+        Cette étude est réalisée et financée par Prof. M. Cherubini (UNIGE),
+        Prof. M. Kliegel (UNIGE), Prof. R. Lalive (UNIL), Prof. M. Pellizzari
+        (UNIGE) (numéro de fonds : 100018_178878).
       </Typography>
       <Typography paragraph={true}>
         L’étude a reçu l’accord du Service de l’emploi du canton de Neuchâtel,
@@ -35,9 +40,11 @@ function Legal() {
         <br />
         <strong>Cognition</strong> : ensemble des processus mentaux qui
         désignent le traitement de l’information tels que le raisonnement, la
-        mémoire, la prise de décision et les fonctions exécutives. <br />
-        <strong>Aléatoire</strong> : au hasard, c’est-à-dire par tirage au sort.
+        mémoire, la prise de décision et les fonctions exécutives.
+        <br />
+        <strong>Aléatoire </strong>:au hasard, c’est-à-dire par tirage au sort
       </Typography>
+
       <Typography paragraph={true}>
         <strong>2. Informations générales sur le projet et les données</strong>
         <br />
@@ -47,17 +54,19 @@ function Legal() {
       <Typography paragraph={true}>
         L’étude récoltera des données sur vos recherches d’emploi qui seront
         complémentées par des données administratives déjà disponibles (par ex.
-        PLASTA, AVS). Les données seront utilisées conformément à la
-        réglementation en vigueur en matière de protection de la vie privée et
-        tout résultat sera publié sous forme de statistiques globales ne
-        permettant pas d'identification personnelle.
+        PLASTA, AVS). Les données seront ensuite traitées et analysées par
+        l’équipe de recherche des professeurs en charge de l’étude. Les données
+        seront utilisées conformément à la réglementation en vigueur en matière
+        de protection de la vie privée et tout résultat sera publié sous forme
+        de statistiques globales ne permettant pas d'identification personnelle.
       </Typography>
       <Typography paragraph={true}>
         Nous effectuons cette étude dans le respect des prescriptions de la
         législation suisse. Nous suivons en outre l’ensemble des directives
-        reconnues au niveau international. La commission cantonale d’éthique
-        compétente a contrôlé et autorisé l’étude.
+        reconnues au niveau international. La commission d’éthique de
+        l’Université de Lausanne a contrôlé et autorisé l’étude.
       </Typography>
+
       <Typography paragraph={true}>
         <strong>3. Déroulement pour les participants</strong>
         <br />
@@ -66,6 +75,7 @@ function Legal() {
         recevront des emails pour une période de 6 mois ou jusqu’à la reprise
         d’un emploi.
       </Typography>
+
       <Typography paragraph={true}>
         <strong>4. Conditions de participation</strong>
         <br />
@@ -79,13 +89,9 @@ function Legal() {
             Vous souhaitez suivre les indications qui vous sont (et seront)
             fournies.
           </li>
-          <li>
-            Nous n’avons pas d’information sur votre état de santé. Vous
-            participez à cette étude en toute connaissance de cause de votre
-            état de santé.
-          </li>
         </ul>
       </Typography>
+
       <Typography paragraph={true}>
         <strong>5. Bénéfices pour les participants</strong>
         <br />
@@ -158,7 +164,8 @@ function Legal() {
         <strong>8. Financement de l'étude</strong>
         <br />
         Ce projet est financé par les Fonds National Suisse de la recherche
-        Scientifique.
+        Scientifique. Le numéro de fonds est le 100018_178878, géré par Prof. R.
+        Lalive (UNIL).
       </Typography>
 
       <Typography paragraph={true}>
