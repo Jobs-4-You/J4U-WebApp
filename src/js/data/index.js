@@ -10,7 +10,7 @@ export const formURL = `${baseURL}/formulaire`;
 
 const client = axios.create({
   baseURL: baseURL,
-  timeout: 20000
+  timeout: 40000
 });
 
 function errorResponseHandler(error) {

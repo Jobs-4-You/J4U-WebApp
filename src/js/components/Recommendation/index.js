@@ -141,7 +141,11 @@ function Recommendation() {
                     disabled={appContainer.state.fixedOldJobValue}
                     placeholder="Saisissez votre poste précédent"
                   />
-                  <Info onClick={_ => setTutoVid("job")} />
+
+                  {appContainer.state.group !== "COG" &&
+                  appContainer.state.group !== "CONT" ? (
+                    <Info onClick={_ => setTutoVid("imp")} />
+                  ) : null}
                 </Box>
                 <br />
               </div>
@@ -201,7 +205,11 @@ function Recommendation() {
                     />
                   </div>
                 </SlidersContainer>
-                <Info onClick={_ => setTutoVid("imp")} />
+
+                {appContainer.state.group !== "COG" &&
+                appContainer.state.group !== "CONT" ? (
+                  <Info onClick={_ => setTutoVid("imp")} />
+                ) : null}
               </Box>
               <AsyncSelect
                 cacheOptions
@@ -245,7 +253,10 @@ function Recommendation() {
                 >
                   {controlGroup ? "Chercher" : "Recommander"}
                 </Submit>
-                <Info onClick={_ => setTutoVid("recom")} />
+                {appContainer.state.group !== "COG" &&
+                appContainer.state.group !== "CONT" ? (
+                  <Info onClick={_ => setTutoVid("imp")} />
+                ) : null}
               </Box>
               <br />
               <br />
