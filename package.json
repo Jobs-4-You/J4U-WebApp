@@ -50,7 +50,7 @@
     "eslint": "^5.10.0",
     "history": "^4.7.2",
     "html2canvas": "^1.0.0-rc.3",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.5.1",
     "mobx": "^5.1.2",
     "mobx-react": "^5.2.8",
     "react-error-boundary": "^1.2.5",
